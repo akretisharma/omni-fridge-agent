@@ -9,6 +9,10 @@ const STATUS = {
   approved: { icon: CheckCircle, tone: 'text-ok', label: 'Approved' },
   pending: { icon: Clock, tone: 'text-warn', label: 'Pending' },
   submitted: { icon: Clock, tone: 'text-warn', label: 'Submitted' },
+  'awaiting approval': { icon: Clock, tone: 'text-warn', label: 'Awaiting approval' },
+  canceled: { icon: WarningCircle, tone: 'text-muted', label: 'Canceled' },
+  closed: { icon: CheckCircle, tone: 'text-muted', label: 'Closed' },
+  paused: { icon: Clock, tone: 'text-muted', label: 'Paused' },
   error: { icon: WarningCircle, tone: 'text-danger', label: 'Failed' },
   rejected: { icon: WarningCircle, tone: 'text-danger', label: 'Rejected' },
 };

@@ -42,6 +42,10 @@ def _first_real(*vals: str) -> str:
     return ""
 
 
+# Zip request status codes (from Zip's public API collection, "Search requests").
+REQUEST_STATUS = {1: "awaiting approval", 2: "rejected", 3: "approved", 4: "canceled", 5: "closed", 6: "paused"}
+
+
 def _env() -> dict[str, str]:
     merged: dict[str, str] = {}
     for path in _env_paths():
@@ -282,7 +286,7 @@ class ZipClient:
         entity = entity if isinstance(entity, dict) else {}
         status = entity.get("status") or entity.get("state") or "submitted"
         if isinstance(status, int):
-            status = {0: "draft", 1: "pending", 2: "approved", 3: "rejected"}.get(status, str(status))
+            status = REQUEST_STATUS.get(status, str(status))
         if not status or status == "none":
             status = "submitted"
         po_number = entity.get("po_number") or (raw.get("po_number") if isinstance(raw, dict) else None)
