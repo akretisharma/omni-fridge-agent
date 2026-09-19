@@ -45,31 +45,12 @@ section {
   padding: 16px;
 }
 
-.video-wrap {
-  position: relative;
-}
-
 video {
   width: 100%;
   border-radius: 8px;
   background: #000;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-}
-
-.caption-overlay {
-  position: absolute;
-  left: 12px;
-  right: 12px;
-  bottom: 12px;
-  padding: 10px 14px;
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.72);
-  color: #fff;
-  font-size: 1.05rem;
-  line-height: 1.4;
-  text-align: center;
-  pointer-events: none;
 }
 
 .camera-controls {
@@ -113,21 +94,13 @@ button:disabled {
   background: var(--danger);
 }
 
-.pill,
-.captions {
+.pill {
   background: #0f1115;
   border: 1px solid #262a33;
   border-radius: 8px;
   padding: 10px 12px;
   font-size: 0.95rem;
   min-height: 1.2em;
-}
-
-.captions.live {
-  border-color: var(--accent);
-  color: #fff;
-  min-height: 3.2em;
-  font-size: 1.05rem;
 }
 
 .block {

@@ -24,43 +24,20 @@ function blobToBase64(blob) {
   });
 }
 
-// Live captions while the talk button is held. Also used as the transcript
-// sent to /api/intent when "Send raw audio to OMNI" is unchecked.
-function startLiveCaptions(onCaption) {
+// Browser speech-to-text fallback, used when "Send raw audio to OMNI" is
+// unchecked. Recognition runs while the talk button is held; stop() ends it.
+function startBrowserTranscription() {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SpeechRecognition) return null;
+  if (!SpeechRecognition) throw new Error('SpeechRecognition not supported in this browser');
   const rec = new SpeechRecognition();
   rec.lang = 'en-US';
-  rec.continuous = true;
-  rec.interimResults = true;
-  const finals = [];
-  rec.onresult = (e) => {
-    let interim = '';
-    for (let i = e.resultIndex; i < e.results.length; i++) {
-      const piece = e.results[i][0].transcript;
-      if (e.results[i].isFinal) finals.push(piece.trim());
-      else interim += piece;
-    }
-    onCaption([...finals, interim].filter(Boolean).join(' ').trim());
-  };
-  rec.onerror = () => {
-    /* captions are best-effort; recording can continue without them */
-  };
-  try {
-    rec.start();
-  } catch {
-    return null;
-  }
-  return {
-    stop() {
-      try {
-        rec.stop();
-      } catch {
-        /* already stopped */
-      }
-    },
-    text: () => finals.join(' ').trim(),
-  };
+  const result = new Promise((resolve, reject) => {
+    rec.onresult = (e) => resolve(e.results[0][0].transcript);
+    rec.onerror = (e) => reject(new Error(e.error));
+    rec.onend = () => reject(new Error('No speech detected'));
+  });
+  rec.start();
+  return { stop: () => rec.stop(), result };
 }
 
 export default function CameraPage() {
@@ -68,14 +45,12 @@ export default function CameraPage() {
   const videoRef = useRef(null);
   const streamRef = useRef(null);
   const recorderRef = useRef(null);
-  const captionsRef = useRef(null);
-  const captionTextRef = useRef('');
+  const transcriberRef = useRef(null);
   const pressedRef = useRef(false);
 
   const [cameraOn, setCameraOn] = useState(false);
   const [useOmniAudio, setUseOmniAudio] = useState(true);
   const [recording, setRecording] = useState(false);
-  const [captions, setCaptions] = useState('');
   const [transcript, setTranscript] = useState('Say something like: "I\'m baking a chocolate cake"');
   const [goal, setGoal] = useState(null); // { goal, ingredients }
   const [scanning, setScanning] = useState(false);
@@ -124,8 +99,6 @@ export default function CameraPage() {
   async function onTalkDown(e) {
     e.currentTarget.setPointerCapture(e.pointerId);
     pressedRef.current = true;
-    captionTextRef.current = '';
-    setCaptions('');
     try {
       if (useOmniAudio) {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -137,19 +110,12 @@ export default function CameraPage() {
         recorder.start();
         // Button was released while the mic permission prompt / startup was pending.
         if (!pressedRef.current) return void onTalkUp();
-      }
-      captionsRef.current = startLiveCaptions((text) => {
-        captionTextRef.current = text;
-        setCaptions(text);
-      });
-      if (!useOmniAudio && !captionsRef.current) {
-        throw new Error('SpeechRecognition not supported in this browser');
+      } else {
+        transcriberRef.current = startBrowserTranscription();
       }
       setRecording(true);
     } catch (err) {
       pressedRef.current = false;
-      captionsRef.current?.stop();
-      captionsRef.current = null;
       log('Mic error:', err.message);
       alert('Could not access microphone: ' + err.message);
     }
@@ -158,13 +124,11 @@ export default function CameraPage() {
   async function onTalkUp() {
     pressedRef.current = false;
     const recorder = recorderRef.current;
-    const captioner = captionsRef.current;
-    if (!recorder && !captioner) return;
+    const transcriber = transcriberRef.current;
+    if (!recorder && !transcriber) return;
     recorderRef.current = null;
-    captionsRef.current = null;
+    transcriberRef.current = null;
     setRecording(false);
-    captioner?.stop();
-    const spoken = captionTextRef.current || captioner?.text() || '';
     setTranscript('Thinking...');
 
     try {
@@ -179,8 +143,8 @@ export default function CameraPage() {
         });
         body = { audioBase64: await blobToBase64(blob), audioFormat: 'webm' };
       } else {
-        if (!spoken) throw new Error('No speech detected');
-        body = { transcript: spoken };
+        transcriber.stop();
+        body = { transcript: await transcriber.result };
       }
 
       const intent = await fetchIntent(body);
@@ -264,14 +228,7 @@ export default function CameraPage() {
   return (
     <main>
       <section className="camera-panel">
-        <div className="video-wrap">
-          <video ref={videoRef} autoPlay playsInline muted />
-          {recording && (
-            <div className="caption-overlay" aria-live="polite">
-              {captions || 'Listening…'}
-            </div>
-          )}
-        </div>
+        <video ref={videoRef} autoPlay playsInline muted />
         <div className="camera-controls">
           <button onClick={startCamera} disabled={cameraOn}>
             {cameraOn ? 'Camera on' : 'Start camera'}
@@ -297,9 +254,7 @@ export default function CameraPage() {
         >
           {recording ? 'Recording... release to send' : 'Hold to talk'}
         </button>
-        <div className={`captions${recording ? ' live' : ''}`} aria-live="polite">
-          {recording ? captions || 'Listening… speak to see captions' : transcript}
-        </div>
+        <div className="pill">{transcript}</div>
 
         {goal && (
           <div className="block">
