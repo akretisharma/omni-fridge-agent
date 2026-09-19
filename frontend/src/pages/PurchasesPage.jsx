@@ -1,16 +1,35 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'motion/react';
+import { ArrowClockwise, CheckCircle, Clock, VideoCamera, WarningCircle } from '@phosphor-icons/react';
 import { fetchPurchases } from '../api.js';
+import { Button, Panel, Skeleton, buttonClass, cx } from '../components/ui.jsx';
 
-const STATUS_CLASS = {
-  approved: 'ok',
-  pending: 'warn',
-  submitted: 'warn',
-  error: 'bad',
-  rejected: 'bad',
+const STATUS = {
+  approved: { icon: CheckCircle, tone: 'text-ok', label: 'Approved' },
+  pending: { icon: Clock, tone: 'text-warn', label: 'Pending' },
+  submitted: { icon: Clock, tone: 'text-warn', label: 'Submitted' },
+  error: { icon: WarningCircle, tone: 'text-danger', label: 'Failed' },
+  rejected: { icon: WarningCircle, tone: 'text-danger', label: 'Rejected' },
 };
 
-// Group the flat purchase list into one card per order (same timestamp + goal).
+function StatusBadge({ status }) {
+  const s = STATUS[status] || STATUS.pending;
+  const Icon = s.icon;
+  return (
+    <span
+      className={cx(
+        'inline-flex h-7 min-w-[6.75rem] items-center justify-center gap-1.5 rounded-full border border-current/25 bg-current/10 px-3 text-xs font-medium',
+        s.tone
+      )}
+    >
+      <Icon size={14} weight="regular" aria-hidden />
+      {s.label}
+    </span>
+  );
+}
+
+// Group the flat purchase list into one card per order (same timestamp).
 function groupOrders(purchases) {
   const orders = [];
   for (const p of purchases) {
@@ -21,70 +40,134 @@ function groupOrders(purchases) {
   return orders;
 }
 
+function Stat({ value, label }) {
+  return (
+    <div>
+      <p className="font-mono text-3xl font-medium tracking-tight md:text-4xl">{value}</p>
+      <p className="mt-1 text-sm text-muted">{label}</p>
+    </div>
+  );
+}
+
 export default function PurchasesPage() {
   const [purchases, setPurchases] = useState(null);
   const [error, setError] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
 
-  const load = () =>
-    fetchPurchases()
+  const load = () => {
+    setRefreshing(true);
+    return fetchPurchases()
       .then((d) => {
         setPurchases(d.purchases);
         setError(null);
       })
-      .catch((err) => setError(err.message));
+      .catch((err) => setError(err.message))
+      .finally(() => setRefreshing(false));
+  };
 
   useEffect(() => {
     load();
   }, []);
 
   const orders = purchases ? groupOrders(purchases) : [];
+  const count = (...names) => (purchases ?? []).filter((p) => names.includes(p.status)).length;
 
   return (
-    <main className="single">
-      <section>
-        <div className="row">
-          <h2>Zip purchases</h2>
-          <button onClick={load}>Refresh</button>
+    <motion.main
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="mx-auto w-full max-w-[1100px] px-4 pt-8 pb-16 md:px-6"
+    >
+      <div className="flex items-end justify-between gap-4">
+        <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">Zip purchases</h1>
+        <Button variant="secondary" icon={ArrowClockwise} onClick={load} disabled={refreshing}>
+          Refresh
+        </Button>
+      </div>
+
+      {error && (
+        <div
+          role="alert"
+          className="mt-6 rounded-2xl border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger"
+        >
+          Could not load purchases: {error}
         </div>
+      )}
 
-        {error && <p className="bad-text">Could not load purchases: {error}</p>}
-        {purchases && orders.length === 0 && (
-          <p className="hint">
-            No purchases yet. Scan the fridge on the <Link to="/">Live camera</Link> page and
-            purchase what's missing.
-          </p>
-        )}
-
-        {orders.map((order) => (
-          <div className="block" key={order.createdAt}>
-            <h3>
-              {order.goal || 'Purchase'}{' '}
-              <span className="hint">{new Date(order.createdAt * 1000).toLocaleString()}</span>
-            </h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Item</th>
-                  <th>Qty</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {order.items.map((p) => (
-                  <tr key={p.id}>
-                    <td>{p.name}</td>
-                    <td>{p.quantity ? `${p.quantity} ${p.unit || ''}` : '-'}</td>
-                    <td>
-                      <span className={`badge ${STATUS_CLASS[p.status] || 'warn'}`}>{p.status}</span>
-                      {p.error && <div className="hint">{p.error}</div>}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      {purchases === null && !error && (
+        <div className="mt-8 flex flex-col gap-6" aria-busy="true" aria-label="Loading purchases">
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+            {[0, 1, 2, 3].map((i) => (
+              <Skeleton key={i} className="h-16" />
+            ))}
           </div>
-        ))}
-      </section>
-    </main>
+          <Skeleton className="h-56 rounded-panel" />
+        </div>
+      )}
+
+      {purchases && orders.length === 0 && (
+        <Panel className="mt-8 grid place-content-center justify-items-center gap-3 px-6 py-16 text-center">
+          <VideoCamera size={36} weight="regular" className="text-muted" aria-hidden />
+          <h2 className="text-xl font-semibold tracking-tight">No orders yet</h2>
+          <p className="max-w-[44ch] text-sm text-muted">
+            Scan the shelf on the Live page, then order what is missing. Every request shows up here with its status.
+          </p>
+          <Link to="/" className={buttonClass('primary', 'mt-2')}>
+            Go to Live
+          </Link>
+        </Panel>
+      )}
+
+      {purchases && orders.length > 0 && (
+        <>
+          <div className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-4">
+            <Stat value={orders.length} label="Orders" />
+            <Stat value={purchases.length} label="Items" />
+            <Stat value={count('approved')} label="Approved" />
+            <Stat value={count('pending', 'submitted')} label="Awaiting approval" />
+          </div>
+
+          <div className="mt-10 flex flex-col gap-5">
+            {orders.map((order, i) => (
+              <motion.div
+                key={order.createdAt}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: Math.min(i, 5) * 0.06, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Panel className="p-5">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <h2 className="text-xl font-semibold capitalize tracking-tight">{order.goal || 'Purchase'}</h2>
+                    <p className="font-mono text-xs text-muted">
+                      {new Date(order.createdAt * 1000).toLocaleString()}
+                    </p>
+                  </div>
+                  <ul className="mt-3 flex flex-col">
+                    {order.items.map((p) => (
+                      <li
+                        key={p.id}
+                        className="flex items-start justify-between gap-4 rounded-xl px-3 py-2.5 hover:bg-surface-2"
+                      >
+                        <div className="min-w-0">
+                          <p className="text-[15px]">{p.name}</p>
+                          {p.error && <p className="mt-0.5 break-words text-xs text-danger">{p.error}</p>}
+                        </div>
+                        <div className="flex shrink-0 items-center gap-4">
+                          <span className="font-mono text-xs text-muted">
+                            {p.quantity ? `${p.quantity} ${p.unit || ''}`.trim() : ''}
+                          </span>
+                          <StatusBadge status={p.status} />
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </Panel>
+              </motion.div>
+            ))}
+          </div>
+        </>
+      )}
+    </motion.main>
   );
 }
