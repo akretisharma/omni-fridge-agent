@@ -1,17 +1,34 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AnimatePresence, LayoutGroup, motion, useMotionValue } from 'motion/react';
+import {
+  CheckCircle,
+  CircleNotch,
+  Eye,
+  Microphone,
+  MinusCircle,
+  PaperPlaneTilt,
+  Play,
+  ShoppingCartSimple,
+  Stop,
+  VideoCamera,
+  X,
+  XCircle,
+} from '@phosphor-icons/react';
 import { createMicSegmenter } from '../audio.js';
 import { fetchIntent, fetchOakStatus, purchaseItems, visionCheck } from '../api.js';
+import LevelMeter from '../components/LevelMeter.jsx';
+import { Button, Chip, Field, Panel, Switch, cx, inputClass } from '../components/ui.jsx';
 
 const SCAN_INTERVAL_MS = 3000; // one camera frame to OMNI every few seconds
 const FLIP_CONFIRMATIONS = 2; // a status must hold for this many scans before it changes
 
 const PHASE_LABEL = {
-  idle: 'Start the camera to begin',
-  listening: 'Hold the button to talk',
-  hearing: 'Hearing you...',
-  thinking: 'Thinking...',
-  speaking: 'Speaking...',
+  idle: 'Camera off',
+  listening: 'Listening',
+  hearing: 'Hearing you',
+  thinking: 'Thinking',
+  speaking: 'Speaking',
 };
 
 function blobToBase64(blob) {
@@ -28,6 +45,64 @@ function matchNames(spoken, known) {
   const norm = (s) => s.toLowerCase().trim();
   return known.filter((k) =>
     spoken.some((s) => norm(k) === norm(s) || norm(k).includes(norm(s)) || norm(s).includes(norm(k)))
+  );
+}
+
+const EXAMPLES = ["I'm baking a chocolate cake", "I'm making pancakes", 'I need ingredients for tacos'];
+
+const ROW_ICON = {
+  have: <CheckCircle size={20} weight="regular" className="shrink-0 text-ok" aria-hidden />,
+  buy: <XCircle size={20} weight="regular" className="shrink-0 text-accent-ink" aria-hidden />,
+  skipped: <MinusCircle size={20} weight="regular" className="shrink-0 text-muted" aria-hidden />,
+  checking: (
+    <CircleNotch
+      size={20}
+      weight="regular"
+      className="shrink-0 animate-spin text-muted motion-reduce:animate-none"
+      aria-hidden
+    />
+  ),
+};
+
+// One ingredient. layoutId lets a row glide from "To buy" to "On the shelf"
+// the moment the camera spots it, which is the whole point of the live scan.
+function IngredientRow({ name, qty, state, onClick }) {
+  const Tag = onClick ? 'button' : 'div';
+  return (
+    <motion.li
+      layout
+      layoutId={`ing-${name}`}
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+    >
+      <Tag
+        {...(onClick ? { type: 'button', onClick, 'aria-pressed': state === 'skipped' } : {})}
+        className={cx(
+          'flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[15px] transition-colors duration-200',
+          onClick && 'hover:bg-surface-2'
+        )}
+      >
+        {ROW_ICON[state]}
+        <span className={cx('flex-1', state === 'skipped' && 'text-muted line-through')}>{name}</span>
+        <span className="font-mono text-xs text-muted">{state === 'skipped' ? 'Skipped' : qty}</span>
+      </Tag>
+    </motion.li>
+  );
+}
+
+function TypingDots() {
+  return (
+    <div className="flex w-fit gap-1 rounded-2xl bg-surface-2 px-4 py-3" aria-label="OMNI is thinking">
+      {[0, 1, 2].map((i) => (
+        <motion.span
+          key={i}
+          className="h-1.5 w-1.5 rounded-full bg-muted"
+          animate={{ y: [0, -4, 0] }}
+          transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.12, ease: 'easeInOut' }}
+        />
+      ))}
+    </div>
   );
 }
 
@@ -50,7 +125,9 @@ export default function CameraPage() {
   const [source, setSource] = useState('computer'); // 'computer' | 'oak'
   const [liveScan, setLiveScan] = useState(true);
   const [phase, setPhase] = useState('idle');
-  const [level, setLevel] = useState(0);
+  const levelMV = useMotionValue(0); // mic level, read by the meter without re-rendering
+  const [scanning, setScanning] = useState(false);
+  const [notice, setNotice] = useState(null);
   const [holding, setHolding] = useState(false);
   const [messages, setMessages] = useState([]); // { role: 'user' | 'omni' | 'error', text }
   const [typed, setTyped] = useState('');
@@ -150,15 +227,31 @@ export default function CameraPage() {
         onSpeechStart: () => setPhase('hearing'),
         onSegment: (blob) => enqueue(() => sendAudio(blob)),
         onDiscard: () => setPhase((p) => (p === 'hearing' ? 'listening' : p)),
-        onLevel: setLevel,
+        onLevel: (v) => levelMV.set(v),
       });
       setCameraOn(true);
       setPhase('listening');
+      setNotice(null);
       log(`Camera and mic started (${useOak ? 'OAK camera' : 'computer camera'}).`);
     } catch (err) {
       log('Start error:', err.message);
-      alert('Could not access camera/microphone: ' + err.message);
+      setNotice('Could not access the camera or microphone: ' + err.message);
     }
+  }
+
+  function stop() {
+    streamRef.current?.getTracks().forEach((t) => t.stop());
+    streamRef.current = null;
+    segmenterRef.current?.stop();
+    segmenterRef.current = null;
+    if (oakImgRef.current) oakImgRef.current.src = ''; // closes the stream; backend then frees the USB device
+    if (videoRef.current) videoRef.current.srcObject = null;
+    stopSpeaking();
+    levelMV.set(0);
+    setHolding(false);
+    setCameraOn(false);
+    setPhase('idle');
+    log('Camera and mic stopped.');
   }
 
   useEffect(
@@ -194,6 +287,7 @@ export default function CameraPage() {
     const frame = captureFrame();
     if (!frame) return;
     scanBusyRef.current = true;
+    setScanning(true);
     const goalAtStart = live.current.goal;
     const ingredients = goalAtStart?.ingredients ?? [];
     try {
@@ -205,6 +299,7 @@ export default function CameraPage() {
       log('Scan error:', err.message);
     } finally {
       scanBusyRef.current = false;
+      setScanning(false);
     }
   }
 
@@ -369,7 +464,7 @@ export default function CameraPage() {
   async function purchase() {
     const toBuy = check.missing.filter((n) => !skipped.has(n));
     if (toBuy.length === 0) {
-      alert('Nothing left to purchase.');
+      setNotice('Nothing left to order. Tap a skipped item to add it back.');
       return;
     }
     setPurchasing(true);
@@ -390,135 +485,348 @@ export default function CameraPage() {
       navigate('/purchases');
     } catch (err) {
       log('Purchase error:', err.message);
-      alert('Purchase failed: ' + err.message);
+      setNotice('The order failed: ' + err.message);
       setPurchasing(false);
     }
   }
 
+  const sourceLabel = source === 'oak' ? 'OAK camera' : 'Computer camera';
+  const needed = goal?.ingredients ?? [];
+  const haveNames = check?.present ?? [];
+  const missingNames = check?.missing ?? [];
+  const toBuy = missingNames.filter((n) => !skipped.has(n));
+  const qtyOf = (name) => {
+    const i = needed.find((x) => x.name === name);
+    return i?.quantity ? `${i.quantity} ${i.unit || ''}`.trim() : '';
+  };
+
+  const chatRef = useRef(null);
+  useEffect(() => {
+    chatRef.current?.scrollTo({ top: chatRef.current.scrollHeight, behavior: 'smooth' });
+  }, [messages, phase]);
+
   return (
-    <main>
-      <section className="camera-panel">
-        <div className="video-wrap">
-          <video ref={videoRef} autoPlay playsInline muted hidden={source === 'oak'} />
-          <img ref={oakImgRef} alt="OAK camera" className="oak-feed" hidden={source !== 'oak'} />
-          {cameraOn && <span className="live-badge">● LIVE</span>}
-        </div>
-        <div className="camera-controls">
-          <label className="toggle">
-            Camera:
-            <select value={source} onChange={(e) => setSource(e.target.value)} disabled={cameraOn}>
-              <option value="computer">Computer camera</option>
-              <option value="oak" disabled={!oak?.available}>
-                {oak?.available ? 'OAK camera (Luxonis)' : 'OAK camera (not detected)'}
-              </option>
-            </select>
-          </label>
-          <button onClick={start} disabled={cameraOn}>
-            {cameraOn ? 'Camera and mic on' : 'Start camera and mic'}
-          </button>
-          <label className="toggle">
-            <input type="checkbox" checked={liveScan} onChange={(e) => setLiveScan(e.target.checked)} />
-            Continuously scan the camera (every {SCAN_INTERVAL_MS / 1000}s)
-          </label>
-        </div>
-        <h3>👁️ What OMNI sees</h3>
-        <ul className="list">
-          {visible.length === 0 && <li className="muted">nothing yet</li>}
-          {visible.map((v) => (
-            <li key={v}>{v}</li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="control-panel">
-        <div className={`status status-${phase}`}>
-          <span>{PHASE_LABEL[phase]}</span>
-          <div className="meter">
-            <div style={{ width: `${Math.min(100, level * 600)}%` }} />
+    <motion.main
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="mx-auto w-full max-w-[1400px] px-4 pt-8 pb-16 md:px-6"
+    >
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
+        {/* Left: the camera stage, with the voice dock floating over its bottom edge */}
+        <section aria-label="Camera" className="min-w-0">
+          <div className="mb-4 flex items-end justify-between gap-4">
+            <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">Live shelf</h1>
+            <p className="flex items-center gap-2 text-sm text-muted">
+              {cameraOn ? (
+                <>
+                  <span className="h-2 w-2 rounded-full bg-ok" aria-hidden />
+                  {sourceLabel}
+                  {liveScan ? (scanning ? ', scanning' : `, scans every ${SCAN_INTERVAL_MS / 1000}s`) : ''}
+                </>
+              ) : (
+                'Camera off'
+              )}
+            </p>
           </div>
-        </div>
 
-        <button
-          className={`talk-btn${holding ? ' recording' : ''}`}
-          disabled={!cameraOn}
-          onPointerDown={talkDown}
-          onPointerUp={talkUp}
-          onPointerCancel={talkUp}
-        >
-          {holding ? 'Recording... release to send' : 'Hold to talk (interrupts OMNI)'}
-        </button>
-
-        <div className="chat">
-          {messages.length === 0 && (
-            <p className="hint">Try saying: "I'm baking a chocolate cake", then "skip the sugar".</p>
-          )}
-          {messages.map((m, i) => (
-            <div key={i} className={`msg ${m.role}`}>
-              {m.text}
-            </div>
-          ))}
-        </div>
-
-        <form className="typed" onSubmit={submitTyped}>
-          <input
-            value={typed}
-            onChange={(e) => setTyped(e.target.value)}
-            placeholder="...or type a request"
-          />
-          <button type="submit" disabled={!typed.trim()}>
-            Send
-          </button>
-        </form>
-
-        {goal && (
-          <div className="block">
-            <h2>Goal: {goal.goal}</h2>
-            <h3>Needed</h3>
-            <ul className="list">
-              {goal.ingredients.map((ing) => (
-                <li key={ing.name}>
-                  {ing.name}
-                  {ing.quantity ? ` (${ing.quantity} ${ing.unit || ''})` : ''}
-                </li>
-              ))}
-            </ul>
-            {!check && <p className="hint">Checking the camera...</p>}
+          <div className="relative aspect-video overflow-hidden rounded-panel border border-line bg-surface-2">
+            <video
+              ref={videoRef}
+              autoPlay
+              playsInline
+              muted
+              hidden={source === 'oak' || !cameraOn}
+              className="h-full w-full object-cover"
+            />
+            <img
+              ref={oakImgRef}
+              alt="Live view from the OAK camera"
+              hidden={source !== 'oak' || !cameraOn}
+              className="h-full w-full object-cover"
+            />
+            {!cameraOn && (
+              <div className="absolute inset-0 grid place-content-center justify-items-center gap-3 px-6 text-center">
+                <VideoCamera size={40} weight="regular" className="text-muted" aria-hidden />
+                <p className="text-lg font-medium tracking-tight">The camera is off</p>
+                <p className="max-w-[42ch] text-sm text-muted">
+                  Start it and OMNI will watch the shelf and listen for what you want to make.
+                </p>
+              </div>
+            )}
+            {cameraOn && scanning && <div className="scan-line pointer-events-none absolute inset-0" aria-hidden />}
           </div>
-        )}
 
-        {check && (
-          <div className="block">
-            <h2>Inventory check (live)</h2>
-            <h3>✅ Present</h3>
-            <ul className="list">
-              {check.present.map((name) => (
-                <li key={name}>{name}</li>
-              ))}
-            </ul>
-            <h3>❌ Missing</h3>
-            <ul className="list editable">
-              {check.missing.map((name) => (
-                <li
-                  key={name}
-                  className={skipped.has(name) ? 'skipped' : ''}
-                  onClick={() => toggleSkip(name)}
+          <div className="glass relative z-10 mx-3 -mt-7 rounded-panel p-3 md:mx-8 md:p-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-3 pl-1">
+                <LevelMeter level={levelMV} active={phase === 'hearing'} />
+                <div className="relative h-5 min-w-[7rem] overflow-hidden text-sm font-medium">
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.span
+                      key={phase}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.18 }}
+                      className="absolute inset-0"
+                    >
+                      {PHASE_LABEL[phase]}
+                    </motion.span>
+                  </AnimatePresence>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant={holding ? 'inverse' : 'secondary'}
+                  icon={Microphone}
+                  disabled={!cameraOn}
+                  onPointerDown={talkDown}
+                  onPointerUp={talkUp}
+                  onPointerCancel={talkUp}
+                  className="touch-none select-none"
                 >
-                  {name}
-                </li>
-              ))}
-            </ul>
-            <p className="hint">Click an item (or say "skip the ...") to skip buying it.</p>
-            <button className="wide" onClick={purchase} disabled={purchasing}>
-              {purchasing ? 'Submitting to Zip...' : 'Purchase missing items via Zip'}
-            </button>
+                  {holding ? 'Release to send' : 'Hold to talk'}
+                </Button>
+                {cameraOn ? (
+                  <Button variant="ghost" icon={Stop} onClick={stop}>
+                    Stop
+                  </Button>
+                ) : (
+                  <Button icon={Play} onClick={start}>
+                    Start camera
+                  </Button>
+                )}
+              </div>
+            </div>
           </div>
-        )}
-      </section>
 
-      <section className="log-panel">
-        <h2>Log</h2>
-        <pre>{logLines.join('\n')}</pre>
-      </section>
-    </main>
+          <AnimatePresence>
+            {notice && (
+              <motion.div
+                role="alert"
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="mt-4 flex items-start justify-between gap-3 rounded-2xl border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger"
+              >
+                <span>{notice}</span>
+                <button type="button" aria-label="Dismiss" onClick={() => setNotice(null)} className="shrink-0">
+                  <X size={16} weight="regular" aria-hidden />
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            <Field label="Camera">
+              <select
+                value={source}
+                onChange={(e) => setSource(e.target.value)}
+                disabled={cameraOn}
+                className={inputClass}
+              >
+                <option value="computer">Computer camera</option>
+                <option value="oak" disabled={!oak?.available}>
+                  {oak?.available ? 'OAK camera (Luxonis)' : 'OAK camera (not detected)'}
+                </option>
+              </select>
+            </Field>
+            <Switch
+              checked={liveScan}
+              onChange={setLiveScan}
+              label="Scan continuously"
+              hint={`A frame every ${SCAN_INTERVAL_MS / 1000}s`}
+            />
+            <Switch
+              checked={handsFree}
+              onChange={setHandsFree}
+              label="Hands-free"
+              hint="Always listening"
+            />
+          </div>
+
+          <div className="mt-8">
+            <h2 className="mb-3 flex items-center gap-2 text-sm font-medium text-muted">
+              <Eye size={18} weight="regular" aria-hidden />
+              In view
+            </h2>
+            <ul className="flex min-h-8 flex-wrap gap-2">
+              <AnimatePresence initial={false}>
+                {visible.map((v) => (
+                  <motion.li
+                    key={v}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  >
+                    <Chip>{v}</Chip>
+                  </motion.li>
+                ))}
+              </AnimatePresence>
+            </ul>
+            {visible.length === 0 && (
+              <p className="text-sm text-muted">
+                {cameraOn ? 'Nothing recognised yet.' : 'Start the camera and OMNI will list what it sees.'}
+              </p>
+            )}
+          </div>
+        </section>
+
+        {/* Right: conversation, then the shopping list */}
+        <section aria-label="Assistant" className="flex min-w-0 flex-col gap-6">
+          <Panel className="flex flex-col p-5">
+            <h2 className="text-sm font-medium text-muted">Conversation</h2>
+            <div ref={chatRef} className="mt-4 flex max-h-72 min-h-40 flex-col gap-2 overflow-y-auto pr-1">
+              {messages.length === 0 && (
+                <p className="my-auto text-sm text-muted">
+                  Try “I’m baking a chocolate cake”, then “skip the sugar”.
+                </p>
+              )}
+              <AnimatePresence initial={false}>
+                {messages.map((m, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                    className={cx(
+                      'max-w-[88%] rounded-2xl px-4 py-2.5 text-[15px] leading-snug',
+                      m.role === 'user' && 'self-end bg-accent/15',
+                      m.role === 'omni' && 'self-start bg-surface-2',
+                      m.role === 'error' && 'self-start border border-danger/30 text-danger'
+                    )}
+                  >
+                    {m.text}
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+              {phase === 'thinking' && <TypingDots />}
+            </div>
+            <form onSubmit={submitTyped} className="mt-4 flex items-end gap-2">
+              <div className="flex-1">
+                <Field label="Type instead">
+                  <input
+                    value={typed}
+                    onChange={(e) => setTyped(e.target.value)}
+                    placeholder="I'm making pancakes"
+                    className={inputClass}
+                  />
+                </Field>
+              </div>
+              <Button
+                type="submit"
+                variant="secondary"
+                icon={PaperPlaneTilt}
+                disabled={!typed.trim()}
+                aria-label="Send"
+                className="w-11 px-0"
+              />
+            </form>
+          </Panel>
+
+          {!goal ? (
+            <Panel className="p-5">
+              <h2 className="text-xl font-semibold tracking-tight">What are you making?</h2>
+              <p className="mt-1 max-w-[46ch] text-sm text-muted">
+                Say it out loud or tap an example. OMNI works out the shopping list, then checks it against your shelf.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {EXAMPLES.map((ex) => (
+                  <button
+                    key={ex}
+                    type="button"
+                    onClick={() => {
+                      stopSpeaking();
+                      enqueue(() => sendIntent({ transcript: ex }));
+                    }}
+                    className="h-9 rounded-full border border-line bg-surface-2 px-4 text-sm transition duration-200 hover:border-accent hover:text-accent-ink active:scale-[0.98]"
+                  >
+                    {ex}
+                  </button>
+                ))}
+              </div>
+            </Panel>
+          ) : (
+            <Panel className="p-5">
+              <p className="text-sm text-muted">Making</p>
+              <h2 className="text-3xl font-semibold capitalize tracking-tight md:text-4xl">{goal.goal}</h2>
+              <p className="mt-2 font-mono text-sm text-muted">
+                {check ? `${haveNames.length} of ${needed.length} on the shelf` : 'Checking the shelf'}
+              </p>
+
+              <LayoutGroup>
+                {!check && (
+                  <ul className="mt-5 flex flex-col">
+                    {needed.map((i) => (
+                      <IngredientRow key={i.name} name={i.name} qty={qtyOf(i.name)} state="checking" />
+                    ))}
+                  </ul>
+                )}
+                {check && haveNames.length > 0 && (
+                  <div className="mt-5">
+                    <h3 className="px-3 text-sm font-medium text-muted">On the shelf</h3>
+                    <ul className="mt-1 flex flex-col">
+                      {haveNames.map((n) => (
+                        <IngredientRow key={n} name={n} qty={qtyOf(n)} state="have" />
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {check && missingNames.length > 0 && (
+                  <div className="mt-5">
+                    <h3 className="px-3 text-sm font-medium text-muted">To buy</h3>
+                    <ul className="mt-1 flex flex-col">
+                      {missingNames.map((n) => (
+                        <IngredientRow
+                          key={n}
+                          name={n}
+                          qty={qtyOf(n)}
+                          state={skipped.has(n) ? 'skipped' : 'buy'}
+                          onClick={() => toggleSkip(n)}
+                        />
+                      ))}
+                    </ul>
+                    <p className="mt-2 px-3 text-xs text-muted">Tap an item, or say “skip the sugar”.</p>
+                  </div>
+                )}
+              </LayoutGroup>
+
+              {check && missingNames.length === 0 && (
+                <p className="mt-5 flex items-center gap-2 text-[15px]">
+                  <CheckCircle size={20} weight="regular" className="text-ok" aria-hidden />
+                  You have everything.
+                </p>
+              )}
+
+              {check && missingNames.length > 0 && (
+                <div className="mt-6 flex items-center justify-between gap-4">
+                  <p className="text-sm text-muted">
+                    <span className="font-mono text-fg">{toBuy.length}</span> to order
+                    {skipped.size > 0 && (
+                      <>
+                        , <span className="font-mono text-fg">{skipped.size}</span> skipped
+                      </>
+                    )}
+                  </p>
+                  <Button icon={ShoppingCartSimple} onClick={purchase} disabled={purchasing || toBuy.length === 0}>
+                    {purchasing ? 'Ordering' : 'Order with Zip'}
+                  </Button>
+                </div>
+              )}
+            </Panel>
+          )}
+        </section>
+      </div>
+
+      <details className="mt-12 text-sm text-muted">
+        <summary className="w-fit cursor-pointer select-none">Debug log</summary>
+        <pre className="mt-3 max-h-64 overflow-auto whitespace-pre-wrap rounded-2xl border border-line bg-surface p-4 font-mono text-xs">
+          {logLines.join('\n')}
+        </pre>
+      </details>
+    </motion.main>
   );
 }

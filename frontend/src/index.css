@@ -1,0 +1,145 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens. One theme family (neutral grey), one accent (Huawei red,
+ * #CF0A2C), following the system light/dark setting. Green and amber appear only
+ * as status colours (present/approved, pending). Shape rule used everywhere:
+ *   buttons, chips, badges  -> full pill
+ *   panels, camera stage    -> 20px
+ *   inputs                  -> full pill
+ * accent is for fills; accent-ink is the same red tuned for text and icons so it
+ * stays readable on dark surfaces.
+ */
+:root {
+  color-scheme: light dark;
+
+  --canvas: #f1f1f3;
+  --surface: #fafafa;
+  --surface-2: #e7e7ea;
+  --line: rgb(15 15 18 / 0.1);
+  --fg: #101012;
+  --muted: #55555b;
+  --accent: #cf0a2c;
+  --accent-ink: #cf0a2c;
+  --on-accent: #fafafa;
+  --danger: #cf0a2c;
+  --ok: #15803d;
+  --warn: #92400e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --canvas: #0b0b0c;
+    --surface: #131315;
+    --surface-2: #1c1c1f;
+    --line: rgb(255 255 255 / 0.09);
+    --fg: #f2f2f4;
+    --muted: #a1a1a8;
+    --accent: #cf0a2c;
+    --accent-ink: #f0475b;
+    --on-accent: #fafafa;
+    --danger: #f0475b;
+    --ok: #4ade80;
+    --warn: #fbbf24;
+  }
+}
+
+@theme inline {
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, SFMono-Regular, monospace;
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-on-accent: var(--on-accent);
+  --color-danger: var(--danger);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --radius-panel: 20px;
+}
+
+html {
+  background: var(--canvas);
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--canvas);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* A faint red wash behind the page so the dark theme has depth. Fixed and
+   non-interactive, so it costs nothing while scrolling. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 28rem at 78% -8%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%),
+    radial-gradient(48rem 24rem at 6% 0%, color-mix(in srgb, var(--fg) 5%, transparent), transparent 70%);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+/*
+ * Frosted-glass approximation for the floating voice dock (web glassmorphism,
+ * not an official Apple material). Falls back to a solid surface when the user
+ * asks for reduced transparency.
+ */
+.glass {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--fg) 8%, transparent), color-mix(in srgb, var(--fg) 2%, transparent)),
+    color-mix(in srgb, var(--surface) 72%, transparent);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid var(--line);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--fg) 10%, transparent),
+    0 18px 40px -18px rgb(0 0 0 / 0.45);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    background: var(--surface);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* Scan sweep: while OMNI analyses a frame, a soft accent band travels down the
+   camera frame (the layer is frame-sized and moves by its own height, so it only
+   animates transform). Skipped entirely under reduced motion. */
+@keyframes scan-sweep {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(0); }
+}
+
+.scan-line {
+  background: linear-gradient(
+    to bottom,
+    transparent calc(100% - 64px),
+    color-mix(in srgb, var(--accent) 22%, transparent) calc(100% - 2px),
+    var(--accent) 100%
+  );
+  animation: scan-sweep 1.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scan-line { display: none; }
+}
