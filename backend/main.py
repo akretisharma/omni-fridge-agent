@@ -34,7 +34,9 @@ from pydantic import BaseModel
 
 from oak import oak
 
-load_dotenv()
+
+BACKEND_DIR = Path(__file__).parent
+load_dotenv(BACKEND_DIR / ".env")  # backend/.env, regardless of the working directory
 
 OMNI_BASE_URL = (os.getenv("OMNI_BASE_URL") or "https://yibuapi.com").rstrip("/")
 OMNI_API_KEY = os.getenv("OMNI_API_KEY", "")
@@ -43,7 +45,6 @@ ZIP_BASE_URL = os.getenv("ZIP_BASE_URL", "")
 ZIP_API_KEY = os.getenv("ZIP_API_KEY", "")
 PORT = int(os.getenv("PORT", "3000"))
 
-BACKEND_DIR = Path(__file__).parent
 FRONTEND_DIST = BACKEND_DIR.parent / "frontend" / "dist"
 PURCHASES_FILE = BACKEND_DIR / "data" / "purchases.json"
 
