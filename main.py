@@ -7,6 +7,7 @@
 #   POST /api/intent         audio or transcript -> {goal, ingredients[]}
 #   POST /api/vision-check   fridge/cupboard photo + ingredients -> present/missing
 #   POST /api/purchase       missing items -> Zip purchase requests + status
+#   GET  /api/purchases      stored purchase history for the Purchases page
 #
 # The two functions you are most likely to need to adjust once you have the
 # real docs in front of you are call_omni() and call_zip() below - everything
@@ -15,6 +16,8 @@
 import json
 import os
 import re
+import time
+import uuid
 from pathlib import Path
 from typing import Any, Optional
 
@@ -25,6 +28,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from pydantic import BaseModel
 
 load_dotenv()
@@ -36,7 +40,8 @@ ZIP_BASE_URL = os.getenv("ZIP_BASE_URL", "")
 ZIP_API_KEY = os.getenv("ZIP_API_KEY", "")
 PORT = int(os.getenv("PORT", "3000"))
 
-PUBLIC_DIR = Path(__file__).parent / "public"
+FRONTEND_DIST = Path(__file__).parent / "frontend" / "dist"
+PURCHASES_FILE = Path(__file__).parent / "data" / "purchases.json"
 
 app = FastAPI(title="OMNI Fridge Agent")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -256,7 +261,47 @@ async def purchase(body: PurchaseRequest):
         except Exception as err:
             results.append({"name": item.name, "status": "error", "error": str(err)})
 
+    # Record every attempt (including errors) so the Purchases page can show them.
+    now = time.time()
+    records = [
+        {
+            "id": uuid.uuid4().hex,
+            "createdAt": now,
+            "goal": body.goal,
+            "name": item.name,
+            "quantity": item.quantity,
+            "unit": item.unit,
+            "status": r["status"],
+            "error": r.get("error"),
+            "raw": r.get("raw"),
+        }
+        for item, r in zip(body.items, results)
+    ]
+    _save_purchases(records + _load_purchases())
+
     return {"results": results}
+
+
+# -------------------------------------------------------------------------
+# GET /api/purchases
+# Returns: { purchases: [{id, createdAt, goal, name, quantity, unit, status, error, raw}] }
+# Newest first. Persisted to data/purchases.json so a server restart keeps them.
+# -------------------------------------------------------------------------
+def _load_purchases() -> list[dict]:
+    try:
+        return json.loads(PURCHASES_FILE.read_text())
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+
+
+def _save_purchases(records: list[dict]) -> None:
+    PURCHASES_FILE.parent.mkdir(exist_ok=True)
+    PURCHASES_FILE.write_text(json.dumps(records, indent=2))
+
+
+@app.get("/api/purchases")
+async def list_purchases():
+    return {"purchases": _load_purchases()}
 
 
 @app.get("/api/health")
@@ -264,8 +309,22 @@ async def health():
     return {"ok": True}
 
 
+# Serves the built React app (npm run build in frontend/). Unknown paths fall
+# back to index.html so client-side routes like /purchases survive a refresh.
+# In development, run `npm run dev` in frontend/ instead - Vite proxies /api here.
+class SPAStaticFiles(StaticFiles):
+    async def get_response(self, path, scope):
+        try:
+            return await super().get_response(path, scope)
+        except StarletteHTTPException as exc:
+            if exc.status_code == 404 and not path.startswith("api/"):
+                return await super().get_response("index.html", scope)
+            raise
+
+
 # Mounted last so it doesn't shadow the /api routes.
-app.mount("/", StaticFiles(directory=PUBLIC_DIR, html=True), name="static")
+if FRONTEND_DIST.exists():
+    app.mount("/", SPAStaticFiles(directory=FRONTEND_DIST, html=True), name="static")
 
 
 if __name__ == "__main__":

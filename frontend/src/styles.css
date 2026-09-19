@@ -143,11 +143,6 @@ button:disabled {
   margin: 4px 0 0;
 }
 
-#scanBtn, #purchaseBtn {
-  margin-top: 10px;
-  width: 100%;
-}
-
 .log-panel pre {
   white-space: pre-wrap;
   font-size: 0.8rem;
@@ -155,3 +150,71 @@ button:disabled {
   max-height: 70vh;
   overflow-y: auto;
 }
+
+/* --- multi-page additions --- */
+nav {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #262a33;
+  font-size: 0.9rem;
+}
+
+nav a.active {
+  color: #0f1115;
+  background: var(--accent);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+main.single {
+  grid-template-columns: minmax(0, 800px);
+  justify-content: center;
+}
+
+button.wide {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.row h2 { margin: 0; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px 6px;
+  border-bottom: 1px solid #262a33;
+}
+
+th { color: var(--muted); font-weight: 500; }
+
+.badge {
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 0.8rem;
+  border: 1px solid currentColor;
+}
+
+.badge.ok { color: var(--accent2); }
+.badge.warn { color: #fde68a; }
+.badge.bad { color: var(--danger); }
+.bad-text { color: var(--danger); }
+a { color: var(--accent); }
