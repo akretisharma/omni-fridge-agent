@@ -123,7 +123,6 @@ export default function CameraPage() {
   const [cameraOn, setCameraOn] = useState(false);
   const [oak, setOak] = useState(null); // /api/oak/status, or null while loading
   const [source, setSource] = useState('computer'); // 'computer' | 'oak'
-  const [handsFree, setHandsFree] = useState(true);
   const [liveScan, setLiveScan] = useState(true);
   const [phase, setPhase] = useState('idle');
   const levelMV = useMotionValue(0); // mic level, read by the meter without re-rendering
@@ -141,7 +140,7 @@ export default function CameraPage() {
 
   // Latest state for callbacks created once (mic loop, scan interval).
   const live = useRef({});
-  live.current = { source, cameraOn, handsFree, liveScan, goal, check, visible, skipped };
+  live.current = { source, cameraOn, liveScan, goal, check, visible, skipped };
 
   const log = (msg, obj) => {
     const line = obj ? `${msg} ${JSON.stringify(obj)}` : msg;
@@ -224,7 +223,7 @@ export default function CameraPage() {
         videoRef.current.srcObject = stream;
       }
       segmenterRef.current = await createMicSegmenter(stream, {
-        canTrigger: () => live.current.handsFree && pendingSpeechRef.current === 0,
+        canTrigger: () => false,
         onSpeechStart: () => setPhase('hearing'),
         onSegment: (blob) => enqueue(() => sendAudio(blob)),
         onDiscard: () => setPhase((p) => (p === 'hearing' ? 'listening' : p)),
