@@ -13,15 +13,18 @@
 
 import asyncio
 import os
+import sys
 import threading
 import time
 from typing import Optional
 
+IMPORT_ERROR: Optional[str] = None
 try:
     import cv2
     import depthai as dai
-except ImportError:  # optional dependency
+except ImportError as err:  # optional dependency
     cv2 = dai = None
+    IMPORT_ERROR = str(err)
 
 WIDTH, HEIGHT, FPS = 1280, 720, 15
 JPEG_QUALITY = 80
@@ -58,7 +61,13 @@ class OakCamera:
             "installed": dai is not None,
             "available": self.available(),
             "running": self.running,
-            "error": self.error,
+            "error": self.error or (
+                f"{IMPORT_ERROR} - this server is running under {sys.executable}; "
+                "install with: <that python> -m pip install -r backend/requirements.txt"
+                if IMPORT_ERROR
+                else None
+            ),
+            "python": sys.executable,
         }
 
     def ensure_running(self) -> None:
