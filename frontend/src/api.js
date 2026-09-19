@@ -18,3 +18,4 @@ export const visionCheck = (imageBase64, ingredients) =>
   post('/api/vision-check', { imageBase64, ingredients });
 export const purchaseItems = (items, goal) => post('/api/purchase', { items, goal });
 export const fetchPurchases = () => request('/api/purchases');
+export const fetchOakStatus = () => request('/api/oak/status');
