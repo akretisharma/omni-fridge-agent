@@ -4,10 +4,11 @@
 # missing" agent. Keeps API keys server-side (never ship them to the
 # browser). Three real endpoints do the actual work:
 #
-#   POST /api/intent         audio or transcript -> {goal, ingredients[]}
-#   POST /api/vision-check   fridge/cupboard photo + ingredients -> present/missing
+#   POST /api/intent         voice request (+ camera frame + state) -> action + reply
+#   POST /api/vision-check   camera frame + checklist -> visible/present/missing
 #   POST /api/purchase       missing items -> Zip purchase requests + status
 #   GET  /api/purchases      stored purchase history for the Purchases page
+#   GET  /api/oak/stream     Luxonis OAK camera as MJPEG (optional, needs depthai)
 #
 # The two functions you are most likely to need to adjust once you have the
 # real docs in front of you are call_omni() and call_zip() below - everything
@@ -26,16 +27,18 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from pydantic import BaseModel
 
+from oak import oak
+
 load_dotenv()
 
-OMNI_BASE_URL = os.getenv("OMNI_BASE_URL", "")
+OMNI_BASE_URL = (os.getenv("OMNI_BASE_URL") or "https://yibuapi.com").rstrip("/")
 OMNI_API_KEY = os.getenv("OMNI_API_KEY", "")
-OMNI_MODEL = os.getenv("OMNI_MODEL") or "qwen3.5-omni"
+OMNI_MODEL = os.getenv("OMNI_MODEL") or "qwen3.5-omni-flash"
 ZIP_BASE_URL = os.getenv("ZIP_BASE_URL", "")
 ZIP_API_KEY = os.getenv("ZIP_API_KEY", "")
 PORT = int(os.getenv("PORT", "3000"))
@@ -63,21 +66,30 @@ async def validation_exception_handler(_, exc: RequestValidationError):
 # -------------------------------------------------------------------------
 # Request models
 # -------------------------------------------------------------------------
-class IntentRequest(BaseModel):
-    transcript: Optional[str] = None
-    audioBase64: Optional[str] = None
-    audioFormat: Optional[str] = None
-
-
 class Ingredient(BaseModel):
     name: str
     quantity: Optional[float] = None
     unit: Optional[str] = None
 
 
+class IntentRequest(BaseModel):
+    # One voice request: audio (preferred) or typed text, plus the latest camera
+    # frame and what the app currently believes, so OMNI can answer in context.
+    transcript: Optional[str] = None
+    audioBase64: Optional[str] = None
+    audioFormat: Optional[str] = None
+    imageBase64: Optional[str] = None
+    goal: Optional[str] = None
+    ingredients: list[Ingredient] = []
+    present: list[str] = []
+    missing: list[str] = []
+    skipped: list[str] = []
+    visible: list[str] = []
+
+
 class VisionCheckRequest(BaseModel):
     imageBase64: str
-    ingredients: list[Ingredient]
+    ingredients: list[Ingredient] = []  # empty checklist = just describe what's visible
 
 
 class PurchaseRequest(BaseModel):
@@ -88,14 +100,16 @@ class PurchaseRequest(BaseModel):
 # -------------------------------------------------------------------------
 # OMNI call helper
 # -------------------------------------------------------------------------
-# ASSUMPTION: yibuapi exposes an OpenAI-compatible /v1/chat/completions
-# endpoint, and accepts multimodal "content" arrays the way OpenAI's API
-# does: [{type:"text", text}, {type:"image_url", image_url:{url}},
-# {type:"input_audio", input_audio:{data, format}}].
-#
-# If the real docs differ (different path, different field names for audio
-# or images), this is the only function you should need to edit. Everything
-# upstream just builds a `messages` list and calls call_omni(messages).
+# yibuapi exposes an OpenAI-compatible /v1/chat/completions endpoint
+# (verified against the live API with qwen3.5-omni-flash). Multimodal
+# "content" arrays: [{type:"text", text}, {type:"image_url", image_url:{url}},
+# {type:"input_audio", input_audio:{data, format}}]. Gotchas:
+#   - input_audio.data must be a data URI ("data:;base64,<b64>"), not bare base64.
+#   - Available models: qwen3.5-omni-flash / -plus / -plus-realtime,
+#     qwen3.8-omni-flash, gemini-3.1-flash-live-preview (see GET /v1/models).
+#   - Spoken output is supported via modalities:["text","audio"] + stream:true
+#     with audio.voice in {Ethan, Serena, Tina, Ryan, Aiden, Momo, ...}.
+# Everything upstream just builds a `messages` list and calls call_omni(messages).
 async def call_omni(messages: list[dict], parse_json: bool = True) -> Any:
     if not OMNI_API_KEY or OMNI_API_KEY == "REPLACE_ME":
         raise RuntimeError("OMNI_API_KEY is not set - copy .env.example to .env and fill it in")
@@ -163,21 +177,75 @@ async def call_zip(item: dict) -> dict:
 
 # -------------------------------------------------------------------------
 # POST /api/intent
-# Body: { transcript?, audioBase64?, audioFormat? }
-# Returns: { goal: str, ingredients: [{name, quantity, unit}] }
+# Body: { audioBase64? | transcript?, audioFormat?, imageBase64?, + app state
+#         (goal, ingredients, present, missing, skipped, visible) }
+# Returns: { transcript, action, reply, goal, ingredients, items }
+#   action: set_goal | skip_items | unskip_items | answer
 # -------------------------------------------------------------------------
 INTENT_SYSTEM_PROMPT = {
     "role": "system",
     "content": (
-        "You are a kitchen/pantry assistant. The user will describe something "
-        "they want to do (e.g. \"I'm baking a chocolate cake\" or \"I need to "
-        "restock the printer supplies\"). Work out the concrete list of items "
-        "needed to accomplish it. Respond with ONLY a JSON object of the form "
-        '{"goal": "<short label>", "ingredients": [{"name": "<item>", '
-        '"quantity": <number>, "unit": "<unit>"}]}. Keep the list to the items '
-        "that matter for the demo (roughly 5-8 items). No prose, just JSON."
+        "You are OMNI, a voice assistant built into a smart fridge/cupboard camera. "
+        "The user speaks to you at any time. You receive their request (audio or "
+        "text), the latest camera frame, and the app's current state as JSON. Use "
+        "all three together. Decide what the user wants and respond with ONLY a "
+        "JSON object:\n"
+        '{"transcript": "<exact words the user said>", '
+        '"action": "set_goal" | "skip_items" | "unskip_items" | "answer", '
+        '"reply": "<1-2 short spoken sentences, natural, no markdown>", '
+        '"goal": "<short label, set_goal only>", '
+        '"ingredients": [{"name": "<item>", "quantity": <number>, "unit": "<unit>"}], '
+        '"items": ["<item names, skip_items/unskip_items only>"]}\n'
+        "Actions: set_goal = the user states something they want to make or do (or "
+        "changes their goal). For set_goal you MUST fill ingredients with the 5-8 "
+        "concrete items needed (never leave it empty, never ask the user what they "
+        "need) and the reply should confirm the goal and say you'll check the "
+        'fridge, e.g. {"transcript": "I\'m making pancakes", "action": "set_goal", '
+        '"reply": "Pancakes, nice - let me see what you have.", "goal": "pancakes", '
+        '"ingredients": [{"name": "flour", "quantity": 2, "unit": "cups"}, '
+        '{"name": "eggs", "quantity": 2, "unit": "whole"}, ...]}. skip_items / '
+        "unskip_items = the user says not to buy (or to buy again) certain missing "
+        "items - use the exact names from state.missing. answer = anything else, "
+        "such as a question about what you can see, in which case answer from the "
+        "camera frame. Keep replies brief and conversational. Never invent items "
+        "you cannot see."
     ),
 }
+
+INTENT_ACTIONS = {"set_goal", "skip_items", "unskip_items", "answer"}
+
+
+def _audio_part(b64: str, fmt: Optional[str]) -> dict:
+    # yibuapi wants a data URI here; accept bare base64 or an existing data URI.
+    if b64.startswith("data:"):
+        b64 = b64.split(",", 1)[1]
+    return {"type": "input_audio", "input_audio": {"data": f"data:;base64,{b64}", "format": fmt or "wav"}}
+
+
+def _clean_names(value: Any) -> list[str]:
+    return [n.strip() for n in value if isinstance(n, str) and n.strip()] if isinstance(value, list) else []
+
+
+def _normalize_intent(r: Any, fallback_transcript: str = "") -> dict:
+    r = r if isinstance(r, dict) else {}
+    ingredients = []
+    for ing in r.get("ingredients") or []:
+        if isinstance(ing, dict) and isinstance(ing.get("name"), str) and ing["name"].strip():
+            ingredients.append(
+                {"name": ing["name"].strip(), "quantity": ing.get("quantity"), "unit": ing.get("unit")}
+            )
+    action = r.get("action") if r.get("action") in INTENT_ACTIONS else "answer"
+    if action == "set_goal" and not ingredients:
+        action = "answer"
+    is_goal = action == "set_goal"
+    return {
+        "transcript": r.get("transcript") or fallback_transcript,
+        "action": action,
+        "reply": r.get("reply") or "",
+        "goal": (r.get("goal") or None) if is_goal else None,
+        "ingredients": ingredients if is_goal else [],
+        "items": _clean_names(r.get("items")) if action in ("skip_items", "unskip_items") else [],
+    }
 
 
 @app.post("/api/intent")
@@ -185,37 +253,46 @@ async def intent(body: IntentRequest):
     if body.audioBase64:
         # Primary path: send the raw audio to OMNI so speech/audio
         # understanding is genuinely happening inside OMNI, not a browser API.
-        user_content = [
-            {
-                "type": "input_audio",
-                "input_audio": {"data": body.audioBase64, "format": body.audioFormat or "webm"},
-            }
-        ]
+        request_part = _audio_part(body.audioBase64, body.audioFormat)
     elif body.transcript:
-        # Fallback path: browser SpeechRecognition already produced text.
-        # Still a real OMNI call for the language-reasoning half of the task,
-        # useful as a demo-safety net if live audio upload is flaky.
-        user_content = [{"type": "text", "text": body.transcript}]
+        # Typed fallback - a demo-safety net if the mic is unavailable.
+        request_part = {"type": "text", "text": f"User said: {body.transcript}"}
     else:
         raise HTTPException(400, "Provide transcript or audioBase64")
 
-    return await _omni_or_500([INTENT_SYSTEM_PROMPT, {"role": "user", "content": user_content}])
+    state = {
+        "goal": body.goal,
+        "needed": [i.name for i in body.ingredients],
+        "present": body.present,
+        "missing": body.missing,
+        "skipped": body.skipped,
+        "visible_now": body.visible,
+    }
+    content: list[dict] = [{"type": "text", "text": f"App state: {json.dumps(state)}"}, request_part]
+    if body.imageBase64:
+        content.append({"type": "image_url", "image_url": {"url": body.imageBase64}})
+
+    result = await _omni_or_500([INTENT_SYSTEM_PROMPT, {"role": "user", "content": content}])
+    return _normalize_intent(result, body.transcript or "")
 
 
 # -------------------------------------------------------------------------
 # POST /api/vision-check
-# Body: { imageBase64: str, ingredients: [{name, quantity, unit}] }
-# Returns: { present: [str], missing: [str] }
+# Body: { imageBase64: str, ingredients?: [{name, quantity, unit}] }
+# Returns: { visible: [str], present: [str], missing: [str] }
+# Called continuously by the frontend (one frame every few seconds).
 # -------------------------------------------------------------------------
 VISION_SYSTEM_PROMPT = {
     "role": "system",
     "content": (
-        "You are a vision system inspecting a photo of a fridge or cupboard. "
-        "Given a photo and a checklist of ingredient names, decide which items "
-        "are visibly present and which are not. Be reasonably strict - only "
-        "mark something present if you can actually see it or its container. "
-        'Respond with ONLY a JSON object: {"present": ["..."], "missing": ["..."]} '
-        "using the exact item names from the checklist."
+        "You are a vision system watching a live camera feed of a fridge or cupboard. "
+        "Given one frame and an optional checklist, report (a) every distinct food or "
+        "household item you can clearly see, and (b) which checklist items are "
+        "visibly present versus not. Be reasonably strict - only mark something "
+        "present if you can actually see it or its container. Respond with ONLY a "
+        'JSON object: {"visible": ["..."], "present": ["..."], "missing": ["..."]}. '
+        "present and missing must use the exact item names from the checklist "
+        "(both empty if the checklist is empty)."
     ),
 }
 
@@ -230,7 +307,22 @@ async def vision_check(body: VisionCheckRequest):
             {"type": "image_url", "image_url": {"url": body.imageBase64}},
         ],
     }
-    return await _omni_or_500([VISION_SYSTEM_PROMPT, user_message])
+    result = await _omni_or_500([VISION_SYSTEM_PROMPT, user_message])
+    result = result if isinstance(result, dict) else {}
+
+    # Trust the model for what's present, but derive missing from the checklist
+    # so the two lists always partition it exactly.
+    by_lower = {n.lower(): n for n in names}
+    present = []
+    for n in _clean_names(result.get("present")):
+        canon = by_lower.get(n.lower())
+        if canon and canon not in present:
+            present.append(canon)
+    return {
+        "visible": _clean_names(result.get("visible"))[:25],
+        "present": present,
+        "missing": [n for n in names if n not in present],
+    }
 
 
 async def _omni_or_500(messages: list[dict]) -> Any:
@@ -302,6 +394,21 @@ def _save_purchases(records: list[dict]) -> None:
 @app.get("/api/purchases")
 async def list_purchases():
     return {"purchases": _load_purchases()}
+
+
+# -------------------------------------------------------------------------
+# Luxonis OAK camera (not a UVC webcam, so it can't go through getUserMedia)
+#   GET /api/oak/status  -> { installed, available, running, error }
+#   GET /api/oak/stream  -> multipart MJPEG, shown by the page in an <img>
+# -------------------------------------------------------------------------
+@app.get("/api/oak/status")
+def oak_status():
+    return oak.status()
+
+
+@app.get("/api/oak/stream")
+async def oak_stream():
+    return StreamingResponse(oak.mjpeg(), media_type="multipart/x-mixed-replace; boundary=frame")
 
 
 @app.get("/api/health")

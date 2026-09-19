@@ -30,12 +30,12 @@ OMNI (yibuapi)       Zip REST API
 - vision → inventory - approval/budget routing
 ```
 
-Three backend endpoints do the real work:
+Four backend endpoints do the real work (plus `GET /api/oak/stream` for the optional OAK camera):
 
 | Endpoint              | Input                                | Output                                 |
 |------------------------|---------------------------------------|------------------------------------------|
-| `POST /api/intent`      | mic audio (or transcript fallback)   | `{goal, ingredients:[{name,qty,unit}]}`  |
-| `POST /api/vision-check`| camera frame + ingredient list       | `{present:[...], missing:[...]}`         |
+| `POST /api/intent`      | voice audio (or text) + latest frame + state | `{transcript, action, reply, goal, ingredients, items}` |
+| `POST /api/vision-check`| camera frame + ingredient list       | `{visible:[...], present:[...], missing:[...]}` |
 | `POST /api/purchase`    | missing items                        | Zip purchase results per item            |
 | `GET /api/purchases`    | -                                    | stored purchase history                  |
 
@@ -68,27 +68,61 @@ The app has two pages. **Live camera** is the main flow; **Zip purchases**
 lists every purchase request (status, goal, time), and you're taken there
 automatically after purchasing. Purchases are stored in `data/purchases.json`.
 
-On the Live camera page, click **Start camera**, point it at the fridge/cupboard, then **hold the
-"Hold to talk" button** and say something like *"I'm baking a chocolate
-cake."* Release to send. Once the ingredient list appears, click **Scan
-fridge / cupboard**, then **Purchase missing items via Zip**.
+On the Live camera page, click **Start camera and mic**. From then on:
+
+- **The camera is watched continuously.** A frame goes to OMNI every ~3s and
+  the "What OMNI sees" list and the present/missing check update live. Items
+  are debounced (a status must hold for 2 scans), and OMNI narrates when a
+  missing item appears in view.
+- **The mic is always listening (hands-free).** Speak whenever you like; the
+  app cuts your speech into utterances, sends each as audio *together with the
+  latest camera frame and the current state*, and OMNI decides what you want:
+  set a goal ("I'm baking a chocolate cake"), skip/unskip items ("skip the
+  sugar"), or answer a question about what it sees ("what's on the shelf?").
+- **Hold the "Hold to talk" button** to talk regardless of hands-free mode; it
+  also interrupts OMNI mid-sentence. There is a typed-request box as a fallback.
+- Click **Purchase missing items via Zip** (or skip items first) to buy what's
+  missing, then review it on the Zip purchases page.
+
+## Luxonis OAK camera (optional)
+
+An OAK camera is not a webcam, so the browser can't open it directly. The
+backend reads it with the `depthai` library (`oak.py`) and serves it as an MJPEG
+stream at `/api/oak/stream`; the Live camera page shows it in place of the
+computer camera and samples frames from it the same way. The mic still comes
+from the computer.
+
+- Plug the OAK in over USB-C and start the backend. The page's **Camera**
+  dropdown auto-selects "OAK camera" when one is detected (the computer camera
+  is always available as a fallback). Pick the source *before* clicking Start.
+- Tested with an OAK-1 on macOS: 1280x720 @ 15 fps.
+- **USB2 is forced by default.** On this setup USB3 made the device vanish
+  after boot (`X_LINK_DEVICE_NOT_FOUND`). Set `OAK_MAX_USB=SUPER` in `.env` to
+  try USB3 with a good cable.
+- The camera only runs while a page is viewing it; the backend releases the USB
+  device ~10-15s after the page closes or you leave the Live camera tab.
+- `depthai`/`opencv` are optional; without them the app just offers the
+  computer camera.
+
+## OMNI integration notes (verified against yibuapi)
+
+- Base URL `https://yibuapi.com` (not `api.yibuapi.com`), OpenAI-compatible
+  `/v1/chat/completions`. Models on the sponsor key: `qwen3.5-omni-flash`
+  (default), `qwen3.5-omni-plus`, `qwen3.5-omni-plus-realtime`,
+  `qwen3.8-omni-flash`, `gemini-3.1-flash-live-preview` (`GET /v1/models`).
+- Audio input must be a `data:` URI (`data:;base64,...`), 16 kHz mono WAV from
+  the browser. Images are JPEG data URLs.
+- Audio *output* works too (`modalities: ["text","audio"]`, `stream: true`,
+  voices such as `Ethan`, `Serena`, `Tina`, `Ryan`, `Aiden`, `Momo`). Replies
+  are currently spoken with browser TTS; switching to OMNI voice is a small
+  change in `call_omni()` plus audio playback on the frontend.
 
 ## Things to verify / adjust once you have the real docs at the event
 
-I don't have your actual OMNI or Zip API documentation, so this scaffold
-makes reasonable, clearly-marked assumptions. Everything else in the app
-(routing, prompts, UI, diffing logic) is complete and shouldn't need
-changes — only these two functions in `main.py` are assumption points:
+The OMNI side is verified against the live API. The Zip side still rests on
+clearly-marked assumptions, so these are the assumption points in `main.py`:
 
-1. **`call_omni()` in `main.py`** — assumes yibuapi exposes an
-   OpenAI-compatible `/v1/chat/completions` endpoint, and accepts
-   multimodal `content` blocks (`image_url`, `input_audio`) the way
-   OpenAI's API does. Check `https://yibuapi.com/pricing` / your API key
-   email for the real base URL, model name, and exact content-block
-   format for audio and images. If audio input isn't supported yet,
-   uncheck **"Send raw audio to OMNI"** in the UI to fall back to the
-   browser's built-in speech-to-text — the language reasoning still goes
-   through OMNI either way.
+1. **`call_omni()` in `main.py`** - verified (see above).
 
 2. **`call_zip()` in `main.py`** — assumes a REST resource like
    `POST /v1/purchase-requests` that returns a status field. Swap in the
@@ -106,12 +140,9 @@ changes — only these two functions in `main.py` are assumption points:
   for approval while the rest auto-approve — say so out loud. That's the
   single biggest lever for the Zip "Best Use" prize: reading data is fine,
   but *using* the approval/budget rules is what scores.
-- **Interruptibility.** The missing-item chips are already click-to-skip
-  before purchase. For the OMNI "continuous/interruptible interaction"
-  criterion, the natural extension is a second push-to-talk moment after
-  the scan ("actually skip the sugar") that removes an item by voice
-  instead of a click — `handleUtterance` and `renderCheck` are already
-  structured to make that a small addition.
+- **Interruptibility.** Already in: say "skip the sugar" after the scan, or hold
+  the talk button to cut OMNI off mid-sentence. Next step for the "natural
+  voice" criterion: speak replies with OMNI's own voice instead of browser TTS.
 - **Stage the fridge.** 5–8 items, well lit, unambiguous — vision
   reliability on stage matters more than a messy real fridge.
 - **One clean end-to-end run.** Judges want a small complete workflow over
