@@ -22,7 +22,7 @@ approval routing).
 Browser (mic + camera)
    │  audio / photo (base64)
    ▼
-Express backend (server.js)  ── holds API keys, never exposed to browser
+FastAPI backend (main.py)  ── holds API keys, never exposed to browser
    │                    │
    ▼                    ▼
 OMNI (yibuapi)       Zip REST API
@@ -41,12 +41,15 @@ Three backend endpoints do the real work:
 ## Setup
 
 ```bash
-npm install
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
 cp .env.example .env
 # edit .env with your real OMNI (yibuapi) key/base URL and Zip key/base URL
-npm start
+python main.py   # or: uvicorn main:app --reload --port 3000
 # open http://localhost:3000
 ```
+
+Interactive API docs are at http://localhost:3000/docs.
 
 Click **Start camera**, point it at the fridge/cupboard, then **hold the
 "Hold to talk" button** and say something like *"I'm baking a chocolate
@@ -58,9 +61,9 @@ fridge / cupboard**, then **Purchase missing items via Zip**.
 I don't have your actual OMNI or Zip API documentation, so this scaffold
 makes reasonable, clearly-marked assumptions. Everything else in the app
 (routing, prompts, UI, diffing logic) is complete and shouldn't need
-changes — only these two functions in `server.js` are assumption points:
+changes — only these two functions in `main.py` are assumption points:
 
-1. **`callOmni()` in `server.js`** — assumes yibuapi exposes an
+1. **`call_omni()` in `main.py`** — assumes yibuapi exposes an
    OpenAI-compatible `/v1/chat/completions` endpoint, and accepts
    multimodal `content` blocks (`image_url`, `input_audio`) the way
    OpenAI's API does. Check `https://yibuapi.com/pricing` / your API key
@@ -70,13 +73,13 @@ changes — only these two functions in `server.js` are assumption points:
    browser's built-in speech-to-text — the language reasoning still goes
    through OMNI either way.
 
-2. **`callZip()` in `server.js`** — assumes a REST resource like
+2. **`call_zip()` in `main.py`** — assumes a REST resource like
    `POST /v1/purchase-requests` that returns a status field. Swap in the
    real endpoint path and payload shape from Zip's REST docs / Postman
    collection for the company they provision you. If you'd rather
    demo through the **Zip MCP server** instead of raw REST (arguably a
    stronger "Best Use of Zip" story since it shows agent-native tool use),
-   that's a swap-in replacement for `callZip()` — point an MCP client at
+   that's a swap-in replacement for `call_zip()` — point an MCP client at
    their server and call the purchase-request tool the same way.
 
 ## Ideas to strengthen the demo before judging
