@@ -8,7 +8,7 @@ const FLIP_CONFIRMATIONS = 2; // a status must hold for this many scans before i
 
 const PHASE_LABEL = {
   idle: 'Start the camera to begin',
-  listening: 'Listening...',
+  listening: 'Hold the button to talk',
   hearing: 'Hearing you...',
   thinking: 'Thinking...',
   speaking: 'Speaking...',
@@ -48,7 +48,6 @@ export default function CameraPage() {
   const [cameraOn, setCameraOn] = useState(false);
   const [oak, setOak] = useState(null); // /api/oak/status, or null while loading
   const [source, setSource] = useState('computer'); // 'computer' | 'oak'
-  const [handsFree, setHandsFree] = useState(true);
   const [liveScan, setLiveScan] = useState(true);
   const [phase, setPhase] = useState('idle');
   const [level, setLevel] = useState(0);
@@ -64,7 +63,7 @@ export default function CameraPage() {
 
   // Latest state for callbacks created once (mic loop, scan interval).
   const live = useRef({});
-  live.current = { source, cameraOn, handsFree, liveScan, goal, check, visible, skipped };
+  live.current = { source, cameraOn, liveScan, goal, check, visible, skipped };
 
   const log = (msg, obj) => {
     const line = obj ? `${msg} ${JSON.stringify(obj)}` : msg;
@@ -147,7 +146,7 @@ export default function CameraPage() {
         videoRef.current.srcObject = stream;
       }
       segmenterRef.current = await createMicSegmenter(stream, {
-        canTrigger: () => live.current.handsFree && pendingSpeechRef.current === 0,
+        canTrigger: () => false,
         onSpeechStart: () => setPhase('hearing'),
         onSegment: (blob) => enqueue(() => sendAudio(blob)),
         onDiscard: () => setPhase((p) => (p === 'hearing' ? 'listening' : p)),
@@ -420,10 +419,6 @@ export default function CameraPage() {
           <label className="toggle">
             <input type="checkbox" checked={liveScan} onChange={(e) => setLiveScan(e.target.checked)} />
             Continuously scan the camera (every {SCAN_INTERVAL_MS / 1000}s)
-          </label>
-          <label className="toggle">
-            <input type="checkbox" checked={handsFree} onChange={(e) => setHandsFree(e.target.checked)} />
-            Hands-free: always listening (off = hold the button to talk)
           </label>
         </div>
         <h3>👁️ What OMNI sees</h3>
