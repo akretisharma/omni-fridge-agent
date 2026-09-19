@@ -33,6 +33,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from pydantic import BaseModel
 
 from oak import oak
+from zip_client import call_zip
 
 
 BACKEND_DIR = Path(__file__).parent
@@ -143,38 +144,8 @@ def extract_json(text: str) -> Any:
     return json.loads(match.group(0))
 
 
-# -------------------------------------------------------------------------
-# Zip call helper
-# -------------------------------------------------------------------------
-# ASSUMPTION: standard REST resource - POST /purchase-requests creates a
-# request that Zip's own approval/budget rules then route automatically.
-# Swap in the real path + payload shape from Zip's REST docs / Postman
-# collection for the company they set up for you. The Zip MCP server is an
-# alternative to this REST call if you'd rather demo the MCP integration -
-# see README.md for notes on that path.
-async def call_zip(item: dict) -> dict:
-    if not ZIP_API_KEY or ZIP_API_KEY == "REPLACE_ME":
-        raise RuntimeError("ZIP_API_KEY is not set - copy backend/.env.example to backend/.env and fill it in")
-
-    async with httpx.AsyncClient(timeout=60) as client:
-        res = await client.post(
-            f"{ZIP_BASE_URL}/v1/purchase-requests",
-            headers={"Authorization": f"Bearer {ZIP_API_KEY}"},
-            json={
-                "description": item["name"],
-                "quantity": item.get("quantity") or 1,
-                "unit": item.get("unit") or "unit",
-                "justification": (
-                    "Auto-requested by OMNI Fridge Agent: missing ingredient for "
-                    f'"{item.get("goal") or "the current task"}"'
-                ),
-            },
-        )
-
-    if res.status_code >= 400:
-        raise RuntimeError(f"Zip call failed ({res.status_code}): {res.text}")
-
-    return res.json()
+# Zip lives in zip_client.py: POST /requests on HTN staging so they show
+# on the same Zip company dashboard as this API key.
 
 
 # -------------------------------------------------------------------------
@@ -350,7 +321,15 @@ async def purchase(body: PurchaseRequest):
         try:
             raw = await call_zip({**item.model_dump(), "goal": body.goal})
             results.append(
-                {"name": item.name, "status": raw.get("status") or raw.get("state") or "submitted", "raw": raw}
+                {
+                    "name": item.name,
+                    "status": raw.get("status") or "submitted",
+                    "vendor": raw.get("vendor"),
+                    "request_id": raw.get("request_id"),
+                    "request_number": raw.get("request_number"),
+                    "po_number": raw.get("po_number"),
+                    "raw": raw,
+                }
             )
         except Exception as err:
             results.append({"name": item.name, "status": "error", "error": str(err)})
@@ -366,6 +345,10 @@ async def purchase(body: PurchaseRequest):
             "quantity": item.quantity,
             "unit": item.unit,
             "status": r["status"],
+            "vendor": r.get("vendor"),
+            "request_id": r.get("request_id"),
+            "request_number": r.get("request_number"),
+            "po_number": r.get("po_number"),
             "error": r.get("error"),
             "raw": r.get("raw"),
         }
@@ -396,6 +379,12 @@ def _save_purchases(records: list[dict]) -> None:
 @app.get("/api/purchases")
 async def list_purchases():
     return {"purchases": _load_purchases()}
+
+
+@app.delete("/api/purchases")
+async def clear_purchases():
+    _save_purchases([])
+    return {"purchases": []}
 
 
 # -------------------------------------------------------------------------

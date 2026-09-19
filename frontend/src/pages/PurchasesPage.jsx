@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ArrowClockwise, CheckCircle, Clock, VideoCamera, WarningCircle } from '@phosphor-icons/react';
-import { fetchPurchases } from '../api.js';
+import { ArrowClockwise, CheckCircle, Clock, Trash, VideoCamera, WarningCircle } from '@phosphor-icons/react';
+import { clearPurchases, fetchPurchases } from '../api.js';
 import { Button, Panel, Skeleton, buttonClass, cx } from '../components/ui.jsx';
 
 const STATUS = {
@@ -53,6 +53,7 @@ export default function PurchasesPage() {
   const [purchases, setPurchases] = useState(null);
   const [error, setError] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [clearing, setClearing] = useState(false);
 
   const load = () => {
     setRefreshing(true);
@@ -63,6 +64,18 @@ export default function PurchasesPage() {
       })
       .catch((err) => setError(err.message))
       .finally(() => setRefreshing(false));
+  };
+
+  const clear = () => {
+    if (!window.confirm('Clear all purchase history? This only deletes local records, not Zip POs.')) return;
+    setClearing(true);
+    clearPurchases()
+      .then((d) => {
+        setPurchases(d.purchases ?? []);
+        setError(null);
+      })
+      .catch((err) => setError(err.message))
+      .finally(() => setClearing(false));
   };
 
   useEffect(() => {
@@ -81,9 +94,14 @@ export default function PurchasesPage() {
     >
       <div className="flex items-end justify-between gap-4">
         <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">Zip purchases</h1>
-        <Button variant="secondary" icon={ArrowClockwise} onClick={load} disabled={refreshing}>
-          Refresh
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" icon={Trash} onClick={clear} disabled={clearing || !purchases?.length}>
+            {clearing ? 'Clearing…' : 'Clear'}
+          </Button>
+          <Button variant="secondary" icon={ArrowClockwise} onClick={load} disabled={refreshing}>
+            {refreshing ? 'Refreshing…' : 'Refresh'}
+          </Button>
+        </div>
       </div>
 
       {error && (
@@ -151,6 +169,11 @@ export default function PurchasesPage() {
                       >
                         <div className="min-w-0">
                           <p className="text-[15px]">{p.name}</p>
+                          {(p.vendor || p.request_number || p.po_number) && (
+                            <p className="mt-0.5 font-mono text-xs text-muted">
+                              {[p.vendor, p.request_number || p.po_number].filter(Boolean).join(' · ')}
+                            </p>
+                          )}
                           {p.error && <p className="mt-0.5 break-words text-xs text-danger">{p.error}</p>}
                         </div>
                         <div className="flex shrink-0 items-center gap-4">
