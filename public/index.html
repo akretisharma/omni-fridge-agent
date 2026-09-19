@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OMNI Fridge Agent</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>🎙️ Say a goal. 📷 We check the fridge. 🛒 Zip buys what's missing.</h1>
+  </header>
+
+  <main>
+    <section class="camera-panel">
+      <video id="video" autoplay playsinline muted></video>
+      <canvas id="canvas" hidden></canvas>
+      <div class="camera-controls">
+        <button id="startCamera">Start camera</button>
+        <label class="toggle">
+          <input type="checkbox" id="useOmniAudio" checked />
+          Send raw audio to OMNI (uncheck to use browser transcript instead)
+        </label>
+      </div>
+    </section>
+
+    <section class="control-panel">
+      <button id="talkBtn" class="talk-btn" disabled>Hold to talk</button>
+      <div id="transcript" class="pill">Say something like: "I'm baking a chocolate cake"</div>
+
+      <div id="goalBlock" class="block hidden">
+        <h2>Goal</h2>
+        <div id="goalText" class="pill"></div>
+        <h3>Needed</h3>
+        <ul id="neededList" class="list"></ul>
+        <button id="scanBtn">Scan fridge / cupboard</button>
+      </div>
+
+      <div id="checkBlock" class="block hidden">
+        <h2>Inventory check</h2>
+        <div>
+          <h3>✅ Present</h3>
+          <ul id="presentList" class="list"></ul>
+        </div>
+        <div>
+          <h3>❌ Missing</h3>
+          <ul id="missingList" class="list editable"></ul>
+          <p class="hint">Click an item to skip buying it.</p>
+        </div>
+        <button id="purchaseBtn">Purchase missing items via Zip</button>
+      </div>
+
+      <div id="purchaseBlock" class="block hidden">
+        <h2>Purchase results</h2>
+        <ul id="purchaseList" class="list"></ul>
+      </div>
+    </section>
+
+    <section class="log-panel">
+      <h2>Log</h2>
+      <pre id="log"></pre>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+:root {
+  --bg: #0f1115;
+  --panel: #171a21;
+  --accent: #7dd3fc;
+  --accent2: #86efac;
+  --danger: #fca5a5;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #262a33;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  padding: 20px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  main { grid-template-columns: 1fr; }
+}
+
+section {
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+video {
+  width: 100%;
+  border-radius: 8px;
+  background: #000;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.camera-controls {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toggle {
+  font-size: 0.85rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+button {
+  background: var(--accent);
+  color: #0f1115;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.talk-btn {
+  width: 100%;
+  padding: 18px;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+
+.talk-btn.recording {
+  background: var(--danger);
+}
+
+.pill {
+  background: #0f1115;
+  border: 1px solid #262a33;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  min-height: 1.2em;
+}
+
+.block {
+  margin-top: 16px;
+  border-top: 1px solid #262a33;
+  padding-top: 12px;
+}
+
+.hidden { display: none; }
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.list li {
+  background: #0f1115;
+  border: 1px solid #262a33;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+}
+
+.list.editable li {
+  cursor: pointer;
+}
+
+.list.editable li.skipped {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin: 4px 0 0;
+}
+
+#scanBtn, #purchaseBtn {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.log-panel pre {
+  white-space: pre-wrap;
+  font-size: 0.8rem;
+  color: var(--muted);
+  max-height: 70vh;
+  overflow-y: auto;
+}
