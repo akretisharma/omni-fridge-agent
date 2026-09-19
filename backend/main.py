@@ -43,8 +43,9 @@ ZIP_BASE_URL = os.getenv("ZIP_BASE_URL", "")
 ZIP_API_KEY = os.getenv("ZIP_API_KEY", "")
 PORT = int(os.getenv("PORT", "3000"))
 
-FRONTEND_DIST = Path(__file__).parent / "frontend" / "dist"
-PURCHASES_FILE = Path(__file__).parent / "data" / "purchases.json"
+BACKEND_DIR = Path(__file__).parent
+FRONTEND_DIST = BACKEND_DIR.parent / "frontend" / "dist"
+PURCHASES_FILE = BACKEND_DIR / "data" / "purchases.json"
 
 app = FastAPI(title="OMNI Fridge Agent")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -112,7 +113,7 @@ class PurchaseRequest(BaseModel):
 # Everything upstream just builds a `messages` list and calls call_omni(messages).
 async def call_omni(messages: list[dict], parse_json: bool = True) -> Any:
     if not OMNI_API_KEY or OMNI_API_KEY == "REPLACE_ME":
-        raise RuntimeError("OMNI_API_KEY is not set - copy .env.example to .env and fill it in")
+        raise RuntimeError("OMNI_API_KEY is not set - copy backend/.env.example to backend/.env and fill it in")
 
     async with httpx.AsyncClient(timeout=120) as client:
         res = await client.post(
@@ -152,7 +153,7 @@ def extract_json(text: str) -> Any:
 # see README.md for notes on that path.
 async def call_zip(item: dict) -> dict:
     if not ZIP_API_KEY or ZIP_API_KEY == "REPLACE_ME":
-        raise RuntimeError("ZIP_API_KEY is not set - copy .env.example to .env and fill it in")
+        raise RuntimeError("ZIP_API_KEY is not set - copy backend/.env.example to backend/.env and fill it in")
 
     async with httpx.AsyncClient(timeout=60) as client:
         res = await client.post(
@@ -377,7 +378,7 @@ async def purchase(body: PurchaseRequest):
 # -------------------------------------------------------------------------
 # GET /api/purchases
 # Returns: { purchases: [{id, createdAt, goal, name, quantity, unit, status, error, raw}] }
-# Newest first. Persisted to data/purchases.json so a server restart keeps them.
+# Newest first. Persisted to backend/data/purchases.json so a server restart keeps them.
 # -------------------------------------------------------------------------
 def _load_purchases() -> list[dict]:
     try:
@@ -437,4 +438,13 @@ if FRONTEND_DIST.exists():
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("main:app", host="0.0.0.0", port=PORT, reload=True)
+    # app_dir/reload_dirs make this work from any cwd and keep the reloader from
+    # watching frontend/node_modules.
+    uvicorn.run(
+        "main:app",
+        app_dir=str(BACKEND_DIR),
+        reload_dirs=[str(BACKEND_DIR)],
+        host="0.0.0.0",
+        port=PORT,
+        reload=True,
+    )

@@ -22,7 +22,7 @@ approval routing).
 Browser (mic + camera)
    │  audio / photo (base64)
    ▼
-FastAPI backend (main.py)  ── holds API keys, never exposed to browser
+FastAPI backend (backend/main.py)  ── holds API keys, never exposed to browser
    │                    │
    ▼                    ▼
 OMNI (yibuapi)       Zip REST API
@@ -44,9 +44,9 @@ Four backend endpoints do the real work (plus `GET /api/oak/stream` for the opti
 ```bash
 # backend
 python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env
-# edit .env with your real OMNI (yibuapi) key/base URL and Zip key/base URL
+pip install -r backend/requirements.txt
+cp backend/.env.example backend/.env
+# edit backend/.env with your real OMNI (yibuapi) key/base URL and Zip key/base URL
 
 # frontend (React + Vite)
 cd frontend && npm install
@@ -55,18 +55,18 @@ cd frontend && npm install
 **Development** - run both, then open http://localhost:5173 (Vite proxies `/api` to the backend):
 
 ```bash
-python main.py          # backend on :3000
+python backend/main.py  # backend on :3000 (or: cd backend && python main.py)
 cd frontend && npm run dev
 ```
 
-**Single-server build** - `cd frontend && npm run build`, then `python main.py`
+**Single-server build** - `cd frontend && npm run build`, then `python backend/main.py`
 and open http://localhost:3000 (FastAPI serves `frontend/dist`).
 
 Interactive API docs are at http://localhost:3000/docs.
 
 The app has two pages. **Live camera** is the main flow; **Zip purchases**
 lists every purchase request (status, goal, time), and you're taken there
-automatically after purchasing. Purchases are stored in `data/purchases.json`.
+automatically after purchasing. Purchases are stored in `backend/data/purchases.json`.
 
 On the Live camera page, click **Start camera and mic**. From then on:
 
@@ -87,7 +87,7 @@ On the Live camera page, click **Start camera and mic**. From then on:
 ## Luxonis OAK camera (optional)
 
 An OAK camera is not a webcam, so the browser can't open it directly. The
-backend reads it with the `depthai` library (`oak.py`) and serves it as an MJPEG
+backend reads it with the `depthai` library (`backend/oak.py`) and serves it as an MJPEG
 stream at `/api/oak/stream`; the Live camera page shows it in place of the
 computer camera and samples frames from it the same way. The mic still comes
 from the computer.
@@ -97,7 +97,7 @@ from the computer.
   is always available as a fallback). Pick the source *before* clicking Start.
 - Tested with an OAK-1 on macOS: 1280x720 @ 15 fps.
 - **USB2 is forced by default.** On this setup USB3 made the device vanish
-  after boot (`X_LINK_DEVICE_NOT_FOUND`). Set `OAK_MAX_USB=SUPER` in `.env` to
+  after boot (`X_LINK_DEVICE_NOT_FOUND`). Set `OAK_MAX_USB=SUPER` in `backend/.env` to
   try USB3 with a good cable.
 - The camera only runs while a page is viewing it; the backend releases the USB
   device ~10-15s after the page closes or you leave the Live camera tab.
@@ -120,11 +120,11 @@ from the computer.
 ## Things to verify / adjust once you have the real docs at the event
 
 The OMNI side is verified against the live API. The Zip side still rests on
-clearly-marked assumptions, so these are the assumption points in `main.py`:
+clearly-marked assumptions, so these are the assumption points in `backend/main.py`:
 
-1. **`call_omni()` in `main.py`** - verified (see above).
+1. **`call_omni()` in `backend/main.py`** - verified (see above).
 
-2. **`call_zip()` in `main.py`** — assumes a REST resource like
+2. **`call_zip()` in `backend/main.py`** — assumes a REST resource like
    `POST /v1/purchase-requests` that returns a status field. Swap in the
    real endpoint path and payload shape from Zip's REST docs / Postman
    collection for the company they provision you. If you'd rather
