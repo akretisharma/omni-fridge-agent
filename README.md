@@ -37,21 +37,38 @@ Three backend endpoints do the real work:
 | `POST /api/intent`      | mic audio (or transcript fallback)   | `{goal, ingredients:[{name,qty,unit}]}`  |
 | `POST /api/vision-check`| camera frame + ingredient list       | `{present:[...], missing:[...]}`         |
 | `POST /api/purchase`    | missing items                        | Zip purchase results per item            |
+| `GET /api/purchases`    | -                                    | stored purchase history                  |
 
 ## Setup
 
 ```bash
+# backend
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env
 # edit .env with your real OMNI (yibuapi) key/base URL and Zip key/base URL
-python main.py   # or: uvicorn main:app --reload --port 3000
-# open http://localhost:3000
+
+# frontend (React + Vite)
+cd frontend && npm install
 ```
+
+**Development** - run both, then open http://localhost:5173 (Vite proxies `/api` to the backend):
+
+```bash
+python main.py          # backend on :3000
+cd frontend && npm run dev
+```
+
+**Single-server build** - `cd frontend && npm run build`, then `python main.py`
+and open http://localhost:3000 (FastAPI serves `frontend/dist`).
 
 Interactive API docs are at http://localhost:3000/docs.
 
-Click **Start camera**, point it at the fridge/cupboard, then **hold the
+The app has two pages. **Live camera** is the main flow; **Zip purchases**
+lists every purchase request (status, goal, time), and you're taken there
+automatically after purchasing. Purchases are stored in `data/purchases.json`.
+
+On the Live camera page, click **Start camera**, point it at the fridge/cupboard, then **hold the
 "Hold to talk" button** and say something like *"I'm baking a chocolate
 cake."* Release to send. Once the ingredient list appears, click **Scan
 fridge / cupboard**, then **Purchase missing items via Zip**.
