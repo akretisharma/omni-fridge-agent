@@ -25,7 +25,7 @@ const FLIP_CONFIRMATIONS = 2; // a status must hold for this many scans before i
 
 const PHASE_LABEL = {
   idle: 'Camera off',
-  listening: 'Listening',
+  listening: 'Ready',
   hearing: 'Hearing you',
   thinking: 'Thinking',
   speaking: 'Speaking',
@@ -618,7 +618,7 @@ export default function CameraPage() {
             )}
           </AnimatePresence>
 
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
             <Field label="Camera">
               <select
                 value={source}
@@ -637,12 +637,6 @@ export default function CameraPage() {
               onChange={setLiveScan}
               label="Scan continuously"
               hint={`A frame every ${SCAN_INTERVAL_MS / 1000}s`}
-            />
-            <Switch
-              checked={handsFree}
-              onChange={setHandsFree}
-              label="Hands-free"
-              hint="Always listening"
             />
           </div>
 
