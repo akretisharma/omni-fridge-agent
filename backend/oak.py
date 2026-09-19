@@ -28,7 +28,6 @@ JPEG_QUALITY = 80
 IDLE_STOP_S = 10
 # USB2 by default: on some hosts/cables the USB3 reboot makes the device vanish
 # (X_LINK_DEVICE_NOT_FOUND). 15 fps at 720p is well within USB2. Set to SUPER for USB3.
-MAX_USB = os.getenv("OAK_MAX_USB", "HIGH")
 
 
 class OakCamera:
@@ -77,7 +76,9 @@ class OakCamera:
     def _run(self) -> None:
         device = None
         try:
-            device = dai.Device(maxUsbSpeed=getattr(dai.UsbSpeed, MAX_USB))
+            # read here, not at import, so backend/.env (loaded after this module is imported) applies
+            max_usb = os.getenv("OAK_MAX_USB", "HIGH")
+            device = dai.Device(maxUsbSpeed=getattr(dai.UsbSpeed, max_usb))
             with dai.Pipeline(device) as pipeline:
                 cam = pipeline.create(dai.node.Camera).build()
                 queue = cam.requestOutput((WIDTH, HEIGHT), dai.ImgFrame.Type.BGR888p, fps=FPS).createOutputQueue()
