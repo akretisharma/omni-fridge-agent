@@ -4,6 +4,11 @@ Speak a goal ("I'm baking a chocolate cake") → OMNI figures out what you need
 and checks a live camera feed of your fridge/cupboard against it → Zip buys
 whatever's missing, routed through real approval/budget rules.
 
+There are two modes, switched with the **Food / Hardware** toggle on the Live
+page: **Food** checks a fridge or cupboard and buys groceries; **Hardware**
+checks a workbench of electronics for a build ("I want a camera that streams
+wirelessly") and requests the parts from the MLH hackathon hardware lab.
+
 Built for Hack the North — targets the **OMNI Live** and **Zip** sponsor
 prizes at once.
 
@@ -30,15 +35,20 @@ OMNI (yibuapi)       Zip REST API
 - vision → inventory - approval/budget routing
 ```
 
-Four backend endpoints do the real work (plus `GET /api/oak/stream` for the optional OAK camera):
+These backend endpoints do the real work (plus `GET /api/oak/stream` for the optional OAK camera):
 
 | Endpoint              | Input                                | Output                                 |
 |------------------------|---------------------------------------|------------------------------------------|
 | `POST /api/intent`      | voice audio (or text) + latest frame + state | `{transcript, action, reply, goal, ingredients, items}` |
 | `POST /api/vision-check`| camera frame + ingredient list       | `{visible:[...], present:[...], missing:[...]}` |
-| `POST /api/prices`      | missing items                        | pack + price per item, and the cheaper vendor |
-| `POST /api/purchase`    | missing items                        | Zip purchase results per item            |
+| `POST /api/prices`      | missing items                        | pack + price per item, and the cheaper vendor (hardware: always $0.00) |
+| `POST /api/purchase`    | missing items                        | Zip purchase results per item; in hardware mode `{results: [], unavailable: [{name, reason}]}` if anything is out of stock |
 | `GET /api/purchases`    | -                                    | stored purchase history                  |
+| `GET /api/inventory`    | -                                    | hardware lab stock: `{items: [{name, available, source?}]}` |
+| `POST /api/inventory/reset` | -                                | restore the starting stock (between demos) |
+
+`/api/intent`, `/api/vision-check` and `/api/prices` all take a `mode` of
+`food` (default) or `hardware`; each mode has its own prompts.
 
 ## Setup
 
@@ -93,9 +103,48 @@ python backend/catalog_seed.py                   # create only the missing items
 python backend/catalog_seed.py --refresh-prices  # push edited prices to Zip
 ```
 
-The app has two pages. **Live camera** is the main flow; **Zip purchases**
-lists every purchase request (status, goal, time), and you're taken there
-automatically after purchasing. Purchases are stored in `backend/data/purchases.json`.
+## Hardware mode and the MLH inventory
+
+Hardware mode is built for a hackathon, where parts are borrowed from a lab
+rather than bought. It differs from food mode in four ways:
+
+- **Vendor.** Requests go to the `MLH` vendor in Zip (`ZIP_HARDWARE_VENDOR_NAME`,
+  default `MLH`; the vendor must exist in your Zip company).
+- **Everything is $0.00.** Hardware quotes, Zip requests and the Purchases page
+  all show $0.00, and no OMNI price estimate is made.
+- **The model picks from the lab's catalog.** The hardware prompt lists every
+  orderable part name (no stock counts), so suggestions like "Raspberry Pi 3" or
+  "Ultrasonic Distance Sensor" match the lab's real names. Names the model makes
+  up are matched to the closest catalog item where possible (`backend/inventory.py`:
+  exact name, contained name, a short alias list, then a rare-word similarity).
+- **Stock is checked at checkout, not before.** The model and the basket never
+  show stock. When you click **Order with Zip**, the whole basket is checked
+  against the lab's stock in one step:
+  - If anything is out of stock, short, or not in the catalog, **nothing is sent
+    to Zip and no stock is taken**. OMNI says what is short (e.g. "ESP32-CAM is
+    out of stock. Nothing was sent to Zip.") and you stay on the Live page to
+    skip items or change the plan.
+  - If everything is available, the stock is deducted and one Zip request per
+    part is sent. OMNI says "Success! N requests sent to Zip." If Zip rejects a
+    part, its stock is put back.
+  - Requests are held at submission, not at approval, so a pending request still
+    reserves its parts.
+
+The stock lives in `backend/data/inventory.json` (git-ignored), created from the
+committed seed `backend/inventory_seed.json` (the MLH lab list) on first use. Parts
+added to the seed later appear in an existing stock file automatically. Edit counts
+in either file, or use **Reset stock** on the Inventory page to restore the seed.
+Special-request gear (`"source": "special"`) is never orderable; makerspace items
+(`"source": "makerspace"`) are.
+
+## Pages
+
+The app has three pages. **Live camera** is the main flow. **Inventory** lists
+the hardware lab's stock (searchable, with Reset stock). **Zip purchases** lists
+every purchase request (status, goal, time), and you're taken there automatically
+after purchasing. Hardware rows show how many of that part were left after the
+order ("MLH · 5 remaining") in place of the Zip request number. Purchases are stored
+in `backend/data/purchases.json`.
 
 On the Live camera page, click **Start camera and mic**. From then on:
 
@@ -110,8 +159,12 @@ On the Live camera page, click **Start camera and mic**. From then on:
   sugar"), or answer a question about what it sees ("what's on the shelf?").
 - **Hold the "Hold to talk" button** to talk regardless of hands-free mode; it
   also interrupts OMNI mid-sentence. There is a typed-request box as a fallback.
-- Click **Purchase missing items via Zip** (or skip items first) to buy what's
-  missing, then review it on the Zip purchases page.
+- Click **Order with Zip** (or skip items first) to order what's missing, then
+  review it on the Zip purchases page. In hardware mode this is where the stock
+  check happens (see above).
+- In hardware mode, the vision check also counts retail or kit packaging: a
+  Raspberry Pi 3 box (or a CanaKit kit box) marks the Pi, and the kit's contents,
+  as present.
 
 ## Luxonis OAK camera (optional)
 

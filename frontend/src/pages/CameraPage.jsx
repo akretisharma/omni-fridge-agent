@@ -672,7 +672,6 @@ export default function CameraPage() {
               <>
                 <span className="h-2 w-2 rounded-full bg-ok" aria-hidden />
                 {sourceLabel}
-                {liveScan ? (scanning ? ', scanning' : `, scans every ${SCAN_INTERVAL_MS / 1000}s`) : ''}
               </>
             ) : (
               'Camera off'
@@ -781,12 +780,7 @@ export default function CameraPage() {
                 </option>
               </select>
             </Field>
-            <Switch
-              checked={liveScan}
-              onChange={setLiveScan}
-              label="Scan continuously"
-              hint={`A frame every ${SCAN_INTERVAL_MS / 1000}s`}
-            />
+            <Switch checked={liveScan} onChange={setLiveScan} label="Scan continuously" />
           </div>
 
           <div className="mt-8">
