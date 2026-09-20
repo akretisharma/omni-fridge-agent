@@ -192,6 +192,18 @@ class ZipClient:
                 raise RuntimeError(f"Could not activate vendor '{_name_of(match)}' ({res.status_code})")
         return match
 
+    async def resolve_vendor(self, item: dict) -> dict:
+        """The catalog already picked the cheaper vendor; honour it.
+
+        Food quotes from the seeded catalog carry the winning vendor, so the
+        request goes wherever the basket said it would. Anything without one
+        (hardware, OMNI estimates) falls back to the mode default.
+        """
+        vid = item.get("vendor_id")
+        if vid:
+            return {"id": vid, "name": item.get("vendor") or ""}
+        return await self.pick_vendor(item.get("mode") or "food")
+
     async def pick_requester_id(self) -> Optional[str]:
         email = (self.cfg["requester_email"] or "").lower()
         try:
@@ -215,7 +227,12 @@ class ZipClient:
             rate = "3.99"
         return {"product": product, "rate": rate}
 
-    async def create_request(self, item: dict) -> dict:
+    def _sourcing(self, item: dict, vendor: dict, rate: str) -> str:
+        """Where it is coming from, e.g. Walmart WMT-EGGS at $4.27."""
+        bits = " ".join(p for p in (_name_of(vendor), item.get("sku")) if p)
+        return f" {bits} at ${rate}." if bits else ""
+
+    async def create_request(self, item: dict, vendor: Optional[dict] = None) -> dict:
         workflow = await self.named_entity("/workflows", self.cfg["workflow_name"])
         workflow_id = _id_of(workflow) if workflow else None
         if not workflow_id:
@@ -224,7 +241,7 @@ class ZipClient:
                 "Open the same Zip company as this API key and check the workflow name."
             )
         mode = item.get("mode") or "food"
-        vendor = await self.pick_vendor(mode)
+        vendor = vendor or await self.resolve_vendor(item)
         subsidiary = await self.named_entity("/subsidiaries", self.cfg["subsidiary_name"])
         qty = item.get("quantity") or 1
         unit = item.get("unit") or "unit"
@@ -239,9 +256,10 @@ class ZipClient:
                 f"Typical SKU: {priced['product']} at ${priced['rate']}."
             )
         else:
+            sourcing = self._sourcing(item, vendor, priced["rate"]) or f" ${priced['rate']}."
             desc = (
                 f"OMNI Fridge Agent — missing {qty} {unit} of {name} for \"{recipe}\". "
-                f"Store pack: {priced['product']} at ${priced['rate']}."
+                f"Store pack: {priced['product']},{sourcing}"
             )
         payload = {
             "workflow_id": workflow_id,
@@ -301,10 +319,10 @@ class ZipClient:
         return raw if isinstance(raw, dict) else {"raw": raw, "po_number": po_number}
 
     async def purchase_item(self, item: dict) -> dict:
-        vendor = await self.pick_vendor(item.get("mode") or "food")
+        vendor = await self.resolve_vendor(item)
         kind = "request"
         try:
-            raw = await self.create_request(item)
+            raw = await self.create_request(item, vendor)
         except RuntimeError as err:
             msg = str(err)
             if "405" not in msg and "Method not supported" not in msg:

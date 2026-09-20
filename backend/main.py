@@ -6,7 +6,7 @@
 #
 #   POST /api/intent         voice request (+ camera frame + state) -> action + reply
 #   POST /api/vision-check   camera frame + checklist -> visible/present/missing
-#   POST /api/prices         missing items -> estimated pack/SKU + price per item
+#   POST /api/prices         missing items -> catalog (or estimated) pack + price per item
 #   POST /api/purchase       missing items -> Zip purchase requests + status
 #   GET  /api/purchases      stored purchase history for the Purchases page
 #   GET  /api/oak/stream     Luxonis OAK camera as MJPEG (optional, needs depthai)
@@ -20,6 +20,7 @@ import os
 import re
 import time
 import uuid
+from difflib import get_close_matches
 from pathlib import Path
 from typing import Any, Literal, Optional
 
@@ -34,6 +35,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from pydantic import BaseModel
 
 from oak import oak
+from catalog import catalog, normalize
 from zip_client import call_zip
 
 
@@ -49,6 +51,7 @@ PORT = int(os.getenv("PORT", "3000"))
 
 FRONTEND_DIST = BACKEND_DIR.parent / "frontend" / "dist"
 PURCHASES_FILE = BACKEND_DIR / "data" / "purchases.json"
+ESTIMATES_FILE = BACKEND_DIR / "data" / "estimates.json"
 
 app = FastAPI(title="OMNI Fridge Agent")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -110,6 +113,14 @@ class PriceRequest(BaseModel):
 class PriceQuote(BaseModel):
     product: Optional[str] = None
     rate: Optional[str] = None
+    # Set when the quote came from the seeded grocery catalog rather than an
+    # OMNI guess. They ride back in on /api/purchase so the request goes to the
+    # vendor the user was shown.
+    vendor: Optional[str] = None
+    vendor_id: Optional[str] = None
+    vendor_item_id: Optional[str] = None
+    sku: Optional[str] = None
+    source: Optional[str] = None  # "catalog" | "estimate"
 
 
 class PurchaseRequest(BaseModel):
@@ -226,13 +237,89 @@ async def guess_prices(items: list, goal: Optional[str], mode: str = "food") -> 
         out[str(row["name"]).strip().lower()] = {
             "product": str(row.get("product") or row["name"]).strip(),
             "rate": rate,
+            "source": "estimate",
         }
     return out
 
 
-# guess_prices keys by lowercased name; the frontend holds the exact names.
-def by_item_name(items: list, prices: dict[str, dict]) -> dict[str, dict]:
-    return {i.name: prices[key] for i in items if (key := (i.name or "").strip().lower()) in prices}
+# guess_prices keys rows by the name OMNI echoed back, which is usually but not
+# always the name we sent. Re-key them onto the names the frontend is holding,
+# giving up only when OMNI returned fewer rows than we asked about.
+def by_item_name(items: list, rows: dict[str, dict]) -> dict[str, dict]:
+    out: dict[str, dict] = {}
+    left = dict(rows)
+    renamed: list = []
+    for item in items:
+        name = (item.name or "").strip()
+        key = next((k for k in (name.lower(), normalize(name)) if k in left), None)
+        if key is None:
+            wanted = normalize(name)
+            key = next((k for k in left if normalize(k) == wanted), None)
+        if key is None:
+            close = get_close_matches(normalize(name), [normalize(k) for k in left], n=1, cutoff=0.8)
+            key = next((k for k in left if normalize(k) == close[0]), None) if close else None
+        if key is None:
+            renamed.append(item)
+        else:
+            out[item.name] = left.pop(key)
+    # OMNI answered but named these something else entirely. It replies in the
+    # order it was asked, so pair the leftovers up rather than lose the price.
+    if renamed and len(renamed) == len(left):
+        for item, row in zip(renamed, left.values()):
+            out[item.name] = row
+    return out
+
+
+# A catalog price is fixed, but an OMNI estimate is a fresh guess every time it
+# is asked for, so the same item could be shown at one price in the basket and
+# ordered at another. The first estimate for a name is kept and reused from then
+# on. Delete backend/data/estimates.json to re-quote everything.
+def _load_estimates() -> dict[str, dict]:
+    try:
+        return json.loads(ESTIMATES_FILE.read_text())
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+
+def _save_estimates(pinned: dict[str, dict]) -> None:
+    ESTIMATES_FILE.parent.mkdir(exist_ok=True)
+    ESTIMATES_FILE.write_text(json.dumps(pinned, indent=2, sort_keys=True))
+
+
+# Keyed on the normalized name so "2 eggs" and "Eggs" share one pinned price,
+# and on the mode because a name can mean different things in each.
+def _pin_key(name: str, mode: str) -> str:
+    return f"{mode}:{normalize(name)}"
+
+
+async def quote_items(items: list, goal: Optional[str], mode: str) -> dict[str, dict]:
+    """Prices for a basket, keyed by item name: catalog first, OMNI for the rest.
+
+    Only food has a catalog. Anything it does not stock — and every hardware
+    part — falls through to an OMNI estimate, so a basket is never left unpriced
+    just because it contains something unusual.
+    """
+    quotes: dict[str, dict] = {}
+    misses: list = []
+    pinned = _load_estimates()
+    for item in items:
+        hit = (catalog.quote(item.name) if mode == "food" else None) or pinned.get(_pin_key(item.name, mode))
+        if hit:
+            quotes[item.name] = hit
+        else:
+            misses.append(item)
+    if misses:
+        fresh = by_item_name(misses, await guess_prices(misses, goal, mode))
+        # OMNI sometimes answers about only part of a long list. Asking again
+        # for just the stragglers is short enough that it comes back complete.
+        stragglers = [i for i in misses if i.name not in fresh]
+        if stragglers:
+            fresh.update(by_item_name(stragglers, await guess_prices(stragglers, goal, mode)))
+        if fresh:
+            pinned.update({_pin_key(name, mode): quote for name, quote in fresh.items()})
+            _save_estimates(pinned)
+        quotes.update(fresh)
+    return quotes
 
 
 # Zip lives in zip_client.py: POST /requests on HTN staging so they show
@@ -474,16 +561,19 @@ async def _omni_or_500(messages: list[dict]) -> Any:
 # -------------------------------------------------------------------------
 # POST /api/prices
 # Body: { items: [{name, quantity, unit}], goal?: str, mode?: str }
-# Returns: { prices: { "<item name>": {product, rate} } }
-# Lets the UI show what each missing item will cost before ordering. Items OMNI
-# cannot price are simply absent from the map.
+# Returns: { prices: { "<item name>": {product, rate, vendor?, sku?, source} } }
+# Lets the UI show what each missing item will cost before ordering. Items that
+# cannot be priced at all are simply absent from the map.
+#
+# Food prices from the seeded grocery catalog first (a real pack at a real
+# price, from whichever of the four vendors is cheapest) and only asks OMNI
+# about names the catalog has never heard of. Hardware is all OMNI estimates.
 # -------------------------------------------------------------------------
 @app.post("/api/prices")
 async def prices(body: PriceRequest):
     if not body.items:
         return {"prices": {}}
-    quotes = await guess_prices(body.items, body.goal, body.mode)
-    return {"prices": by_item_name(body.items, quotes)}
+    return {"prices": await quote_items(body.items, body.goal, body.mode)}
 
 
 # -------------------------------------------------------------------------
@@ -502,7 +592,10 @@ async def purchase(body: PurchaseRequest):
         if (q := quote.model_dump(exclude_none=True))
     }
     unquoted = [i for i in body.items if (i.name or "").strip().lower() not in quoted]
-    prices = {**(await guess_prices(unquoted, body.goal, body.mode) if unquoted else {}), **quoted}
+    # Anything the client did not already have a quote for gets priced the same
+    # way /api/prices would have done it.
+    fresh = await quote_items(unquoted, body.goal, body.mode) if unquoted else {}
+    prices = {**{(name or "").strip().lower(): q for name, q in fresh.items()}, **quoted}
     results = []
     for item in body.items:
         try:

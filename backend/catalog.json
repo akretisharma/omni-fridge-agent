@@ -1,0 +1,4876 @@
+{
+  "almonds": {
+    "aliases": [
+      "raw almonds"
+    ],
+    "offers": [
+      {
+        "rate": "8.27",
+        "sku": "WMT-ALMONDS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadd5-a364-8300-ba20-1e8d89cb089f"
+      },
+      {
+        "rate": "8.47",
+        "sku": "LOB-ALMONDS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadd4-8856-8c00-ba20-1e8d88c4060e"
+      },
+      {
+        "rate": "8.79",
+        "sku": "CST-ALMONDS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadd6-218a-8c80-ba20-1e8d889649ec"
+      },
+      {
+        "rate": "9.63",
+        "sku": "MET-ALMONDS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadd4-f2b8-8600-ba20-1e8d89d7a6db"
+      }
+    ],
+    "pack": "Whole almonds, 400 g",
+    "product_id": "10ccadd3-d18e-8100-93e0-1e8d885cb51b",
+    "unit": "cups"
+  },
+  "apples": {
+    "aliases": [
+      "apple",
+      "gala apples"
+    ],
+    "offers": [
+      {
+        "rate": "5.44",
+        "sku": "CST-APPLES",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae62-e6b7-8080-ba20-1e8d89422076"
+      },
+      {
+        "rate": "5.82",
+        "sku": "MET-APPLES",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae61-fb7c-8b80-ba20-1e8d88d71b48"
+      },
+      {
+        "rate": "6.19",
+        "sku": "LOB-APPLES",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae61-7a9d-8b00-ba20-1e8d8a87f60a"
+      },
+      {
+        "rate": "6.38",
+        "sku": "WMT-APPLES",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae62-7c2a-8380-ba20-1e8d89025d4f"
+      }
+    ],
+    "pack": "Gala apples, 3 lb bag",
+    "product_id": "10ccae60-8635-8000-93e0-1e8d8b5b11d8",
+    "unit": "whole"
+  },
+  "avocados": {
+    "aliases": [
+      "avocado"
+    ],
+    "offers": [
+      {
+        "rate": "5.99",
+        "sku": "CST-AVOCADOS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae5d-ae62-8900-ba20-1e8d891d4d68"
+      },
+      {
+        "rate": "6.18",
+        "sku": "WMT-AVOCADOS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae5c-fcc0-8800-ba20-1e8d8b2d57ff"
+      },
+      {
+        "rate": "6.35",
+        "sku": "LOB-AVOCADOS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae5b-c310-8f80-ba20-1e8d89d3baf4"
+      },
+      {
+        "rate": "6.62",
+        "sku": "MET-AVOCADOS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae5c-5d62-8780-ba20-1e8d8b429dc5"
+      }
+    ],
+    "pack": "Avocados, 4 pack",
+    "product_id": "10ccae5a-d584-8900-93e0-1e8d8a7a6170",
+    "unit": "whole"
+  },
+  "bacon": {
+    "aliases": [
+      "streaky bacon",
+      "back bacon"
+    ],
+    "offers": [
+      {
+        "rate": "7.50",
+        "sku": "CST-BACON",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadaa-6b88-8780-ba20-1e8d8a7fa678"
+      },
+      {
+        "rate": "8.33",
+        "sku": "LOB-BACON",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca5b5-d513-8900-ba20-1e8d88fb98f3"
+      },
+      {
+        "rate": "8.46",
+        "sku": "WMT-BACON",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca5b6-5640-8280-ba20-1e8d8a89cab8"
+      },
+      {
+        "rate": "9.24",
+        "sku": "MET-BACON",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccada9-c3bb-8a00-ba20-1e8d8a4445f4"
+      }
+    ],
+    "pack": "Sliced bacon, 375 g",
+    "product_id": "10cca5b4-b8ff-8f80-93e0-1e8d8b3b8eae",
+    "unit": "slices"
+  },
+  "bagels": {
+    "aliases": [
+      "bagel"
+    ],
+    "offers": [
+      {
+        "rate": "4.18",
+        "sku": "MET-BAGELS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadba-dd23-8400-ba20-1e8d89368ba7"
+      },
+      {
+        "rate": "4.31",
+        "sku": "CST-BAGELS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadbc-15f1-8480-ba20-1e8d8b0afc16"
+      },
+      {
+        "rate": "4.41",
+        "sku": "WMT-BAGELS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadbb-781d-8780-ba20-1e8d88984197"
+      },
+      {
+        "rate": "4.84",
+        "sku": "LOB-BAGELS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadba-48df-8b00-ba20-1e8d89245002"
+      }
+    ],
+    "pack": "Plain bagels, 6 pack",
+    "product_id": "10ccadb9-4f64-8b00-93e0-1e8d8ba62b55",
+    "unit": "whole"
+  },
+  "baking powder": {
+    "aliases": [],
+    "offers": [
+      {
+        "rate": "3.62",
+        "sku": "CST-BAKING-POWDER",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad75-7f84-8900-ba20-1e8d8b27d3fc"
+      },
+      {
+        "rate": "3.70",
+        "sku": "WMT-BAKING-POWDER",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca586-3f4c-8b80-ba20-1e8d88b33b6e"
+      },
+      {
+        "rate": "3.90",
+        "sku": "LOB-BAKING-POWDER",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca585-c86f-8000-ba20-1e8d8bae3c3b"
+      },
+      {
+        "rate": "3.97",
+        "sku": "MET-BAKING-POWDER",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad74-fc0c-8e00-ba20-1e8d89ceb524"
+      }
+    ],
+    "pack": "Baking powder, 225 g",
+    "product_id": "10cca584-d837-8780-93e0-1e8d893702fb",
+    "unit": "tsp"
+  },
+  "baking soda": {
+    "aliases": [
+      "bicarbonate of soda"
+    ],
+    "offers": [
+      {
+        "rate": "2.22",
+        "sku": "WMT-BAKING-SODA",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca58a-04ba-8780-ba20-1e8d8aae0806"
+      },
+      {
+        "rate": "2.47",
+        "sku": "CST-BAKING-SODA",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad76-b785-8a80-ba20-1e8d89959480"
+      },
+      {
+        "rate": "2.52",
+        "sku": "MET-BAKING-SODA",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad76-2372-8a00-ba20-1e8d89c13d5d"
+      },
+      {
+        "rate": "2.61",
+        "sku": "LOB-BAKING-SODA",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca588-a70e-8780-ba20-1e8d8b34f43a"
+      }
+    ],
+    "pack": "Baking soda, 500 g",
+    "product_id": "10cca586-d057-8180-93e0-1e8d8a72be9b",
+    "unit": "tsp"
+  },
+  "bananas": {
+    "aliases": [
+      "banana"
+    ],
+    "offers": [
+      {
+        "rate": "2.38",
+        "sku": "WMT-BANANAS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae65-7e06-8280-ba20-1e8d88c72456"
+      },
+      {
+        "rate": "2.39",
+        "sku": "CST-BANANAS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae68-5c7c-8300-ba20-1e8d899a0fd3"
+      },
+      {
+        "rate": "2.52",
+        "sku": "MET-BANANAS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae64-f0fa-8600-ba20-1e8d88cd710f"
+      },
+      {
+        "rate": "2.57",
+        "sku": "LOB-BANANAS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae64-353d-8180-ba20-1e8d8b46ed08"
+      }
+    ],
+    "pack": "Bananas, 1 bunch",
+    "product_id": "10ccae63-58d3-8c80-93e0-1e8d8b69d836",
+    "unit": "whole"
+  },
+  "basil": {
+    "aliases": [
+      "fresh basil"
+    ],
+    "offers": [
+      {
+        "rate": "3.46",
+        "sku": "CST-BASIL",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae78-6172-8500-ba20-1e8d8ac180c9"
+      },
+      {
+        "rate": "3.80",
+        "sku": "WMT-BASIL",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae77-eb4c-8c80-ba20-1e8d8a6fd06a"
+      },
+      {
+        "rate": "4.21",
+        "sku": "LOB-BASIL",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae76-eb5a-8500-ba20-1e8d8b13def1"
+      },
+      {
+        "rate": "4.37",
+        "sku": "MET-BASIL",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae77-679c-8580-ba20-1e8d8b4e7eb8"
+      }
+    ],
+    "pack": "Fresh basil, 1 pack",
+    "product_id": "10ccae76-4bb3-8f00-93e0-1e8d88eb7612",
+    "unit": "leaves"
+  },
+  "beer": {
+    "aliases": [
+      "lager",
+      "pale ale"
+    ],
+    "offers": [
+      {
+        "rate": "13.42",
+        "sku": "CST-BEER",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccaeb0-48fa-8800-ba20-1e8d89ae01a1"
+      },
+      {
+        "rate": "13.53",
+        "sku": "WMT-BEER",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccaeaf-ad32-8680-ba20-1e8d8a5ab149"
+      },
+      {
+        "rate": "14.32",
+        "sku": "MET-BEER",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccaeaf-386c-8c80-ba20-1e8d8b865982"
+      },
+      {
+        "rate": "14.99",
+        "sku": "LOB-BEER",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccaeae-a82c-8c80-ba20-1e8d8a06d0f0"
+      }
+    ],
+    "pack": "Lager, 6 x 355 ml",
+    "product_id": "10ccaead-dbd8-8e80-93e0-1e8d8bd02c1b",
+    "unit": "cans"
+  },
+  "bell peppers": {
+    "aliases": [
+      "red pepper",
+      "green pepper",
+      "sweet pepper",
+      "bell pepper"
+    ],
+    "offers": [
+      {
+        "rate": "5.63",
+        "sku": "WMT-BELL-PEPPERS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae50-a649-8980-ba20-1e8d8b8ee863"
+      },
+      {
+        "rate": "5.95",
+        "sku": "CST-BELL-PEPPERS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae51-3f0c-8000-ba20-1e8d89a80d59"
+      },
+      {
+        "rate": "6.20",
+        "sku": "MET-BELL-PEPPERS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae50-263c-8d80-ba20-1e8d8bdf9e23"
+      },
+      {
+        "rate": "6.31",
+        "sku": "LOB-BELL-PEPPERS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae4f-b1fa-8580-ba20-1e8d88fa0e2a"
+      }
+    ],
+    "pack": "Bell peppers, 3 pack",
+    "product_id": "10ccae4e-b492-8780-93e0-1e8d89ee6da7",
+    "unit": "whole"
+  },
+  "bitters": {
+    "aliases": [
+      "angostura bitters"
+    ],
+    "offers": [
+      {
+        "rate": "10.80",
+        "sku": "CST-BITTERS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccaead-77ad-8f80-ba20-1e8d8be140ef"
+      },
+      {
+        "rate": "12.44",
+        "sku": "WMT-BITTERS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccaead-0b6f-8b00-ba20-1e8d8ab73b6a"
+      },
+      {
+        "rate": "12.54",
+        "sku": "MET-BITTERS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccaeac-91b6-8f00-ba20-1e8d8aaaff3d"
+      },
+      {
+        "rate": "12.82",
+        "sku": "LOB-BITTERS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccaeac-0879-8a80-ba20-1e8d8a8e225f"
+      }
+    ],
+    "pack": "Aromatic bitters, 200 ml",
+    "product_id": "10ccaeab-350d-8600-93e0-1e8d8ac5a01f",
+    "unit": "dashes"
+  },
+  "black beans": {
+    "aliases": [
+      "canned black beans"
+    ],
+    "offers": [
+      {
+        "rate": "1.93",
+        "sku": "CST-BLACK-BEANS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccade6-60d5-8800-ba20-1e8d8964700d"
+      },
+      {
+        "rate": "2.09",
+        "sku": "WMT-BLACK-BEANS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccade5-c76f-8100-ba20-1e8d89216739"
+      },
+      {
+        "rate": "2.30",
+        "sku": "MET-BLACK-BEANS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccade5-2e65-8880-ba20-1e8d8a9809bd"
+      },
+      {
+        "rate": "2.46",
+        "sku": "LOB-BLACK-BEANS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccade4-b5e2-8780-ba20-1e8d8bee16b8"
+      }
+    ],
+    "pack": "Black beans, 540 ml can",
+    "product_id": "10ccade3-adc8-8f80-93e0-1e8d89f5dd73",
+    "unit": "cans"
+  },
+  "black pepper": {
+    "aliases": [
+      "pepper",
+      "peppercorns",
+      "ground pepper"
+    ],
+    "offers": [
+      {
+        "rate": "4.90",
+        "sku": "CST-BLACK-PEPPER",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae28-d441-8d80-ba20-1e8d8becd69b"
+      },
+      {
+        "rate": "5.03",
+        "sku": "MET-BLACK-PEPPER",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae27-fafc-8d00-ba20-1e8d8a2d18a4"
+      },
+      {
+        "rate": "5.05",
+        "sku": "WMT-BLACK-PEPPER",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae28-6aec-8a80-ba20-1e8d8bbe7da7"
+      },
+      {
+        "rate": "5.17",
+        "sku": "LOB-BLACK-PEPPER",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae27-7d0b-8d00-ba20-1e8d8a778260"
+      }
+    ],
+    "pack": "Ground black pepper, 100 g",
+    "product_id": "10ccae26-be0c-8400-93e0-1e8d89bbd750",
+    "unit": "tsp"
+  },
+  "blueberries": {
+    "aliases": [
+      "blueberry",
+      "fresh blueberries"
+    ],
+    "offers": [
+      {
+        "rate": "5.10",
+        "sku": "MET-BLUEBERRIES",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae72-2b2a-8080-ba20-1e8d89bc4487"
+      },
+      {
+        "rate": "5.22",
+        "sku": "WMT-BLUEBERRIES",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae72-d730-8280-ba20-1e8d8bcf3e8d"
+      },
+      {
+        "rate": "5.24",
+        "sku": "CST-BLUEBERRIES",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae73-4b4a-8380-ba20-1e8d8a2107b7"
+      },
+      {
+        "rate": "5.64",
+        "sku": "LOB-BLUEBERRIES",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae71-c24a-8000-ba20-1e8d8b1399e5"
+      }
+    ],
+    "pack": "Blueberries, 340 g",
+    "product_id": "10ccae6f-fb82-8b80-93e0-1e8d8b69b04f",
+    "unit": "cups"
+  },
+  "bread": {
+    "aliases": [
+      "sandwich bread",
+      "white bread",
+      "loaf"
+    ],
+    "offers": [
+      {
+        "rate": "3.62",
+        "sku": "LOB-BREAD",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca5b7-c399-8880-ba20-1e8d8a83a42b"
+      },
+      {
+        "rate": "3.69",
+        "sku": "WMT-BREAD",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca5b8-37e3-8e00-ba20-1e8d8a0e6d11"
+      },
+      {
+        "rate": "3.87",
+        "sku": "CST-BREAD",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadb5-a33f-8180-ba20-1e8d882c4183"
+      },
+      {
+        "rate": "4.13",
+        "sku": "MET-BREAD",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadb4-dda2-8c80-ba20-1e8d8abe0f5f"
+      }
+    ],
+    "pack": "White sandwich bread, 675 g",
+    "product_id": "10cca5b7-2ca7-8180-93e0-1e8d8a43c6ba",
+    "unit": "slices"
+  },
+  "broccoli": {
+    "aliases": [
+      "broccoli crown"
+    ],
+    "offers": [
+      {
+        "rate": "3.01",
+        "sku": "CST-BROCCOLI",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae5a-5021-8080-ba20-1e8d89e2abbd"
+      },
+      {
+        "rate": "3.35",
+        "sku": "WMT-BROCCOLI",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae59-75da-8600-ba20-1e8d8937b103"
+      },
+      {
+        "rate": "3.54",
+        "sku": "LOB-BROCCOLI",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae58-7d52-8a00-ba20-1e8d8b56ea67"
+      },
+      {
+        "rate": "3.60",
+        "sku": "MET-BROCCOLI",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae58-ed78-8100-ba20-1e8d88c223c3"
+      }
+    ],
+    "pack": "Broccoli crown, 1 head",
+    "product_id": "10ccae57-a159-8980-93e0-1e8d8b5b0bf9",
+    "unit": "cups"
+  },
+  "brown sugar": {
+    "aliases": [
+      "light brown sugar",
+      "dark brown sugar"
+    ],
+    "offers": [
+      {
+        "rate": "3.70",
+        "sku": "MET-BROWN-SUGAR",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad70-06db-8a80-ba20-1e8d89f92f5b"
+      },
+      {
+        "rate": "3.78",
+        "sku": "WMT-BROWN-SUGAR",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca584-2545-8580-ba20-1e8d8a1ca465"
+      },
+      {
+        "rate": "3.80",
+        "sku": "CST-BROWN-SUGAR",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad70-b934-8f00-ba20-1e8d898297fd"
+      },
+      {
+        "rate": "4.16",
+        "sku": "LOB-BROWN-SUGAR",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca583-acc9-8d80-ba20-1e8d8b94a15d"
+      }
+    ],
+    "pack": "Golden brown sugar, 1 kg",
+    "product_id": "10cca582-a5ea-8d80-93e0-1e8d8891857d",
+    "unit": "cups"
+  },
+  "butter": {
+    "aliases": [
+      "salted butter",
+      "unsalted butter"
+    ],
+    "offers": [
+      {
+        "rate": "6.28",
+        "sku": "CST-BUTTER",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad8a-0a1c-8f00-ba20-1e8d8976a006"
+      },
+      {
+        "rate": "6.88",
+        "sku": "LOB-BUTTER",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca57e-e2ed-8b00-ba20-1e8d8a2349b1"
+      },
+      {
+        "rate": "6.94",
+        "sku": "WMT-BUTTER",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca57f-77f2-8200-ba20-1e8d884533a1"
+      },
+      {
+        "rate": "6.95",
+        "sku": "MET-BUTTER",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad89-a685-8b00-ba20-1e8d89afafcd"
+      }
+    ],
+    "pack": "Salted butter, 454 g",
+    "product_id": "10cca57d-18c0-8f00-93e0-1e8d88ed9d46",
+    "unit": "tbsp"
+  },
+  "canned tomatoes": {
+    "aliases": [
+      "diced tomatoes",
+      "crushed tomatoes",
+      "canned tomato"
+    ],
+    "offers": [
+      {
+        "rate": "2.30",
+        "sku": "CST-CANNED-TOMATOES",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccaddc-4980-8700-ba20-1e8d8a969e5d"
+      },
+      {
+        "rate": "2.41",
+        "sku": "WMT-CANNED-TOMATOES",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccaddb-c44c-8300-ba20-1e8d8bae41e6"
+      },
+      {
+        "rate": "2.55",
+        "sku": "MET-CANNED-TOMATOES",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccaddb-3c46-8380-ba20-1e8d894afe9a"
+      },
+      {
+        "rate": "2.60",
+        "sku": "LOB-CANNED-TOMATOES",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadda-8606-8b80-ba20-1e8d8a39792d"
+      }
+    ],
+    "pack": "Diced tomatoes, 796 ml can",
+    "product_id": "10ccadd9-d013-8300-93e0-1e8d8925cd88",
+    "unit": "cans"
+  },
+  "carrots": {
+    "aliases": [
+      "carrot",
+      "baby carrots"
+    ],
+    "offers": [
+      {
+        "rate": "3.10",
+        "sku": "CST-CARROTS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae4b-63c4-8d00-ba20-1e8d8be84323"
+      },
+      {
+        "rate": "3.29",
+        "sku": "MET-CARROTS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae4a-6e46-8500-ba20-1e8d8b232ef0"
+      },
+      {
+        "rate": "3.45",
+        "sku": "WMT-CARROTS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae4a-e19a-8900-ba20-1e8d8a0ae891"
+      },
+      {
+        "rate": "3.47",
+        "sku": "LOB-CARROTS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae49-b53a-8900-ba20-1e8d8b518ec8"
+      }
+    ],
+    "pack": "Carrots, 2 lb bag",
+    "product_id": "10ccae48-ff11-8900-93e0-1e8d8aa1cb43",
+    "unit": "whole"
+  },
+  "celery": {
+    "aliases": [
+      "celery stalks"
+    ],
+    "offers": [
+      {
+        "rate": "4.00",
+        "sku": "CST-CELERY",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae4e-2d71-8f80-ba20-1e8d8b7528a1"
+      },
+      {
+        "rate": "4.03",
+        "sku": "WMT-CELERY",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae4d-b174-8f00-ba20-1e8d8bece511"
+      },
+      {
+        "rate": "4.08",
+        "sku": "LOB-CELERY",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae4c-bbd9-8000-ba20-1e8d89b9cfa9"
+      },
+      {
+        "rate": "4.35",
+        "sku": "MET-CELERY",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae4d-21dd-8380-ba20-1e8d89d3f12b"
+      }
+    ],
+    "pack": "Celery, 1 bunch",
+    "product_id": "10ccae4b-e784-8f80-93e0-1e8d89191831",
+    "unit": "stalks"
+  },
+  "cereal": {
+    "aliases": [
+      "corn flakes",
+      "breakfast cereal"
+    ],
+    "offers": [
+      {
+        "rate": "5.59",
+        "sku": "WMT-CEREAL",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadd2-7999-8700-ba20-1e8d88b19276"
+      },
+      {
+        "rate": "5.74",
+        "sku": "LOB-CEREAL",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadd1-7bfe-8880-ba20-1e8d8b1b3208"
+      },
+      {
+        "rate": "5.96",
+        "sku": "CST-CEREAL",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadd3-4194-8080-ba20-1e8d8bae495b"
+      },
+      {
+        "rate": "6.87",
+        "sku": "MET-CEREAL",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadd2-036a-8580-ba20-1e8d8bc736e1"
+      }
+    ],
+    "pack": "Breakfast cereal, 525 g",
+    "product_id": "10ccadd0-8771-8380-93e0-1e8d8aafc26d",
+    "unit": "cups"
+  },
+  "cheddar cheese": {
+    "aliases": [
+      "cheese",
+      "shredded cheese",
+      "cheddar",
+      "grated cheese"
+    ],
+    "offers": [
+      {
+        "rate": "6.56",
+        "sku": "CST-CHEDDAR-CHEESE",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad96-aea9-8c00-ba20-1e8d8a17b732"
+      },
+      {
+        "rate": "6.78",
+        "sku": "WMT-CHEDDAR-CHEESE",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca59d-a57e-8d00-ba20-1e8d8b04c955"
+      },
+      {
+        "rate": "6.90",
+        "sku": "MET-CHEDDAR-CHEESE",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad95-e91b-8600-ba20-1e8d8bc4e167"
+      },
+      {
+        "rate": "8.00",
+        "sku": "LOB-CHEDDAR-CHEESE",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca59d-197f-8480-ba20-1e8d8a9220cc"
+      }
+    ],
+    "pack": "Shredded cheddar cheese, 320 g",
+    "product_id": "10cca59c-5a5f-8f80-93e0-1e8d88498855",
+    "unit": "cups"
+  },
+  "chicken breast": {
+    "aliases": [
+      "chicken",
+      "chicken breasts",
+      "boneless chicken"
+    ],
+    "offers": [
+      {
+        "rate": "14.84",
+        "sku": "CST-CHICKEN-BREAST",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccada5-40af-8280-ba20-1e8d89f03326"
+      },
+      {
+        "rate": "15.55",
+        "sku": "LOB-CHICKEN-BREAST",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccada3-9f6b-8800-ba20-1e8d88556853"
+      },
+      {
+        "rate": "15.64",
+        "sku": "WMT-CHICKEN-BREAST",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccada4-b701-8a00-ba20-1e8d88a1c19d"
+      },
+      {
+        "rate": "15.91",
+        "sku": "MET-CHICKEN-BREAST",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccada4-21fc-8580-ba20-1e8d8b216d04"
+      }
+    ],
+    "pack": "Boneless chicken breast, 1 kg",
+    "product_id": "10ccada2-8b56-8880-93e0-1e8d88c03529",
+    "unit": "lb"
+  },
+  "chicken broth": {
+    "aliases": [
+      "chicken stock",
+      "broth",
+      "stock"
+    ],
+    "offers": [
+      {
+        "rate": "3.09",
+        "sku": "WMT-CHICKEN-BROTH",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadeb-8e17-8600-ba20-1e8d89ef26a4"
+      },
+      {
+        "rate": "3.43",
+        "sku": "CST-CHICKEN-BROTH",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadeb-f70f-8300-ba20-1e8d891f9b59"
+      },
+      {
+        "rate": "3.50",
+        "sku": "LOB-CHICKEN-BROTH",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadea-9dde-8780-ba20-1e8d8ab0d06b"
+      },
+      {
+        "rate": "3.78",
+        "sku": "MET-CHICKEN-BROTH",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadeb-199f-8280-ba20-1e8d880b920f"
+      }
+    ],
+    "pack": "Chicken broth, 900 ml",
+    "product_id": "10ccade9-d031-8100-93e0-1e8d8bc03ea6",
+    "unit": "cups"
+  },
+  "chickpeas": {
+    "aliases": [
+      "garbanzo beans"
+    ],
+    "offers": [
+      {
+        "rate": "1.99",
+        "sku": "CST-CHICKPEAS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccade9-4e1e-8600-ba20-1e8d8b1cd75d"
+      },
+      {
+        "rate": "2.18",
+        "sku": "LOB-CHICKPEAS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccade7-9ddf-8b00-ba20-1e8d8a0694ca"
+      },
+      {
+        "rate": "2.26",
+        "sku": "WMT-CHICKPEAS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccade8-da99-8680-ba20-1e8d8ac912ef"
+      },
+      {
+        "rate": "2.45",
+        "sku": "MET-CHICKPEAS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccade8-1978-8300-ba20-1e8d8b6da52d"
+      }
+    ],
+    "pack": "Chickpeas, 540 ml can",
+    "product_id": "10ccade6-eb2b-8600-93e0-1e8d8a373805",
+    "unit": "cans"
+  },
+  "chili powder": {
+    "aliases": [
+      "chilli powder"
+    ],
+    "offers": [
+      {
+        "rate": "3.89",
+        "sku": "CST-CHILI-POWDER",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae30-ec60-8a00-ba20-1e8d8a19e583"
+      },
+      {
+        "rate": "4.13",
+        "sku": "MET-CHILI-POWDER",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae2f-c769-8500-ba20-1e8d8994927e"
+      },
+      {
+        "rate": "4.22",
+        "sku": "WMT-CHILI-POWDER",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae30-4eab-8480-ba20-1e8d88224483"
+      },
+      {
+        "rate": "4.26",
+        "sku": "LOB-CHILI-POWDER",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae2f-3f62-8500-ba20-1e8d8b43de9e"
+      }
+    ],
+    "pack": "Chili powder, 90 g",
+    "product_id": "10ccae2e-39fb-8300-93e0-1e8d8996fabf",
+    "unit": "tsp"
+  },
+  "cilantro": {
+    "aliases": [
+      "coriander",
+      "fresh cilantro"
+    ],
+    "offers": [
+      {
+        "rate": "2.12",
+        "sku": "WMT-CILANTRO",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae75-83d0-8880-ba20-1e8d8a144de0"
+      },
+      {
+        "rate": "2.25",
+        "sku": "LOB-CILANTRO",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae74-887d-8280-ba20-1e8d8aaa366e"
+      },
+      {
+        "rate": "2.27",
+        "sku": "MET-CILANTRO",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae75-0c5d-8880-ba20-1e8d883f0be0"
+      },
+      {
+        "rate": "2.52",
+        "sku": "CST-CILANTRO",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae75-ef25-8d00-ba20-1e8d8858bbcd"
+      }
+    ],
+    "pack": "Fresh cilantro, 1 bunch",
+    "product_id": "10ccae73-b566-8400-93e0-1e8d8bb108de",
+    "unit": "cups"
+  },
+  "cinnamon": {
+    "aliases": [
+      "ground cinnamon"
+    ],
+    "offers": [
+      {
+        "rate": "3.95",
+        "sku": "CST-CINNAMON",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae2b-5c54-8280-ba20-1e8d8a2958dd"
+      },
+      {
+        "rate": "4.09",
+        "sku": "LOB-CINNAMON",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae29-cfc1-8680-ba20-1e8d89697a2d"
+      },
+      {
+        "rate": "4.20",
+        "sku": "WMT-CINNAMON",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae2a-e76d-8200-ba20-1e8d8ad8410a"
+      },
+      {
+        "rate": "4.24",
+        "sku": "MET-CINNAMON",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae2a-6a2e-8080-ba20-1e8d8b1c8c20"
+      }
+    ],
+    "pack": "Ground cinnamon, 95 g",
+    "product_id": "10ccae29-2dd5-8680-93e0-1e8d883cdb44",
+    "unit": "tsp"
+  },
+  "coca-cola": {
+    "aliases": [
+      "coke",
+      "cola",
+      "coca cola",
+      "soda"
+    ],
+    "offers": [
+      {
+        "rate": "9.05",
+        "sku": "WMT-COCA-COLA",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca5af-7fa5-8100-ba20-1e8d8bb03716"
+      },
+      {
+        "rate": "9.45",
+        "sku": "MET-COCA-COLA",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae8b-33c1-8c00-ba20-1e8d8838815f"
+      },
+      {
+        "rate": "9.94",
+        "sku": "CST-COCA-COLA",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae8b-fcef-8200-ba20-1e8d8ab92139"
+      },
+      {
+        "rate": "10.47",
+        "sku": "LOB-COCA-COLA",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca5af-0144-8980-ba20-1e8d8b8cfee5"
+      }
+    ],
+    "pack": "Coca-Cola, 12 x 355 ml cans",
+    "product_id": "10cca5ae-322e-8400-93e0-1e8d8b176ac2",
+    "unit": "cans"
+  },
+  "cocoa powder": {
+    "aliases": [
+      "cocoa",
+      "unsweetened cocoa",
+      "cacao powder"
+    ],
+    "offers": [
+      {
+        "rate": "6.46",
+        "sku": "CST-COCOA-POWDER",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad7f-9fe1-8580-ba20-1e8d88544b83"
+      },
+      {
+        "rate": "7.30",
+        "sku": "LOB-COCOA-POWDER",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca590-4817-8280-ba20-1e8d8a6618d8"
+      },
+      {
+        "rate": "7.42",
+        "sku": "WMT-COCOA-POWDER",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca590-c03e-8f00-ba20-1e8d8843a018"
+      },
+      {
+        "rate": "7.60",
+        "sku": "MET-COCOA-POWDER",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad7f-3720-8300-ba20-1e8d8af92d2d"
+      }
+    ],
+    "pack": "Unsweetened cocoa powder, 250 g",
+    "product_id": "10cca58f-8dd8-8980-93e0-1e8d8b981d65",
+    "unit": "cups"
+  },
+  "coconut milk": {
+    "aliases": [
+      "canned coconut milk"
+    ],
+    "offers": [
+      {
+        "rate": "2.41",
+        "sku": "WMT-COCONUT-MILK",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadee-52eb-8a80-ba20-1e8d8b216cae"
+      },
+      {
+        "rate": "2.46",
+        "sku": "CST-COCONUT-MILK",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadee-e110-8580-ba20-1e8d8a653a84"
+      },
+      {
+        "rate": "2.54",
+        "sku": "LOB-COCONUT-MILK",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccaded-5fc9-8180-ba20-1e8d886aa98a"
+      },
+      {
+        "rate": "2.82",
+        "sku": "MET-COCONUT-MILK",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccaded-dce2-8a80-ba20-1e8d8844350e"
+      }
+    ],
+    "pack": "Coconut milk, 400 ml can",
+    "product_id": "10ccadec-9e66-8900-93e0-1e8d89895254",
+    "unit": "cans"
+  },
+  "coffee": {
+    "aliases": [
+      "ground coffee"
+    ],
+    "offers": [
+      {
+        "rate": "14.50",
+        "sku": "CST-COFFEE",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae84-30be-8300-ba20-1e8d8b64473a"
+      },
+      {
+        "rate": "15.16",
+        "sku": "WMT-COFFEE",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae83-9d4e-8100-ba20-1e8d8bf0983e"
+      },
+      {
+        "rate": "15.59",
+        "sku": "MET-COFFEE",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae82-feb6-8580-ba20-1e8d882b1930"
+      },
+      {
+        "rate": "17.39",
+        "sku": "LOB-COFFEE",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae82-63ef-8300-ba20-1e8d89101b1a"
+      }
+    ],
+    "pack": "Ground coffee, 875 g",
+    "product_id": "10ccae81-9364-8d80-93e0-1e8d88367283",
+    "unit": "cups"
+  },
+  "condensed milk": {
+    "aliases": [
+      "sweetened condensed milk"
+    ],
+    "offers": [
+      {
+        "rate": "2.97",
+        "sku": "WMT-CONDENSED-MILK",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccad86-04ae-8100-ba20-1e8d89b8eabe"
+      },
+      {
+        "rate": "3.42",
+        "sku": "CST-CONDENSED-MILK",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad86-a21a-8200-ba20-1e8d8b7bf00c"
+      },
+      {
+        "rate": "3.44",
+        "sku": "LOB-CONDENSED-MILK",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccad84-fcdc-8c80-ba20-1e8d89a3b5be"
+      },
+      {
+        "rate": "3.55",
+        "sku": "MET-CONDENSED-MILK",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad85-83af-8b00-ba20-1e8d8ac1e71c"
+      }
+    ],
+    "pack": "Sweetened condensed milk, 300 ml",
+    "product_id": "10ccad84-00eb-8300-93e0-1e8d8b8f3931",
+    "unit": "cans"
+  },
+  "cornstarch": {
+    "aliases": [
+      "corn starch",
+      "cornflour"
+    ],
+    "offers": [
+      {
+        "rate": "3.16",
+        "sku": "WMT-CORNSTARCH",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccad7c-e9a3-8a80-ba20-1e8d8bc7ab8e"
+      },
+      {
+        "rate": "3.21",
+        "sku": "MET-CORNSTARCH",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad7c-4bad-8380-ba20-1e8d8a9bf809"
+      },
+      {
+        "rate": "3.37",
+        "sku": "CST-CORNSTARCH",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad7d-5db0-8f80-ba20-1e8d88ea1766"
+      },
+      {
+        "rate": "3.76",
+        "sku": "LOB-CORNSTARCH",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccad7b-bc0f-8180-ba20-1e8d8990b872"
+      }
+    ],
+    "pack": "Corn starch, 454 g",
+    "product_id": "10ccad7a-d440-8300-93e0-1e8d8aba6e6e",
+    "unit": "tbsp"
+  },
+  "cranberry juice": {
+    "aliases": [
+      "cranberry cocktail"
+    ],
+    "offers": [
+      {
+        "rate": "4.68",
+        "sku": "CST-CRANBERRY-JUICE",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae8a-9c0c-8500-ba20-1e8d88605997"
+      },
+      {
+        "rate": "4.97",
+        "sku": "LOB-CRANBERRY-JUICE",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae88-f3c1-8880-ba20-1e8d8b961b2a"
+      },
+      {
+        "rate": "5.13",
+        "sku": "WMT-CRANBERRY-JUICE",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae8a-010e-8600-ba20-1e8d8a243272"
+      },
+      {
+        "rate": "5.34",
+        "sku": "MET-CRANBERRY-JUICE",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae89-92ad-8880-ba20-1e8d88aa5a51"
+      }
+    ],
+    "pack": "Cranberry cocktail, 1.89 L",
+    "product_id": "10ccae88-2055-8080-93e0-1e8d89ac1728",
+    "unit": "cups"
+  },
+  "cream cheese": {
+    "aliases": [
+      "philadelphia"
+    ],
+    "offers": [
+      {
+        "rate": "4.73",
+        "sku": "CST-CREAM-CHEESE",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad95-038d-8600-ba20-1e8d893e3898"
+      },
+      {
+        "rate": "5.06",
+        "sku": "WMT-CREAM-CHEESE",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccad94-8c8a-8a80-ba20-1e8d8816b83f"
+      },
+      {
+        "rate": "5.73",
+        "sku": "LOB-CREAM-CHEESE",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccad93-42e6-8980-ba20-1e8d8b570d79"
+      },
+      {
+        "rate": "5.87",
+        "sku": "MET-CREAM-CHEESE",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad94-095c-8f80-ba20-1e8d89645a49"
+      }
+    ],
+    "pack": "Cream cheese brick, 250 g",
+    "product_id": "10ccad92-040e-8200-93e0-1e8d89433e9b",
+    "unit": "g"
+  },
+  "cumin": {
+    "aliases": [
+      "ground cumin"
+    ],
+    "offers": [
+      {
+        "rate": "4.56",
+        "sku": "CST-CUMIN",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae33-e319-8f00-ba20-1e8d8a8cfd3e"
+      },
+      {
+        "rate": "4.76",
+        "sku": "WMT-CUMIN",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae33-7b7c-8c80-ba20-1e8d89bb2e79"
+      },
+      {
+        "rate": "4.87",
+        "sku": "MET-CUMIN",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae32-f063-8680-ba20-1e8d884b2fb8"
+      },
+      {
+        "rate": "4.92",
+        "sku": "LOB-CUMIN",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae32-443e-8200-ba20-1e8d89bd285f"
+      }
+    ],
+    "pack": "Ground cumin, 100 g",
+    "product_id": "10ccae31-8b0b-8b80-93e0-1e8d8affd7cb",
+    "unit": "tsp"
+  },
+  "curry paste": {
+    "aliases": [
+      "thai curry paste"
+    ],
+    "offers": [
+      {
+        "rate": "3.60",
+        "sku": "CST-CURRY-PASTE",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae24-554c-8800-ba20-1e8d898dda09"
+      },
+      {
+        "rate": "3.92",
+        "sku": "MET-CURRY-PASTE",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae23-748f-8500-ba20-1e8d8805d665"
+      },
+      {
+        "rate": "4.03",
+        "sku": "LOB-CURRY-PASTE",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae22-fd5b-8880-ba20-1e8d8a2f16c4"
+      },
+      {
+        "rate": "4.24",
+        "sku": "WMT-CURRY-PASTE",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae23-e0a7-8600-ba20-1e8d8aa8f971"
+      }
+    ],
+    "pack": "Red curry paste, 114 g",
+    "product_id": "10ccae22-28b2-8c80-93e0-1e8d8b2b7c81",
+    "unit": "tbsp"
+  },
+  "dark chocolate": {
+    "aliases": [
+      "chocolate",
+      "baking chocolate",
+      "chocolate chips",
+      "semi sweet chocolate"
+    ],
+    "offers": [
+      {
+        "rate": "5.27",
+        "sku": "LOB-DARK-CHOCOLATE",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca592-17ba-8980-ba20-1e8d8845d64f"
+      },
+      {
+        "rate": "5.33",
+        "sku": "CST-DARK-CHOCOLATE",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad80-a4eb-8400-ba20-1e8d8abe4a12"
+      },
+      {
+        "rate": "5.41",
+        "sku": "MET-DARK-CHOCOLATE",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad80-37d4-8380-ba20-1e8d88e41f9c"
+      },
+      {
+        "rate": "5.78",
+        "sku": "WMT-DARK-CHOCOLATE",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca592-c236-8980-ba20-1e8d88c9069c"
+      }
+    ],
+    "pack": "Dark chocolate baking bar, 200 g",
+    "product_id": "10cca591-6f64-8380-93e0-1e8d889de0cc",
+    "unit": "g"
+  },
+  "eggs": {
+    "aliases": [
+      "egg",
+      "large eggs",
+      "dozen eggs"
+    ],
+    "offers": [
+      {
+        "rate": "4.85",
+        "sku": "WMT-EGGS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca579-1a69-8c80-ba20-1e8d8b5421f1"
+      },
+      {
+        "rate": "5.56",
+        "sku": "MET-EGGS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad87-7560-8d80-ba20-1e8d8b3d7a22"
+      },
+      {
+        "rate": "5.63",
+        "sku": "CST-EGGS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad87-f949-8d80-ba20-1e8d8b4bbd4c"
+      },
+      {
+        "rate": "5.64",
+        "sku": "LOB-EGGS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca578-963e-8100-ba20-1e8d8ac026ef"
+      }
+    ],
+    "pack": "Large eggs, dozen",
+    "product_id": "10cca577-d0c7-8680-93e0-1e8d89b010d6",
+    "unit": "whole"
+  },
+  "flour": {
+    "aliases": [
+      "all purpose flour",
+      "ap flour",
+      "white flour",
+      "plain flour"
+    ],
+    "offers": [
+      {
+        "rate": "5.96",
+        "sku": "MET-FLOUR",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad6d-0f00-8600-ba20-1e8d8aaaafc3"
+      },
+      {
+        "rate": "6.13",
+        "sku": "CST-FLOUR",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad6d-da6a-8800-ba20-1e8d8864855a"
+      },
+      {
+        "rate": "6.31",
+        "sku": "WMT-FLOUR",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca577-4566-8f00-ba20-1e8d89f1cf83"
+      },
+      {
+        "rate": "6.41",
+        "sku": "LOB-FLOUR",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca576-974f-8480-ba20-1e8d8a18d654"
+      }
+    ],
+    "pack": "All-purpose flour, 5 lb bag",
+    "product_id": "10cca575-c5fc-8f80-93e0-1e8d88f36780",
+    "unit": "cups"
+  },
+  "frozen corn": {
+    "aliases": [
+      "corn",
+      "corn kernels"
+    ],
+    "offers": [
+      {
+        "rate": "3.45",
+        "sku": "CST-FROZEN-CORN",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae7e-0eb3-8800-ba20-1e8d8ba7b32c"
+      },
+      {
+        "rate": "3.57",
+        "sku": "LOB-FROZEN-CORN",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae7c-7dab-8100-ba20-1e8d8a90df40"
+      },
+      {
+        "rate": "3.85",
+        "sku": "WMT-FROZEN-CORN",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae7d-8bb4-8b00-ba20-1e8d8810ea58"
+      },
+      {
+        "rate": "4.33",
+        "sku": "MET-FROZEN-CORN",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae7d-0d4a-8f80-ba20-1e8d8ac9e1bb"
+      }
+    ],
+    "pack": "Frozen corn kernels, 750 g",
+    "product_id": "10ccae7b-999f-8000-93e0-1e8d8ac6b974",
+    "unit": "cups"
+  },
+  "frozen peas": {
+    "aliases": [
+      "peas",
+      "green peas"
+    ],
+    "offers": [
+      {
+        "rate": "3.77",
+        "sku": "MET-FROZEN-PEAS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae80-06da-8500-ba20-1e8d88575661"
+      },
+      {
+        "rate": "3.79",
+        "sku": "LOB-FROZEN-PEAS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae7f-80e4-8780-ba20-1e8d88fc9e54"
+      },
+      {
+        "rate": "3.86",
+        "sku": "CST-FROZEN-PEAS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae80-ffbf-8700-ba20-1e8d8a7c0653"
+      },
+      {
+        "rate": "3.91",
+        "sku": "WMT-FROZEN-PEAS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae80-8f1f-8e80-ba20-1e8d881eff08"
+      }
+    ],
+    "pack": "Frozen green peas, 750 g",
+    "product_id": "10ccae7e-c450-8900-93e0-1e8d8a650e4d",
+    "unit": "cups"
+  },
+  "garlic": {
+    "aliases": [
+      "garlic cloves",
+      "fresh garlic"
+    ],
+    "offers": [
+      {
+        "rate": "2.58",
+        "sku": "CST-GARLIC",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae42-f41c-8900-ba20-1e8d89a17d0a"
+      },
+      {
+        "rate": "2.82",
+        "sku": "WMT-GARLIC",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca5a6-7268-8880-ba20-1e8d8b51c2b4"
+      },
+      {
+        "rate": "2.84",
+        "sku": "LOB-GARLIC",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca5a6-0a0b-8f80-ba20-1e8d8bba151b"
+      },
+      {
+        "rate": "2.93",
+        "sku": "MET-GARLIC",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae42-7ca6-8080-ba20-1e8d88dac6e4"
+      }
+    ],
+    "pack": "Garlic bulbs, 3 pack",
+    "product_id": "10cca5a4-fa1d-8780-93e0-1e8d8832e529",
+    "unit": "cloves"
+  },
+  "gin": {
+    "aliases": [
+      "dry gin"
+    ],
+    "offers": [
+      {
+        "rate": "28.62",
+        "sku": "WMT-GIN",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae9c-8282-8800-ba20-1e8d8ba778d9"
+      },
+      {
+        "rate": "31.11",
+        "sku": "MET-GIN",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae9b-d6c6-8080-ba20-1e8d8a426456"
+      },
+      {
+        "rate": "32.80",
+        "sku": "CST-GIN",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae9d-424c-8180-ba20-1e8d89ab319c"
+      },
+      {
+        "rate": "32.92",
+        "sku": "LOB-GIN",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae9b-3bda-8f00-ba20-1e8d88c91ec3"
+      }
+    ],
+    "pack": "London dry gin, 750 ml",
+    "product_id": "10ccae9a-80fe-8880-93e0-1e8d882f5441",
+    "unit": "oz"
+  },
+  "ginger": {
+    "aliases": [
+      "ginger root",
+      "fresh ginger"
+    ],
+    "offers": [
+      {
+        "rate": "2.52",
+        "sku": "CST-GINGER",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae45-b76e-8a00-ba20-1e8d8b2f3e94"
+      },
+      {
+        "rate": "2.64",
+        "sku": "WMT-GINGER",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae45-493f-8880-ba20-1e8d89168636"
+      },
+      {
+        "rate": "2.76",
+        "sku": "LOB-GINGER",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae44-4485-8700-ba20-1e8d8baa849d"
+      },
+      {
+        "rate": "2.90",
+        "sku": "MET-GINGER",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae44-ceab-8300-ba20-1e8d8af34266"
+      }
+    ],
+    "pack": "Fresh ginger root, 200 g",
+    "product_id": "10ccae43-63ed-8b80-93e0-1e8d8b077202",
+    "unit": "tbsp"
+  },
+  "ginger beer": {
+    "aliases": [
+      "ginger ale"
+    ],
+    "offers": [
+      {
+        "rate": "5.58",
+        "sku": "CST-GINGER-BEER",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae97-de2f-8580-ba20-1e8d88c1af53"
+      },
+      {
+        "rate": "6.08",
+        "sku": "WMT-GINGER-BEER",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae97-723c-8000-ba20-1e8d8a4d2c6e"
+      },
+      {
+        "rate": "6.24",
+        "sku": "MET-GINGER-BEER",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae96-f20d-8900-ba20-1e8d8a149b10"
+      },
+      {
+        "rate": "6.80",
+        "sku": "LOB-GINGER-BEER",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae96-5816-8280-ba20-1e8d8b485507"
+      }
+    ],
+    "pack": "Ginger beer, 4 x 330 ml",
+    "product_id": "10ccae95-9b1c-8500-93e0-1e8d89691321",
+    "unit": "cans"
+  },
+  "green onions": {
+    "aliases": [
+      "scallions",
+      "spring onions"
+    ],
+    "offers": [
+      {
+        "rate": "2.22",
+        "sku": "WMT-GREEN-ONIONS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae41-8fb2-8a00-ba20-1e8d89d98349"
+      },
+      {
+        "rate": "2.25",
+        "sku": "CST-GREEN-ONIONS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae42-049e-8600-ba20-1e8d8bbb7525"
+      },
+      {
+        "rate": "2.36",
+        "sku": "MET-GREEN-ONIONS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae41-19b5-8f00-ba20-1e8d8bd7346d"
+      },
+      {
+        "rate": "2.45",
+        "sku": "LOB-GREEN-ONIONS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae40-9cbd-8680-ba20-1e8d8a805110"
+      }
+    ],
+    "pack": "Green onions, 1 bunch",
+    "product_id": "10ccae3f-c50f-8880-93e0-1e8d8b7bc088",
+    "unit": "whole"
+  },
+  "ground beef": {
+    "aliases": [
+      "beef",
+      "minced beef",
+      "hamburger meat",
+      "mince"
+    ],
+    "offers": [
+      {
+        "rate": "7.50",
+        "sku": "CST-GROUND-BEEF",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccada2-15a6-8f80-ba20-1e8d8912b42d"
+      },
+      {
+        "rate": "8.33",
+        "sku": "WMT-GROUND-BEEF",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca59a-1f15-8280-ba20-1e8d8b02dcc5"
+      },
+      {
+        "rate": "8.56",
+        "sku": "MET-GROUND-BEEF",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccada1-7a73-8900-ba20-1e8d8bd5e6b7"
+      },
+      {
+        "rate": "8.59",
+        "sku": "LOB-GROUND-BEEF",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca598-a893-8480-ba20-1e8d89435ea7"
+      }
+    ],
+    "pack": "Lean ground beef, 1 lb",
+    "product_id": "10cca598-0c6f-8100-93e0-1e8d8acfe432",
+    "unit": "lb"
+  },
+  "hamburger buns": {
+    "aliases": [
+      "burger buns",
+      "buns"
+    ],
+    "offers": [
+      {
+        "rate": "3.71",
+        "sku": "CST-HAMBURGER-BUNS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadb8-7592-8300-ba20-1e8d88744ef4"
+      },
+      {
+        "rate": "3.91",
+        "sku": "WMT-HAMBURGER-BUNS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadb7-ee23-8680-ba20-1e8d8b4e5cca"
+      },
+      {
+        "rate": "4.42",
+        "sku": "MET-HAMBURGER-BUNS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadb7-800f-8f80-ba20-1e8d8ba3cedb"
+      },
+      {
+        "rate": "4.52",
+        "sku": "LOB-HAMBURGER-BUNS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadb6-f81d-8c00-ba20-1e8d89cf6c95"
+      }
+    ],
+    "pack": "Hamburger buns, 8 pack",
+    "product_id": "10ccadb6-112c-8300-93e0-1e8d89fbbbe2",
+    "unit": "whole"
+  },
+  "hazelnut spread": {
+    "aliases": [
+      "nutella",
+      "chocolate spread"
+    ],
+    "offers": [
+      {
+        "rate": "7.27",
+        "sku": "WMT-HAZELNUT-SPREAD",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae1e-ad44-8200-ba20-1e8d88a46114"
+      },
+      {
+        "rate": "7.28",
+        "sku": "LOB-HAZELNUT-SPREAD",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae1d-811f-8f80-ba20-1e8d8b5a218b"
+      },
+      {
+        "rate": "7.42",
+        "sku": "MET-HAZELNUT-SPREAD",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae1e-35c8-8400-ba20-1e8d891007ce"
+      },
+      {
+        "rate": "7.96",
+        "sku": "CST-HAZELNUT-SPREAD",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae1f-2302-8d00-ba20-1e8d8a2dcc06"
+      }
+    ],
+    "pack": "Hazelnut chocolate spread, 725 g",
+    "product_id": "10ccae1c-bfea-8580-93e0-1e8d8b4b15c9",
+    "unit": "tbsp"
+  },
+  "heavy cream": {
+    "aliases": [
+      "whipping cream",
+      "double cream",
+      "35% cream"
+    ],
+    "offers": [
+      {
+        "rate": "4.84",
+        "sku": "LOB-HEAVY-CREAM",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccad8b-1c96-8c00-ba20-1e8d8a483c79"
+      },
+      {
+        "rate": "5.06",
+        "sku": "WMT-HEAVY-CREAM",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccad8c-26ad-8380-ba20-1e8d88844023"
+      },
+      {
+        "rate": "5.32",
+        "sku": "CST-HEAVY-CREAM",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad8c-ad39-8900-ba20-1e8d8a2657d6"
+      },
+      {
+        "rate": "5.64",
+        "sku": "MET-HEAVY-CREAM",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad8b-ad1b-8300-ba20-1e8d8937258a"
+      }
+    ],
+    "pack": "Whipping cream 35%, 473 ml",
+    "product_id": "10ccad8a-63e1-8e80-93e0-1e8d8bda02e7",
+    "unit": "cups"
+  },
+  "honey": {
+    "aliases": [
+      "liquid honey"
+    ],
+    "offers": [
+      {
+        "rate": "7.81",
+        "sku": "CST-HONEY",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae16-30bd-8480-ba20-1e8d8b5252d0"
+      },
+      {
+        "rate": "8.85",
+        "sku": "WMT-HONEY",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae15-bfa9-8680-ba20-1e8d8b8c5f10"
+      },
+      {
+        "rate": "9.10",
+        "sku": "LOB-HONEY",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae14-f9bc-8380-ba20-1e8d8b5352b0"
+      },
+      {
+        "rate": "9.26",
+        "sku": "MET-HONEY",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae15-5e1e-8d00-ba20-1e8d8a75328b"
+      }
+    ],
+    "pack": "Liquid honey, 500 g",
+    "product_id": "10ccae14-429b-8600-93e0-1e8d89aafa16",
+    "unit": "tbsp"
+  },
+  "hot sauce": {
+    "aliases": [
+      "sriracha",
+      "tabasco",
+      "chili sauce"
+    ],
+    "offers": [
+      {
+        "rate": "3.01",
+        "sku": "WMT-HOT-SAUCE",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae0b-2b50-8800-ba20-1e8d8a9f318c"
+      },
+      {
+        "rate": "3.11",
+        "sku": "CST-HOT-SAUCE",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae0b-97f3-8200-ba20-1e8d889ba616"
+      },
+      {
+        "rate": "3.33",
+        "sku": "LOB-HOT-SAUCE",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae0a-4c0e-8e00-ba20-1e8d8b226c57"
+      },
+      {
+        "rate": "3.50",
+        "sku": "MET-HOT-SAUCE",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae0a-bd92-8480-ba20-1e8d887f7327"
+      }
+    ],
+    "pack": "Hot sauce, 148 ml",
+    "product_id": "10ccae09-814b-8780-93e0-1e8d8bd0626e",
+    "unit": "tsp"
+  },
+  "ice": {
+    "aliases": [
+      "ice cubes",
+      "bagged ice",
+      "crushed ice"
+    ],
+    "offers": [
+      {
+        "rate": "3.43",
+        "sku": "CST-ICE",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae98-f6fe-8600-ba20-1e8d89ac9ad3"
+      },
+      {
+        "rate": "3.74",
+        "sku": "WMT-ICE",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca5b2-115d-8080-ba20-1e8d880c8f30"
+      },
+      {
+        "rate": "3.96",
+        "sku": "LOB-ICE",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca5b1-5354-8880-ba20-1e8d8a65d654"
+      },
+      {
+        "rate": "3.98",
+        "sku": "MET-ICE",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae98-6373-8b00-ba20-1e8d8869b88f"
+      }
+    ],
+    "pack": "Bag of ice, 5 lb",
+    "product_id": "10cca5af-e01a-8d80-93e0-1e8d8aa59bbe",
+    "unit": "bag"
+  },
+  "ice cream": {
+    "aliases": [
+      "vanilla ice cream"
+    ],
+    "offers": [
+      {
+        "rate": "5.99",
+        "sku": "WMT-ICE-CREAM",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccada0-368a-8700-ba20-1e8d8a7d0763"
+      },
+      {
+        "rate": "6.27",
+        "sku": "CST-ICE-CREAM",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccada0-e50a-8880-ba20-1e8d89eb66b1"
+      },
+      {
+        "rate": "7.08",
+        "sku": "MET-ICE-CREAM",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad9f-a94e-8180-ba20-1e8d8bbfa6f9"
+      },
+      {
+        "rate": "7.49",
+        "sku": "LOB-ICE-CREAM",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccad9f-1d30-8800-ba20-1e8d8bea3d75"
+      }
+    ],
+    "pack": "Vanilla ice cream, 1.5 L",
+    "product_id": "10ccad9d-d3bc-8800-93e0-1e8d895c0321",
+    "unit": "cups"
+  },
+  "jalapenos": {
+    "aliases": [
+      "jalapeno",
+      "chili peppers",
+      "hot peppers"
+    ],
+    "offers": [
+      {
+        "rate": "2.07",
+        "sku": "CST-JALAPENOS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae54-57c6-8900-ba20-1e8d88b3dc68"
+      },
+      {
+        "rate": "2.35",
+        "sku": "LOB-JALAPENOS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae52-9756-8600-ba20-1e8d8ac25b6e"
+      },
+      {
+        "rate": "2.40",
+        "sku": "WMT-JALAPENOS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae53-af9c-8e80-ba20-1e8d8aa7be8c"
+      },
+      {
+        "rate": "2.45",
+        "sku": "MET-JALAPENOS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae53-4428-8980-ba20-1e8d8909ef81"
+      }
+    ],
+    "pack": "Jalape\u00f1o peppers, 3 pack",
+    "product_id": "10ccae51-c5e3-8e00-93e0-1e8d88ccdf64",
+    "unit": "whole"
+  },
+  "jam": {
+    "aliases": [
+      "strawberry jam",
+      "jelly",
+      "preserves"
+    ],
+    "offers": [
+      {
+        "rate": "4.40",
+        "sku": "CST-JAM",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae1c-38c7-8680-ba20-1e8d880e170a"
+      },
+      {
+        "rate": "4.69",
+        "sku": "LOB-JAM",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae1a-9401-8e00-ba20-1e8d89da4e43"
+      },
+      {
+        "rate": "4.81",
+        "sku": "MET-JAM",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae1b-3861-8080-ba20-1e8d88f8d8b9"
+      },
+      {
+        "rate": "4.97",
+        "sku": "WMT-JAM",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae1b-bfaf-8800-ba20-1e8d8ae1eb0c"
+      }
+    ],
+    "pack": "Strawberry jam, 500 ml",
+    "product_id": "10ccae19-9482-8f80-93e0-1e8d8af6dc6d",
+    "unit": "tbsp"
+  },
+  "ketchup": {
+    "aliases": [
+      "tomato ketchup"
+    ],
+    "offers": [
+      {
+        "rate": "4.67",
+        "sku": "CST-KETCHUP",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae0e-4e2b-8000-ba20-1e8d88c370dc"
+      },
+      {
+        "rate": "5.00",
+        "sku": "LOB-KETCHUP",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae0c-e9f5-8800-ba20-1e8d880befaa"
+      },
+      {
+        "rate": "5.04",
+        "sku": "WMT-KETCHUP",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae0d-de4b-8c80-ba20-1e8d8840530d"
+      },
+      {
+        "rate": "5.84",
+        "sku": "MET-KETCHUP",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae0d-69d7-8080-ba20-1e8d899aaa90"
+      }
+    ],
+    "pack": "Tomato ketchup, 1 L",
+    "product_id": "10ccae0c-0bb8-8a00-93e0-1e8d896598c7",
+    "unit": "tbsp"
+  },
+  "lemon-lime soda": {
+    "aliases": [
+      "sprite",
+      "7up",
+      "lemon lime soda"
+    ],
+    "offers": [
+      {
+        "rate": "9.44",
+        "sku": "CST-LEMON-LIME-SODA",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae8e-861d-8100-ba20-1e8d8ba89b6e"
+      },
+      {
+        "rate": "9.82",
+        "sku": "WMT-LEMON-LIME-SODA",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae8e-1868-8b00-ba20-1e8d8a557426"
+      },
+      {
+        "rate": "10.02",
+        "sku": "LOB-LEMON-LIME-SODA",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae8d-2fda-8380-ba20-1e8d8b472eb0"
+      },
+      {
+        "rate": "10.06",
+        "sku": "MET-LEMON-LIME-SODA",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae8d-a373-8500-ba20-1e8d8a2e647b"
+      }
+    ],
+    "pack": "Lemon-lime soda, 12 x 355 ml",
+    "product_id": "10ccae8c-8d6e-8880-93e0-1e8d8b1d5549",
+    "unit": "cans"
+  },
+  "lemons": {
+    "aliases": [
+      "lemon",
+      "lemon juice"
+    ],
+    "offers": [
+      {
+        "rate": "3.74",
+        "sku": "WMT-LEMONS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca5aa-53d5-8e00-ba20-1e8d88bebd93"
+      },
+      {
+        "rate": "3.83",
+        "sku": "CST-LEMONS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae60-145b-8600-ba20-1e8d8a97dbae"
+      },
+      {
+        "rate": "3.92",
+        "sku": "LOB-LEMONS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca5a9-adb9-8980-ba20-1e8d88cea113"
+      },
+      {
+        "rate": "4.18",
+        "sku": "MET-LEMONS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae5f-7a87-8000-ba20-1e8d8b6b53c3"
+      }
+    ],
+    "pack": "Lemons, 4 pack",
+    "product_id": "10cca5a9-0222-8e80-93e0-1e8d891bc8bd",
+    "unit": "whole"
+  },
+  "lettuce": {
+    "aliases": [
+      "iceberg lettuce",
+      "romaine",
+      "salad greens"
+    ],
+    "offers": [
+      {
+        "rate": "2.95",
+        "sku": "CST-LETTUCE",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae39-7f1f-8e80-ba20-1e8d89e6e294"
+      },
+      {
+        "rate": "2.98",
+        "sku": "WMT-LETTUCE",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca5a1-06b5-8b00-ba20-1e8d8a09e989"
+      },
+      {
+        "rate": "3.15",
+        "sku": "LOB-LETTUCE",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca5a0-97db-8b00-ba20-1e8d88c793a8"
+      },
+      {
+        "rate": "3.57",
+        "sku": "MET-LETTUCE",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae38-f12a-8f00-ba20-1e8d8a6f1ee2"
+      }
+    ],
+    "pack": "Iceberg lettuce, 1 head",
+    "product_id": "10cca59f-d783-8580-93e0-1e8d889faffa",
+    "unit": "cups"
+  },
+  "limes": {
+    "aliases": [
+      "lime",
+      "lime juice",
+      "fresh lime"
+    ],
+    "offers": [
+      {
+        "rate": "2.94",
+        "sku": "CST-LIMES",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae5e-cddb-8580-ba20-1e8d895849a9"
+      },
+      {
+        "rate": "2.99",
+        "sku": "WMT-LIMES",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca5a8-61a4-8680-ba20-1e8d8b343873"
+      },
+      {
+        "rate": "3.30",
+        "sku": "MET-LIMES",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae5e-4823-8200-ba20-1e8d886ac9c5"
+      },
+      {
+        "rate": "3.63",
+        "sku": "LOB-LIMES",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca5a7-ccf4-8d00-ba20-1e8d8a5f9d40"
+      }
+    ],
+    "pack": "Limes, 4 pack",
+    "product_id": "10cca5a6-ff11-8200-93e0-1e8d8b172370",
+    "unit": "whole"
+  },
+  "maple syrup": {
+    "aliases": [
+      "syrup",
+      "pancake syrup"
+    ],
+    "offers": [
+      {
+        "rate": "11.76",
+        "sku": "LOB-MAPLE-SYRUP",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca5b3-2c0b-8d80-ba20-1e8d8b53da88"
+      },
+      {
+        "rate": "12.25",
+        "sku": "CST-MAPLE-SYRUP",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae20-7683-8280-ba20-1e8d8b245a84"
+      },
+      {
+        "rate": "12.27",
+        "sku": "MET-MAPLE-SYRUP",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae1f-fb51-8b80-ba20-1e8d8876c045"
+      },
+      {
+        "rate": "12.99",
+        "sku": "WMT-MAPLE-SYRUP",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca5b3-a3ca-8900-ba20-1e8d892e2c94"
+      }
+    ],
+    "pack": "Pure maple syrup, 500 ml",
+    "product_id": "10cca5b2-7b5f-8580-93e0-1e8d89749f7b",
+    "unit": "tbsp"
+  },
+  "marshmallows": {
+    "aliases": [
+      "mini marshmallows"
+    ],
+    "offers": [
+      {
+        "rate": "2.93",
+        "sku": "WMT-MARSHMALLOWS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccad83-0d7d-8c80-ba20-1e8d892e6b58"
+      },
+      {
+        "rate": "3.14",
+        "sku": "CST-MARSHMALLOWS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad83-7873-8c80-ba20-1e8d88f6fdee"
+      },
+      {
+        "rate": "3.48",
+        "sku": "LOB-MARSHMALLOWS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccad82-31b2-8980-ba20-1e8d8b5f4375"
+      },
+      {
+        "rate": "3.51",
+        "sku": "MET-MARSHMALLOWS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad82-a359-8400-ba20-1e8d89fbed2d"
+      }
+    ],
+    "pack": "Mini marshmallows, 250 g",
+    "product_id": "10ccad81-6dfb-8400-93e0-1e8d886701f7",
+    "unit": "cups"
+  },
+  "mayonnaise": {
+    "aliases": [
+      "mayo"
+    ],
+    "offers": [
+      {
+        "rate": "6.16",
+        "sku": "LOB-MAYONNAISE",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae12-3709-8780-ba20-1e8d8865dc3e"
+      },
+      {
+        "rate": "6.24",
+        "sku": "CST-MAYONNAISE",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae13-d9a3-8180-ba20-1e8d8b5626c5"
+      },
+      {
+        "rate": "6.38",
+        "sku": "WMT-MAYONNAISE",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae13-53a4-8280-ba20-1e8d894caf33"
+      },
+      {
+        "rate": "7.32",
+        "sku": "MET-MAYONNAISE",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae12-cbdf-8a00-ba20-1e8d8be4f488"
+      }
+    ],
+    "pack": "Mayonnaise, 890 ml",
+    "product_id": "10ccae11-3b1a-8900-93e0-1e8d88ff5beb",
+    "unit": "tbsp"
+  },
+  "milk": {
+    "aliases": [
+      "2% milk",
+      "whole milk",
+      "dairy milk"
+    ],
+    "offers": [
+      {
+        "rate": "5.47",
+        "sku": "WMT-MILK",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca57c-a5d2-8780-ba20-1e8d8b0fd9c2"
+      },
+      {
+        "rate": "5.74",
+        "sku": "CST-MILK",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad88-f765-8680-ba20-1e8d8807401e"
+      },
+      {
+        "rate": "6.59",
+        "sku": "LOB-MILK",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca57b-36d4-8480-ba20-1e8d8a1504d9"
+      },
+      {
+        "rate": "6.81",
+        "sku": "MET-MILK",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad88-6edc-8b00-ba20-1e8d8934d66e"
+      }
+    ],
+    "pack": "2% milk, 4 L",
+    "product_id": "10cca579-8a2d-8900-93e0-1e8d8a710058",
+    "unit": "cups"
+  },
+  "mint": {
+    "aliases": [
+      "fresh mint",
+      "mint leaves"
+    ],
+    "offers": [
+      {
+        "rate": "3.02",
+        "sku": "CST-MINT",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae7b-3809-8f00-ba20-1e8d89bcc5a6"
+      },
+      {
+        "rate": "3.17",
+        "sku": "LOB-MINT",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae79-9698-8780-ba20-1e8d894331ea"
+      },
+      {
+        "rate": "3.51",
+        "sku": "WMT-MINT",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae7a-9315-8f00-ba20-1e8d89dfa7f7"
+      },
+      {
+        "rate": "3.59",
+        "sku": "MET-MINT",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae7a-183c-8180-ba20-1e8d8a85c3aa"
+      }
+    ],
+    "pack": "Fresh mint, 1 pack",
+    "product_id": "10ccae78-c54e-8f80-93e0-1e8d8b64007a",
+    "unit": "leaves"
+  },
+  "mozzarella": {
+    "aliases": [
+      "mozzarella cheese",
+      "pizza cheese"
+    ],
+    "offers": [
+      {
+        "rate": "6.69",
+        "sku": "WMT-MOZZARELLA",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccad99-4ad6-8b00-ba20-1e8d897ea1aa"
+      },
+      {
+        "rate": "6.98",
+        "sku": "CST-MOZZARELLA",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad99-c87f-8e80-ba20-1e8d896bf732"
+      },
+      {
+        "rate": "7.83",
+        "sku": "LOB-MOZZARELLA",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccad98-3dd7-8980-ba20-1e8d8b28079e"
+      },
+      {
+        "rate": "8.08",
+        "sku": "MET-MOZZARELLA",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad98-b5b9-8580-ba20-1e8d8b94a5af"
+      }
+    ],
+    "pack": "Shredded mozzarella, 320 g",
+    "product_id": "10ccad97-0ba0-8000-93e0-1e8d884961c7",
+    "unit": "cups"
+  },
+  "mushrooms": {
+    "aliases": [
+      "white mushrooms",
+      "cremini"
+    ],
+    "offers": [
+      {
+        "rate": "2.92",
+        "sku": "CST-MUSHROOMS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae57-40e7-8a00-ba20-1e8d8a6cbc3a"
+      },
+      {
+        "rate": "3.27",
+        "sku": "WMT-MUSHROOMS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae56-9e8b-8480-ba20-1e8d8b289ac3"
+      },
+      {
+        "rate": "3.28",
+        "sku": "MET-MUSHROOMS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae56-1dd1-8300-ba20-1e8d8baa4e9a"
+      },
+      {
+        "rate": "3.53",
+        "sku": "LOB-MUSHROOMS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae55-aea5-8780-ba20-1e8d89080fe3"
+      }
+    ],
+    "pack": "White mushrooms, 227 g",
+    "product_id": "10ccae54-cabe-8080-93e0-1e8d8a100dd3",
+    "unit": "cups"
+  },
+  "mustard": {
+    "aliases": [
+      "dijon mustard",
+      "yellow mustard"
+    ],
+    "offers": [
+      {
+        "rate": "3.05",
+        "sku": "CST-MUSTARD",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae10-e3db-8400-ba20-1e8d8939b54e"
+      },
+      {
+        "rate": "3.12",
+        "sku": "MET-MUSTARD",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae0f-f665-8600-ba20-1e8d8b14e0d9"
+      },
+      {
+        "rate": "3.27",
+        "sku": "WMT-MUSTARD",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae10-75d2-8980-ba20-1e8d88072fda"
+      },
+      {
+        "rate": "3.57",
+        "sku": "LOB-MUSTARD",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae0f-780e-8b80-ba20-1e8d8b919305"
+      }
+    ],
+    "pack": "Yellow mustard, 400 ml",
+    "product_id": "10ccae0e-b5e7-8a00-93e0-1e8d8b64e8df",
+    "unit": "tbsp"
+  },
+  "oats": {
+    "aliases": [
+      "rolled oats",
+      "oatmeal",
+      "porridge oats"
+    ],
+    "offers": [
+      {
+        "rate": "4.69",
+        "sku": "CST-OATS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadcf-f930-8c00-ba20-1e8d8ae5d061"
+      },
+      {
+        "rate": "4.83",
+        "sku": "WMT-OATS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadcf-56eb-8000-ba20-1e8d8a4422ae"
+      },
+      {
+        "rate": "5.20",
+        "sku": "LOB-OATS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadce-4886-8980-ba20-1e8d8a324624"
+      },
+      {
+        "rate": "5.40",
+        "sku": "MET-OATS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadce-ccb4-8400-ba20-1e8d8b3f1212"
+      }
+    ],
+    "pack": "Large flake oats, 1 kg",
+    "product_id": "10ccadcd-7306-8f00-93e0-1e8d8b9586ea",
+    "unit": "cups"
+  },
+  "olive oil": {
+    "aliases": [
+      "evoo",
+      "extra virgin olive oil"
+    ],
+    "offers": [
+      {
+        "rate": "12.91",
+        "sku": "WMT-OLIVE-OIL",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadfe-0f81-8c80-ba20-1e8d8b6fe48a"
+      },
+      {
+        "rate": "13.87",
+        "sku": "CST-OLIVE-OIL",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadfe-a84c-8300-ba20-1e8d88a18c73"
+      },
+      {
+        "rate": "14.85",
+        "sku": "LOB-OLIVE-OIL",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadfc-7037-8380-ba20-1e8d8933eefc"
+      },
+      {
+        "rate": "15.09",
+        "sku": "MET-OLIVE-OIL",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadfd-0b17-8380-ba20-1e8d88067590"
+      }
+    ],
+    "pack": "Extra virgin olive oil, 1 L",
+    "product_id": "10ccadfb-565f-8800-93e0-1e8d8a6fc08a",
+    "unit": "tbsp"
+  },
+  "olives": {
+    "aliases": [
+      "green olives"
+    ],
+    "offers": [
+      {
+        "rate": "4.44",
+        "sku": "WMT-OLIVES",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadf9-2f95-8b80-ba20-1e8d8b880508"
+      },
+      {
+        "rate": "4.56",
+        "sku": "CST-OLIVES",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadf9-b2d2-8580-ba20-1e8d8b77468c"
+      },
+      {
+        "rate": "4.62",
+        "sku": "MET-OLIVES",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadf8-9de0-8380-ba20-1e8d886603cd"
+      },
+      {
+        "rate": "4.94",
+        "sku": "LOB-OLIVES",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadf8-29e3-8080-ba20-1e8d88ad698d"
+      }
+    ],
+    "pack": "Pitted green olives, 375 ml",
+    "product_id": "10ccadf7-2bc0-8b80-93e0-1e8d8aec5209",
+    "unit": "whole"
+  },
+  "onions": {
+    "aliases": [
+      "onion",
+      "yellow onion",
+      "white onion"
+    ],
+    "offers": [
+      {
+        "rate": "3.75",
+        "sku": "WMT-ONIONS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca5a4-8ea6-8800-ba20-1e8d88dd35c7"
+      },
+      {
+        "rate": "3.89",
+        "sku": "LOB-ONIONS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca5a4-1843-8800-ba20-1e8d8a61fa76"
+      },
+      {
+        "rate": "4.09",
+        "sku": "CST-ONIONS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae3f-69e3-8000-ba20-1e8d8b2bf6e6"
+      },
+      {
+        "rate": "4.14",
+        "sku": "MET-ONIONS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae3e-fcd9-8980-ba20-1e8d89935d88"
+      }
+    ],
+    "pack": "Yellow onions, 2 lb bag",
+    "product_id": "10cca5a3-2469-8980-93e0-1e8d89f11942",
+    "unit": "whole"
+  },
+  "orange juice": {
+    "aliases": [
+      "oj",
+      "juice"
+    ],
+    "offers": [
+      {
+        "rate": "4.99",
+        "sku": "WMT-ORANGE-JUICE",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca5b9-dbda-8100-ba20-1e8d8be792e9"
+      },
+      {
+        "rate": "5.03",
+        "sku": "CST-ORANGE-JUICE",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae87-c0ce-8000-ba20-1e8d89dcccab"
+      },
+      {
+        "rate": "5.58",
+        "sku": "MET-ORANGE-JUICE",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae87-461c-8900-ba20-1e8d89cde998"
+      },
+      {
+        "rate": "5.79",
+        "sku": "LOB-ORANGE-JUICE",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca5b9-5471-8d00-ba20-1e8d8963dd69"
+      }
+    ],
+    "pack": "Orange juice, 1.75 L",
+    "product_id": "10cca5b8-9a86-8100-93e0-1e8d89d432bd",
+    "unit": "cups"
+  },
+  "oranges": {
+    "aliases": [
+      "orange",
+      "navel oranges"
+    ],
+    "offers": [
+      {
+        "rate": "6.92",
+        "sku": "CST-ORANGES",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae6c-6c66-8480-ba20-1e8d8a378216"
+      },
+      {
+        "rate": "6.97",
+        "sku": "WMT-ORANGES",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae6b-b802-8300-ba20-1e8d89a870ac"
+      },
+      {
+        "rate": "6.99",
+        "sku": "MET-ORANGES",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae6b-1cc4-8300-ba20-1e8d8bc9887e"
+      },
+      {
+        "rate": "7.35",
+        "sku": "LOB-ORANGES",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae6a-4abd-8a80-ba20-1e8d8a28f436"
+      }
+    ],
+    "pack": "Navel oranges, 4 lb bag",
+    "product_id": "10ccae68-efc4-8f00-93e0-1e8d8985bc80",
+    "unit": "whole"
+  },
+  "oregano": {
+    "aliases": [
+      "dried oregano"
+    ],
+    "offers": [
+      {
+        "rate": "3.09",
+        "sku": "CST-OREGANO",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae38-473f-8680-ba20-1e8d882e099f"
+      },
+      {
+        "rate": "3.20",
+        "sku": "MET-OREGANO",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae35-e662-8300-ba20-1e8d88285255"
+      },
+      {
+        "rate": "3.33",
+        "sku": "WMT-OREGANO",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae37-9c84-8c00-ba20-1e8d8a838593"
+      },
+      {
+        "rate": "3.45",
+        "sku": "LOB-OREGANO",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae35-65e9-8c00-ba20-1e8d89dc4f64"
+      }
+    ],
+    "pack": "Dried oregano, 28 g",
+    "product_id": "10ccae34-789f-8780-93e0-1e8d8b9b68b3",
+    "unit": "tsp"
+  },
+  "paprika": {
+    "aliases": [
+      "smoked paprika"
+    ],
+    "offers": [
+      {
+        "rate": "4.19",
+        "sku": "WMT-PAPRIKA",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae2d-6e94-8f00-ba20-1e8d8b85f31f"
+      },
+      {
+        "rate": "4.36",
+        "sku": "CST-PAPRIKA",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae2d-e1ef-8100-ba20-1e8d88cd00ab"
+      },
+      {
+        "rate": "4.42",
+        "sku": "LOB-PAPRIKA",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae2c-7b92-8e80-ba20-1e8d896ccc91"
+      },
+      {
+        "rate": "4.78",
+        "sku": "MET-PAPRIKA",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae2c-dd34-8400-ba20-1e8d8ba37ab5"
+      }
+    ],
+    "pack": "Ground paprika, 100 g",
+    "product_id": "10ccae2b-b969-8a80-93e0-1e8d888efdaf",
+    "unit": "tsp"
+  },
+  "parmesan": {
+    "aliases": [
+      "parmigiano",
+      "parmesan cheese"
+    ],
+    "offers": [
+      {
+        "rate": "7.73",
+        "sku": "MET-PARMESAN",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad9c-1fae-8500-ba20-1e8d8af15241"
+      },
+      {
+        "rate": "8.08",
+        "sku": "CST-PARMESAN",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad9d-3d6f-8a00-ba20-1e8d89d48736"
+      },
+      {
+        "rate": "8.49",
+        "sku": "WMT-PARMESAN",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccad9c-a3f3-8080-ba20-1e8d885f0910"
+      },
+      {
+        "rate": "8.74",
+        "sku": "LOB-PARMESAN",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccad9b-abac-8500-ba20-1e8d882c4b40"
+      }
+    ],
+    "pack": "Grated parmesan, 250 g",
+    "product_id": "10ccad9a-584e-8c00-93e0-1e8d8bc519be",
+    "unit": "cups"
+  },
+  "pasta": {
+    "aliases": [
+      "spaghetti",
+      "linguine",
+      "penne",
+      "fettuccine"
+    ],
+    "offers": [
+      {
+        "rate": "3.16",
+        "sku": "MET-PASTA",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadc5-10b9-8b80-ba20-1e8d8955c2dd"
+      },
+      {
+        "rate": "3.21",
+        "sku": "CST-PASTA",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadc6-692f-8b00-ba20-1e8d8ac3bf83"
+      },
+      {
+        "rate": "3.51",
+        "sku": "WMT-PASTA",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadc5-8b17-8100-ba20-1e8d88e7657c"
+      },
+      {
+        "rate": "3.56",
+        "sku": "LOB-PASTA",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadc3-eb9a-8f00-ba20-1e8d888508ae"
+      }
+    ],
+    "pack": "Spaghetti, 900 g",
+    "product_id": "10ccadc3-23c3-8b80-93e0-1e8d8ae33b27",
+    "unit": "g"
+  },
+  "pasta sauce": {
+    "aliases": [
+      "marinara",
+      "tomato sauce",
+      "spaghetti sauce"
+    ],
+    "offers": [
+      {
+        "rate": "4.06",
+        "sku": "WMT-PASTA-SAUCE",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccade2-8424-8b00-ba20-1e8d89cf0d7c"
+      },
+      {
+        "rate": "4.10",
+        "sku": "MET-PASTA-SAUCE",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccade1-caf6-8780-ba20-1e8d8ac3431c"
+      },
+      {
+        "rate": "4.13",
+        "sku": "CST-PASTA-SAUCE",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccade3-4d54-8080-ba20-1e8d8b193d42"
+      },
+      {
+        "rate": "4.56",
+        "sku": "LOB-PASTA-SAUCE",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccade1-095a-8180-ba20-1e8d8a5acf7b"
+      }
+    ],
+    "pack": "Marinara pasta sauce, 650 ml",
+    "product_id": "10ccade0-1a0a-8e80-93e0-1e8d88220806",
+    "unit": "cups"
+  },
+  "peanut butter": {
+    "aliases": [
+      "pb"
+    ],
+    "offers": [
+      {
+        "rate": "5.92",
+        "sku": "WMT-PEANUT-BUTTER",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae18-686e-8880-ba20-1e8d8887be98"
+      },
+      {
+        "rate": "6.03",
+        "sku": "CST-PEANUT-BUTTER",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae19-0575-8780-ba20-1e8d886a98d3"
+      },
+      {
+        "rate": "6.36",
+        "sku": "MET-PEANUT-BUTTER",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae17-db71-8380-ba20-1e8d88309d5c"
+      },
+      {
+        "rate": "6.77",
+        "sku": "LOB-PEANUT-BUTTER",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae17-6640-8200-ba20-1e8d8a8eda35"
+      }
+    ],
+    "pack": "Peanut butter, 1 kg",
+    "product_id": "10ccae16-bd41-8080-93e0-1e8d8997a938",
+    "unit": "tbsp"
+  },
+  "pickles": {
+    "aliases": [
+      "dill pickles",
+      "gherkins"
+    ],
+    "offers": [
+      {
+        "rate": "4.47",
+        "sku": "CST-PICKLES",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadf6-48a6-8700-ba20-1e8d8a1e7213"
+      },
+      {
+        "rate": "4.62",
+        "sku": "WMT-PICKLES",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadf5-8158-8d80-ba20-1e8d8a35e57c"
+      },
+      {
+        "rate": "4.67",
+        "sku": "MET-PICKLES",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadf4-cba6-8680-ba20-1e8d89abb282"
+      },
+      {
+        "rate": "4.75",
+        "sku": "LOB-PICKLES",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadf3-bbcd-8380-ba20-1e8d89289bc8"
+      }
+    ],
+    "pack": "Dill pickles, 1 L",
+    "product_id": "10ccadf2-7e3c-8b80-93e0-1e8d8ae8f8ab",
+    "unit": "whole"
+  },
+  "pita bread": {
+    "aliases": [
+      "pita",
+      "flatbread"
+    ],
+    "offers": [
+      {
+        "rate": "3.87",
+        "sku": "CST-PITA-BREAD",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadbe-b018-8180-ba20-1e8d889656b3"
+      },
+      {
+        "rate": "4.17",
+        "sku": "WMT-PITA-BREAD",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadbe-45fa-8c80-ba20-1e8d88252bc9"
+      },
+      {
+        "rate": "4.20",
+        "sku": "LOB-PITA-BREAD",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadbd-7ed5-8c00-ba20-1e8d8afa5c4e"
+      },
+      {
+        "rate": "4.42",
+        "sku": "MET-PITA-BREAD",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadbd-dd66-8300-ba20-1e8d89faac00"
+      }
+    ],
+    "pack": "Greek pita bread, 6 pack",
+    "product_id": "10ccadbc-8613-8d00-93e0-1e8d88da1626",
+    "unit": "whole"
+  },
+  "pizza dough": {
+    "aliases": [
+      "dough",
+      "pizza base"
+    ],
+    "offers": [
+      {
+        "rate": "3.47",
+        "sku": "WMT-PIZZA-DOUGH",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadc2-4bf6-8680-ba20-1e8d886caf69"
+      },
+      {
+        "rate": "3.71",
+        "sku": "CST-PIZZA-DOUGH",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadc2-b4dc-8e80-ba20-1e8d8985d8e7"
+      },
+      {
+        "rate": "3.73",
+        "sku": "LOB-PIZZA-DOUGH",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadc1-0dc5-8d80-ba20-1e8d882aeabb"
+      },
+      {
+        "rate": "3.73",
+        "sku": "MET-PIZZA-DOUGH",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadc1-df41-8080-ba20-1e8d89db2af0"
+      }
+    ],
+    "pack": "Fresh pizza dough, 500 g",
+    "product_id": "10ccadc0-38f1-8e80-93e0-1e8d898b4753",
+    "unit": "g"
+  },
+  "potatoes": {
+    "aliases": [
+      "potato",
+      "russet potatoes"
+    ],
+    "offers": [
+      {
+        "rate": "6.25",
+        "sku": "CST-POTATOES",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae48-a620-8d00-ba20-1e8d89d9d077"
+      },
+      {
+        "rate": "6.43",
+        "sku": "WMT-POTATOES",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae48-402d-8280-ba20-1e8d882862b7"
+      },
+      {
+        "rate": "6.54",
+        "sku": "LOB-POTATOES",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae47-5870-8b80-ba20-1e8d89620900"
+      },
+      {
+        "rate": "6.82",
+        "sku": "MET-POTATOES",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae47-d289-8480-ba20-1e8d8a714540"
+      }
+    ],
+    "pack": "Yellow potatoes, 5 lb bag",
+    "product_id": "10ccae46-74aa-8300-93e0-1e8d8b95e1a3",
+    "unit": "whole"
+  },
+  "powdered sugar": {
+    "aliases": [
+      "icing sugar",
+      "confectioners sugar"
+    ],
+    "offers": [
+      {
+        "rate": "3.69",
+        "sku": "CST-POWDERED-SUGAR",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad74-8400-8100-ba20-1e8d8b404a24"
+      },
+      {
+        "rate": "3.72",
+        "sku": "MET-POWDERED-SUGAR",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad72-f594-8900-ba20-1e8d8bdeb595"
+      },
+      {
+        "rate": "3.76",
+        "sku": "WMT-POWDERED-SUGAR",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccad73-cff7-8200-ba20-1e8d88795fcd"
+      },
+      {
+        "rate": "4.14",
+        "sku": "LOB-POWDERED-SUGAR",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccad72-4ba4-8a00-ba20-1e8d8ba30ec0"
+      }
+    ],
+    "pack": "Icing sugar, 1 kg",
+    "product_id": "10ccad71-6827-8480-93e0-1e8d8bdbb438",
+    "unit": "cups"
+  },
+  "ramen noodles": {
+    "aliases": [
+      "ramen",
+      "instant noodles"
+    ],
+    "offers": [
+      {
+        "rate": "4.04",
+        "sku": "LOB-RAMEN-NOODLES",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadcb-44f0-8280-ba20-1e8d8986fa6d"
+      },
+      {
+        "rate": "4.05",
+        "sku": "CST-RAMEN-NOODLES",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadcc-ef8d-8400-ba20-1e8d89922ed2"
+      },
+      {
+        "rate": "4.11",
+        "sku": "WMT-RAMEN-NOODLES",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadcc-737a-8900-ba20-1e8d8bd8693e"
+      },
+      {
+        "rate": "4.54",
+        "sku": "MET-RAMEN-NOODLES",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadcb-dc45-8a00-ba20-1e8d8982ce61"
+      }
+    ],
+    "pack": "Instant ramen, 5 pack",
+    "product_id": "10ccadca-72b8-8c80-93e0-1e8d8bc6de97",
+    "unit": "packets"
+  },
+  "red wine": {
+    "aliases": [
+      "cabernet",
+      "merlot",
+      "pinot noir"
+    ],
+    "offers": [
+      {
+        "rate": "15.41",
+        "sku": "MET-RED-WINE",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccaeb4-c3d0-8680-ba20-1e8d8814236d"
+      },
+      {
+        "rate": "15.55",
+        "sku": "WMT-RED-WINE",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccaeb5-a259-8f80-ba20-1e8d895805ad"
+      },
+      {
+        "rate": "15.70",
+        "sku": "CST-RED-WINE",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccaeb6-14bd-8180-ba20-1e8d8aa0669e"
+      },
+      {
+        "rate": "15.71",
+        "sku": "LOB-RED-WINE",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccaeb4-3fa2-8e00-ba20-1e8d8bad124c"
+      }
+    ],
+    "pack": "Red wine, 750 ml",
+    "product_id": "10ccaeb3-7550-8400-93e0-1e8d8aaec28c",
+    "unit": "oz"
+  },
+  "rice": {
+    "aliases": [
+      "white rice",
+      "basmati rice",
+      "jasmine rice"
+    ],
+    "offers": [
+      {
+        "rate": "8.39",
+        "sku": "WMT-RICE",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadc9-0d1d-8880-ba20-1e8d8a02b0ad"
+      },
+      {
+        "rate": "9.12",
+        "sku": "MET-RICE",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadc8-5d5a-8b80-ba20-1e8d89850d06"
+      },
+      {
+        "rate": "9.13",
+        "sku": "CST-RICE",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadc9-c4d7-8180-ba20-1e8d8ae974ee"
+      },
+      {
+        "rate": "9.17",
+        "sku": "LOB-RICE",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadc7-fbd6-8100-ba20-1e8d8b96be72"
+      }
+    ],
+    "pack": "Long grain white rice, 2 kg",
+    "product_id": "10ccadc6-e9c1-8600-93e0-1e8d8a9be0fc",
+    "unit": "cups"
+  },
+  "rice vinegar": {
+    "aliases": [
+      "vinegar",
+      "white vinegar"
+    ],
+    "offers": [
+      {
+        "rate": "3.34",
+        "sku": "CST-RICE-VINEGAR",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae09-17a7-8480-ba20-1e8d89762a70"
+      },
+      {
+        "rate": "3.57",
+        "sku": "MET-RICE-VINEGAR",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae08-17d0-8f80-ba20-1e8d89ccbb94"
+      },
+      {
+        "rate": "3.69",
+        "sku": "WMT-RICE-VINEGAR",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae08-9d79-8700-ba20-1e8d8b5b4ab1"
+      },
+      {
+        "rate": "4.08",
+        "sku": "LOB-RICE-VINEGAR",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae07-89ff-8a00-ba20-1e8d88f8ba77"
+      }
+    ],
+    "pack": "Rice vinegar, 500 ml",
+    "product_id": "10ccae06-4d53-8b80-93e0-1e8d8b1050d1",
+    "unit": "tbsp"
+  },
+  "rum": {
+    "aliases": [
+      "white rum"
+    ],
+    "offers": [
+      {
+        "rate": "24.01",
+        "sku": "CST-RUM",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccaea0-55b5-8a80-ba20-1e8d880fa461"
+      },
+      {
+        "rate": "25.67",
+        "sku": "WMT-RUM",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae9f-98ee-8d80-ba20-1e8d8860e263"
+      },
+      {
+        "rate": "26.56",
+        "sku": "MET-RUM",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae9f-29c7-8c80-ba20-1e8d8baee6b1"
+      },
+      {
+        "rate": "29.65",
+        "sku": "LOB-RUM",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae9e-9343-8200-ba20-1e8d8ab1fab9"
+      }
+    ],
+    "pack": "White rum, 750 ml",
+    "product_id": "10ccae9d-dd03-8b80-93e0-1e8d8a8b0261",
+    "unit": "oz"
+  },
+  "salmon": {
+    "aliases": [
+      "salmon fillet",
+      "fresh salmon"
+    ],
+    "offers": [
+      {
+        "rate": "12.81",
+        "sku": "LOB-SALMON",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadaf-80c9-8380-ba20-1e8d8a58c9cd"
+      },
+      {
+        "rate": "13.17",
+        "sku": "CST-SALMON",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadb1-78e5-8680-ba20-1e8d8a1a1b8c"
+      },
+      {
+        "rate": "13.32",
+        "sku": "WMT-SALMON",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadb0-cfe8-8100-ba20-1e8d8a49d592"
+      },
+      {
+        "rate": "14.08",
+        "sku": "MET-SALMON",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadb0-10d1-8680-ba20-1e8d88bc07d2"
+      }
+    ],
+    "pack": "Atlantic salmon fillet, 340 g",
+    "product_id": "10ccadae-9305-8f00-93e0-1e8d8a179690",
+    "unit": "fillets"
+  },
+  "salsa": {
+    "aliases": [
+      "tomato salsa"
+    ],
+    "offers": [
+      {
+        "rate": "3.78",
+        "sku": "CST-SALSA",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadf2-0a6f-8700-ba20-1e8d8922cbcd"
+      },
+      {
+        "rate": "4.11",
+        "sku": "WMT-SALSA",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadf1-8612-8300-ba20-1e8d88ec4bb9"
+      },
+      {
+        "rate": "4.75",
+        "sku": "MET-SALSA",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadf0-fa8f-8d80-ba20-1e8d8b9aac1d"
+      },
+      {
+        "rate": "4.78",
+        "sku": "LOB-SALSA",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadf0-6d90-8380-ba20-1e8d8bc83576"
+      }
+    ],
+    "pack": "Medium salsa, 418 ml",
+    "product_id": "10ccadef-65f3-8680-93e0-1e8d8ada76b5",
+    "unit": "cups"
+  },
+  "salt": {
+    "aliases": [
+      "table salt",
+      "kosher salt",
+      "sea salt"
+    ],
+    "offers": [
+      {
+        "rate": "2.07",
+        "sku": "MET-SALT",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae25-d614-8980-ba20-1e8d8a9b64d5"
+      },
+      {
+        "rate": "2.23",
+        "sku": "CST-SALT",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae26-5fc9-8900-ba20-1e8d8b9f6f42"
+      },
+      {
+        "rate": "2.24",
+        "sku": "WMT-SALT",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca58c-9102-8900-ba20-1e8d8b4b5064"
+      },
+      {
+        "rate": "2.35",
+        "sku": "LOB-SALT",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca58b-ff84-8c00-ba20-1e8d8ab130a7"
+      }
+    ],
+    "pack": "Table salt, 1 kg",
+    "product_id": "10cca58a-7e5f-8c00-93e0-1e8d8acaff5d",
+    "unit": "tsp"
+  },
+  "sausages": {
+    "aliases": [
+      "sausage",
+      "italian sausage"
+    ],
+    "offers": [
+      {
+        "rate": "7.23",
+        "sku": "CST-SAUSAGES",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccada9-4d3e-8b80-ba20-1e8d88b92f8b"
+      },
+      {
+        "rate": "7.94",
+        "sku": "WMT-SAUSAGES",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccada8-b8ae-8d80-ba20-1e8d88ed0e88"
+      },
+      {
+        "rate": "8.08",
+        "sku": "LOB-SAUSAGES",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccada7-163d-8080-ba20-1e8d8848b148"
+      },
+      {
+        "rate": "8.75",
+        "sku": "MET-SAUSAGES",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccada7-c2f9-8880-ba20-1e8d8a0f172f"
+      }
+    ],
+    "pack": "Italian sausages, 500 g",
+    "product_id": "10ccada5-a737-8000-93e0-1e8d89cb11b5",
+    "unit": "whole"
+  },
+  "sesame oil": {
+    "aliases": [
+      "toasted sesame oil"
+    ],
+    "offers": [
+      {
+        "rate": "6.07",
+        "sku": "CST-SESAME-OIL",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae01-df55-8300-ba20-1e8d8b41bdd0"
+      },
+      {
+        "rate": "6.26",
+        "sku": "WMT-SESAME-OIL",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae01-6c85-8000-ba20-1e8d8b6e1179"
+      },
+      {
+        "rate": "6.37",
+        "sku": "MET-SESAME-OIL",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae00-f087-8180-ba20-1e8d89ba30f9"
+      },
+      {
+        "rate": "7.20",
+        "sku": "LOB-SESAME-OIL",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae00-0fe6-8d00-ba20-1e8d8b936d18"
+      }
+    ],
+    "pack": "Toasted sesame oil, 250 ml",
+    "product_id": "10ccadff-317f-8c00-93e0-1e8d8840149a",
+    "unit": "tsp"
+  },
+  "shrimp": {
+    "aliases": [
+      "prawns",
+      "raw shrimp"
+    ],
+    "offers": [
+      {
+        "rate": "11.79",
+        "sku": "LOB-SHRIMP",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadac-237e-8f80-ba20-1e8d88791c91"
+      },
+      {
+        "rate": "11.85",
+        "sku": "WMT-SHRIMP",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadad-7782-8c00-ba20-1e8d88fd1dc9"
+      },
+      {
+        "rate": "12.12",
+        "sku": "MET-SHRIMP",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadac-f318-8a80-ba20-1e8d8be89724"
+      },
+      {
+        "rate": "12.30",
+        "sku": "CST-SHRIMP",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadae-1134-8300-ba20-1e8d8a1023e2"
+      }
+    ],
+    "pack": "Frozen raw shrimp, 340 g",
+    "product_id": "10ccadab-0f68-8600-93e0-1e8d8a19a2b3",
+    "unit": "whole"
+  },
+  "simple syrup": {
+    "aliases": [
+      "sugar syrup",
+      "gomme syrup"
+    ],
+    "offers": [
+      {
+        "rate": "6.43",
+        "sku": "WMT-SIMPLE-SYRUP",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca5ad-c396-8180-ba20-1e8d8ac1cbec"
+      },
+      {
+        "rate": "6.74",
+        "sku": "LOB-SIMPLE-SYRUP",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca5ad-36d4-8980-ba20-1e8d8be6c3e7"
+      },
+      {
+        "rate": "7.02",
+        "sku": "CST-SIMPLE-SYRUP",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae21-9c37-8f00-ba20-1e8d8acb94c9"
+      },
+      {
+        "rate": "7.08",
+        "sku": "MET-SIMPLE-SYRUP",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae20-efb4-8480-ba20-1e8d8a873de4"
+      }
+    ],
+    "pack": "Simple syrup, 375 ml",
+    "product_id": "10cca5ac-814d-8a00-93e0-1e8d880413ca",
+    "unit": "oz"
+  },
+  "sour cream": {
+    "aliases": [
+      "crema"
+    ],
+    "offers": [
+      {
+        "rate": "4.12",
+        "sku": "WMT-SOUR-CREAM",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca59f-69e2-8800-ba20-1e8d8874d334"
+      },
+      {
+        "rate": "4.19",
+        "sku": "CST-SOUR-CREAM",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad8d-e48c-8980-ba20-1e8d8a3776ae"
+      },
+      {
+        "rate": "4.66",
+        "sku": "MET-SOUR-CREAM",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad8d-2721-8700-ba20-1e8d8a404445"
+      },
+      {
+        "rate": "4.79",
+        "sku": "LOB-SOUR-CREAM",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca59e-d402-8800-ba20-1e8d896e0936"
+      }
+    ],
+    "pack": "Sour cream, 500 ml",
+    "product_id": "10cca59e-1332-8080-93e0-1e8d8bfc49da",
+    "unit": "cups"
+  },
+  "soy sauce": {
+    "aliases": [
+      "light soy sauce"
+    ],
+    "offers": [
+      {
+        "rate": "4.50",
+        "sku": "WMT-SOY-SAUCE",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae05-135f-8a80-ba20-1e8d88e61fdb"
+      },
+      {
+        "rate": "4.69",
+        "sku": "LOB-SOY-SAUCE",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae03-d2ba-8a80-ba20-1e8d8a26585b"
+      },
+      {
+        "rate": "4.92",
+        "sku": "CST-SOY-SAUCE",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae05-a3c9-8f80-ba20-1e8d8aeed96c"
+      },
+      {
+        "rate": "5.18",
+        "sku": "MET-SOY-SAUCE",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae04-5b18-8f80-ba20-1e8d8aed7721"
+      }
+    ],
+    "pack": "Soy sauce, 500 ml",
+    "product_id": "10ccae02-4090-8e80-93e0-1e8d8bf6ca8b",
+    "unit": "tbsp"
+  },
+  "sparkling water": {
+    "aliases": [
+      "club soda",
+      "soda water",
+      "seltzer"
+    ],
+    "offers": [
+      {
+        "rate": "6.27",
+        "sku": "LOB-SPARKLING-WATER",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae90-3b18-8180-ba20-1e8d88004e8d"
+      },
+      {
+        "rate": "6.35",
+        "sku": "CST-SPARKLING-WATER",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae91-9554-8780-ba20-1e8d8bf07d85"
+      },
+      {
+        "rate": "6.77",
+        "sku": "WMT-SPARKLING-WATER",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae91-103e-8000-ba20-1e8d8b3ebf5f"
+      },
+      {
+        "rate": "7.31",
+        "sku": "MET-SPARKLING-WATER",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae90-af29-8d00-ba20-1e8d8a57148e"
+      }
+    ],
+    "pack": "Sparkling water, 12 x 355 ml",
+    "product_id": "10ccae8f-6259-8f80-93e0-1e8d89940e9d",
+    "unit": "cans"
+  },
+  "spinach": {
+    "aliases": [
+      "baby spinach"
+    ],
+    "offers": [
+      {
+        "rate": "4.69",
+        "sku": "WMT-SPINACH",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae3d-3bf5-8f00-ba20-1e8d8b0b73ff"
+      },
+      {
+        "rate": "5.26",
+        "sku": "MET-SPINACH",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae3b-7495-8980-ba20-1e8d8a11369a"
+      },
+      {
+        "rate": "5.40",
+        "sku": "CST-SPINACH",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae3d-ab69-8e00-ba20-1e8d893301f3"
+      },
+      {
+        "rate": "5.76",
+        "sku": "LOB-SPINACH",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae3a-e478-8480-ba20-1e8d8a55fb7c"
+      }
+    ],
+    "pack": "Baby spinach, 312 g",
+    "product_id": "10ccae3a-1cbb-8880-93e0-1e8d89194ecc",
+    "unit": "cups"
+  },
+  "strawberries": {
+    "aliases": [
+      "strawberry",
+      "fresh strawberries"
+    ],
+    "offers": [
+      {
+        "rate": "5.61",
+        "sku": "MET-STRAWBERRIES",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae6e-4fde-8c80-ba20-1e8d89d2a2b3"
+      },
+      {
+        "rate": "5.67",
+        "sku": "WMT-STRAWBERRIES",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae6e-fa2b-8700-ba20-1e8d8803d695"
+      },
+      {
+        "rate": "5.79",
+        "sku": "LOB-STRAWBERRIES",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae6d-c823-8a80-ba20-1e8d89f1eb94"
+      },
+      {
+        "rate": "5.84",
+        "sku": "CST-STRAWBERRIES",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae6f-69aa-8280-ba20-1e8d88be7d5a"
+      }
+    ],
+    "pack": "Strawberries, 454 g",
+    "product_id": "10ccae6d-0856-8c80-93e0-1e8d8a7d15cb",
+    "unit": "cups"
+  },
+  "sugar": {
+    "aliases": [
+      "white sugar",
+      "granulated sugar",
+      "caster sugar"
+    ],
+    "offers": [
+      {
+        "rate": "4.44",
+        "sku": "CST-SUGAR",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad6f-23ba-8000-ba20-1e8d888d4975"
+      },
+      {
+        "rate": "4.89",
+        "sku": "WMT-SUGAR",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca581-6c8c-8500-ba20-1e8d885f1a13"
+      },
+      {
+        "rate": "5.27",
+        "sku": "MET-SUGAR",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad6e-785d-8a00-ba20-1e8d8a82de06"
+      },
+      {
+        "rate": "5.37",
+        "sku": "LOB-SUGAR",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca580-b798-8480-ba20-1e8d88a9d6c9"
+      }
+    ],
+    "pack": "Granulated white sugar, 2 kg",
+    "product_id": "10cca57f-f464-8a00-93e0-1e8d8a952362",
+    "unit": "cups"
+  },
+  "taco seasoning": {
+    "aliases": [
+      "taco spice",
+      "taco mix"
+    ],
+    "offers": [
+      {
+        "rate": "2.34",
+        "sku": "LOB-TACO-SEASONING",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca59b-3647-8180-ba20-1e8d8ad164ec"
+      },
+      {
+        "rate": "2.35",
+        "sku": "WMT-TACO-SEASONING",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca59b-e25f-8b80-ba20-1e8d8802a9d7"
+      },
+      {
+        "rate": "2.38",
+        "sku": "CST-TACO-SEASONING",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae25-61ad-8e80-ba20-1e8d88446e0c"
+      },
+      {
+        "rate": "2.70",
+        "sku": "MET-TACO-SEASONING",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae24-de3a-8380-ba20-1e8d885b2757"
+      }
+    ],
+    "pack": "Taco seasoning mix, 24 g",
+    "product_id": "10cca59a-88da-8800-93e0-1e8d8a161aaf",
+    "unit": "packet"
+  },
+  "tea": {
+    "aliases": [
+      "tea bags",
+      "black tea"
+    ],
+    "offers": [
+      {
+        "rate": "4.86",
+        "sku": "LOB-TEA",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae85-74df-8580-ba20-1e8d8a6d09d4"
+      },
+      {
+        "rate": "5.13",
+        "sku": "WMT-TEA",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae86-5a20-8c80-ba20-1e8d8b41e64b"
+      },
+      {
+        "rate": "5.33",
+        "sku": "MET-TEA",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae85-d983-8d80-ba20-1e8d8a8b4d84"
+      },
+      {
+        "rate": "5.33",
+        "sku": "CST-TEA",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae86-ca2f-8780-ba20-1e8d8b160644"
+      }
+    ],
+    "pack": "Orange pekoe tea, 72 bags",
+    "product_id": "10ccae84-c08b-8080-93e0-1e8d8846e7be",
+    "unit": "bags"
+  },
+  "tequila": {
+    "aliases": [
+      "blanco tequila"
+    ],
+    "offers": [
+      {
+        "rate": "30.70",
+        "sku": "CST-TEQUILA",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccaea3-99ed-8000-ba20-1e8d88cb5a7d"
+      },
+      {
+        "rate": "33.11",
+        "sku": "LOB-TEQUILA",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccaea1-ad1c-8900-ba20-1e8d89580038"
+      },
+      {
+        "rate": "34.61",
+        "sku": "WMT-TEQUILA",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccaea2-ebd4-8880-ba20-1e8d88727033"
+      },
+      {
+        "rate": "36.02",
+        "sku": "MET-TEQUILA",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccaea2-54e7-8e00-ba20-1e8d898e5212"
+      }
+    ],
+    "pack": "Blanco tequila, 750 ml",
+    "product_id": "10ccaea0-fbf8-8480-93e0-1e8d8a4d6f82",
+    "unit": "oz"
+  },
+  "tofu": {
+    "aliases": [
+      "firm tofu",
+      "bean curd"
+    ],
+    "offers": [
+      {
+        "rate": "3.37",
+        "sku": "CST-TOFU",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadb4-60a8-8780-ba20-1e8d8b9162ad"
+      },
+      {
+        "rate": "3.43",
+        "sku": "WMT-TOFU",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadb3-c45c-8700-ba20-1e8d8852d940"
+      },
+      {
+        "rate": "3.99",
+        "sku": "LOB-TOFU",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadb2-b49b-8a00-ba20-1e8d88448dad"
+      },
+      {
+        "rate": "4.35",
+        "sku": "MET-TOFU",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadb3-318e-8500-ba20-1e8d882f55c7"
+      }
+    ],
+    "pack": "Firm tofu, 454 g",
+    "product_id": "10ccadb1-e0da-8d80-93e0-1e8d8aeb7af1",
+    "unit": "g"
+  },
+  "tomato paste": {
+    "aliases": [],
+    "offers": [
+      {
+        "rate": "1.32",
+        "sku": "WMT-TOMATO-PASTE",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadde-e366-8400-ba20-1e8d89f183d4"
+      },
+      {
+        "rate": "1.40",
+        "sku": "MET-TOMATO-PASTE",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadde-5c83-8100-ba20-1e8d886f9df9"
+      },
+      {
+        "rate": "1.40",
+        "sku": "CST-TOMATO-PASTE",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccaddf-80a5-8e80-ba20-1e8d8886f551"
+      },
+      {
+        "rate": "1.41",
+        "sku": "LOB-TOMATO-PASTE",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccaddd-ddf4-8a00-ba20-1e8d8abfae5e"
+      }
+    ],
+    "pack": "Tomato paste, 156 ml",
+    "product_id": "10ccaddc-b413-8580-93e0-1e8d89935082",
+    "unit": "tbsp"
+  },
+  "tomatoes": {
+    "aliases": [
+      "tomato",
+      "roma tomatoes",
+      "plum tomatoes"
+    ],
+    "offers": [
+      {
+        "rate": "3.68",
+        "sku": "CST-TOMATOES",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae3e-9439-8300-ba20-1e8d89f6ceb4"
+      },
+      {
+        "rate": "3.72",
+        "sku": "WMT-TOMATOES",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca5a2-98d4-8b80-ba20-1e8d8a4e37f9"
+      },
+      {
+        "rate": "4.22",
+        "sku": "MET-TOMATOES",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae3e-2af0-8380-ba20-1e8d889d8bc2"
+      },
+      {
+        "rate": "4.58",
+        "sku": "LOB-TOMATOES",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca5a2-38cf-8480-ba20-1e8d8b1f5742"
+      }
+    ],
+    "pack": "Roma tomatoes, 1 lb",
+    "product_id": "10cca5a1-7c5e-8f00-93e0-1e8d89a47716",
+    "unit": "whole"
+  },
+  "tonic water": {
+    "aliases": [
+      "tonic"
+    ],
+    "offers": [
+      {
+        "rate": "4.33",
+        "sku": "WMT-TONIC-WATER",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccae94-660d-8400-ba20-1e8d8a2ed7dc"
+      },
+      {
+        "rate": "4.57",
+        "sku": "LOB-TONIC-WATER",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccae93-34c4-8800-ba20-1e8d8ba0f41e"
+      },
+      {
+        "rate": "4.93",
+        "sku": "CST-TONIC-WATER",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae94-fb2a-8b00-ba20-1e8d8b36e815"
+      },
+      {
+        "rate": "5.40",
+        "sku": "MET-TONIC-WATER",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae93-aa5b-8b80-ba20-1e8d8bdb31f8"
+      }
+    ],
+    "pack": "Tonic water, 4 x 250 ml",
+    "product_id": "10ccae92-5f03-8c80-93e0-1e8d8b2183f9",
+    "unit": "cans"
+  },
+  "tortilla chips": {
+    "aliases": [
+      "nachos",
+      "corn chips"
+    ],
+    "offers": [
+      {
+        "rate": "3.80",
+        "sku": "CST-TORTILLA-CHIPS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadd9-4c27-8680-ba20-1e8d88cebdb2"
+      },
+      {
+        "rate": "3.99",
+        "sku": "WMT-TORTILLA-CHIPS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccadd8-a5ec-8000-ba20-1e8d89c92e45"
+      },
+      {
+        "rate": "4.47",
+        "sku": "LOB-TORTILLA-CHIPS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccadd7-76e0-8e00-ba20-1e8d8bfd30e9"
+      },
+      {
+        "rate": "4.91",
+        "sku": "MET-TORTILLA-CHIPS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadd7-f75b-8080-ba20-1e8d8b117673"
+      }
+    ],
+    "pack": "Tortilla chips, 300 g",
+    "product_id": "10ccadd6-93c1-8d00-93e0-1e8d8b3f6a5d",
+    "unit": "cups"
+  },
+  "tortillas": {
+    "aliases": [
+      "flour tortillas",
+      "corn tortillas",
+      "taco shells",
+      "tortilla"
+    ],
+    "offers": [
+      {
+        "rate": "4.70",
+        "sku": "MET-TORTILLAS",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadbf-3cb3-8f00-ba20-1e8d8997f8a1"
+      },
+      {
+        "rate": "4.82",
+        "sku": "CST-TORTILLAS",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadbf-ae34-8700-ba20-1e8d8bede7f8"
+      },
+      {
+        "rate": "4.90",
+        "sku": "WMT-TORTILLAS",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca597-995d-8c80-ba20-1e8d8abd754a"
+      },
+      {
+        "rate": "4.92",
+        "sku": "LOB-TORTILLAS",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca597-1625-8b00-ba20-1e8d893e60d5"
+      }
+    ],
+    "pack": "Flour tortillas, 10 pack",
+    "product_id": "10cca596-01ec-8180-93e0-1e8d88a27841",
+    "unit": "whole"
+  },
+  "triple sec": {
+    "aliases": [
+      "cointreau",
+      "orange liqueur"
+    ],
+    "offers": [
+      {
+        "rate": "17.22",
+        "sku": "MET-TRIPLE-SEC",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccaea9-a043-8380-ba20-1e8d8a38e46e"
+      },
+      {
+        "rate": "18.17",
+        "sku": "CST-TRIPLE-SEC",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccaeaa-c15f-8500-ba20-1e8d8ae9b906"
+      },
+      {
+        "rate": "18.19",
+        "sku": "WMT-TRIPLE-SEC",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccaeaa-420a-8e80-ba20-1e8d895f3acf"
+      },
+      {
+        "rate": "18.99",
+        "sku": "LOB-TRIPLE-SEC",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccaea9-2797-8100-ba20-1e8d8bff85c2"
+      }
+    ],
+    "pack": "Triple sec, 750 ml",
+    "product_id": "10ccaea8-4cef-8b00-93e0-1e8d89db9124",
+    "unit": "oz"
+  },
+  "vanilla extract": {
+    "aliases": [
+      "vanilla",
+      "vanilla essence"
+    ],
+    "offers": [
+      {
+        "rate": "7.75",
+        "sku": "WMT-VANILLA-EXTRACT",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca58f-0d13-8600-ba20-1e8d890c4c59"
+      },
+      {
+        "rate": "7.94",
+        "sku": "LOB-VANILLA-EXTRACT",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca58e-4955-8e80-ba20-1e8d8a114836"
+      },
+      {
+        "rate": "8.53",
+        "sku": "MET-VANILLA-EXTRACT",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad7d-f674-8e80-ba20-1e8d8adb598f"
+      },
+      {
+        "rate": "8.61",
+        "sku": "CST-VANILLA-EXTRACT",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad7e-a6c9-8b00-ba20-1e8d89bf824e"
+      }
+    ],
+    "pack": "Pure vanilla extract, 100 ml",
+    "product_id": "10cca58d-69ba-8400-93e0-1e8d8b61c53d",
+    "unit": "tsp"
+  },
+  "vegetable oil": {
+    "aliases": [
+      "canola oil",
+      "cooking oil",
+      "oil",
+      "sunflower oil"
+    ],
+    "offers": [
+      {
+        "rate": "5.37",
+        "sku": "WMT-VEGETABLE-OIL",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca594-afdc-8900-ba20-1e8d8b70f32c"
+      },
+      {
+        "rate": "5.48",
+        "sku": "LOB-VEGETABLE-OIL",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca594-074c-8280-ba20-1e8d88a06030"
+      },
+      {
+        "rate": "5.59",
+        "sku": "CST-VEGETABLE-OIL",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccadfa-a9f4-8380-ba20-1e8d8a64b75c"
+      },
+      {
+        "rate": "5.79",
+        "sku": "MET-VEGETABLE-OIL",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccadfa-25d7-8a00-ba20-1e8d899a31f9"
+      }
+    ],
+    "pack": "Canola oil, 1 L",
+    "product_id": "10cca593-4a3b-8880-93e0-1e8d8a779211",
+    "unit": "tbsp"
+  },
+  "vodka": {
+    "aliases": [
+      "premium vodka",
+      "smirnoff"
+    ],
+    "offers": [
+      {
+        "rate": "23.18",
+        "sku": "CST-VODKA",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccae99-e33e-8480-ba20-1e8d881dcdf8"
+      },
+      {
+        "rate": "24.08",
+        "sku": "WMT-VODKA",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10cca5ab-feb5-8600-ba20-1e8d8ab4d48e"
+      },
+      {
+        "rate": "25.55",
+        "sku": "LOB-VODKA",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10cca5ab-8e69-8780-ba20-1e8d8b3010a6"
+      },
+      {
+        "rate": "27.12",
+        "sku": "MET-VODKA",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccae99-6481-8d80-ba20-1e8d886f3b4c"
+      }
+    ],
+    "pack": "Smirnoff vodka, 750 ml",
+    "product_id": "10cca5aa-e2df-8d80-93e0-1e8d8a710532",
+    "unit": "oz"
+  },
+  "whiskey": {
+    "aliases": [
+      "whisky",
+      "bourbon",
+      "rye"
+    ],
+    "offers": [
+      {
+        "rate": "26.44",
+        "sku": "WMT-WHISKEY",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccaea7-524a-8700-ba20-1e8d8adf1782"
+      },
+      {
+        "rate": "26.89",
+        "sku": "LOB-WHISKEY",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccaea6-6dfc-8080-ba20-1e8d8a8aff71"
+      },
+      {
+        "rate": "28.40",
+        "sku": "CST-WHISKEY",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccaea7-d362-8080-ba20-1e8d8bf01c21"
+      },
+      {
+        "rate": "29.82",
+        "sku": "MET-WHISKEY",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccaea6-ec7b-8700-ba20-1e8d89200fd2"
+      }
+    ],
+    "pack": "Rye whisky, 750 ml",
+    "product_id": "10ccaea4-3a02-8080-93e0-1e8d8b917576",
+    "unit": "oz"
+  },
+  "white wine": {
+    "aliases": [
+      "sauvignon blanc",
+      "chardonnay"
+    ],
+    "offers": [
+      {
+        "rate": "15.00",
+        "sku": "CST-WHITE-WINE",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccaeb2-d011-8080-ba20-1e8d89968a1a"
+      },
+      {
+        "rate": "15.47",
+        "sku": "LOB-WHITE-WINE",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccaeb1-77f2-8c00-ba20-1e8d8ab495c4"
+      },
+      {
+        "rate": "15.76",
+        "sku": "WMT-WHITE-WINE",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccaeb2-6ab3-8080-ba20-1e8d8ac701a6"
+      },
+      {
+        "rate": "17.04",
+        "sku": "MET-WHITE-WINE",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccaeb1-ed12-8080-ba20-1e8d8869b940"
+      }
+    ],
+    "pack": "Dry white wine, 750 ml",
+    "product_id": "10ccaeb0-b8c2-8000-93e0-1e8d884bfff3",
+    "unit": "oz"
+  },
+  "yeast": {
+    "aliases": [
+      "active dry yeast",
+      "instant yeast"
+    ],
+    "offers": [
+      {
+        "rate": "2.24",
+        "sku": "CST-YEAST",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad7a-26a3-8000-ba20-1e8d88cea170"
+      },
+      {
+        "rate": "2.27",
+        "sku": "LOB-YEAST",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccad78-4a1c-8a80-ba20-1e8d898b4730"
+      },
+      {
+        "rate": "2.29",
+        "sku": "MET-YEAST",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad78-c57e-8d80-ba20-1e8d8bfda553"
+      },
+      {
+        "rate": "2.31",
+        "sku": "WMT-YEAST",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccad79-41ce-8900-ba20-1e8d8af1e36a"
+      }
+    ],
+    "pack": "Instant dry yeast, 3 x 8 g",
+    "product_id": "10ccad77-651f-8c00-93e0-1e8d8a06e188",
+    "unit": "packets"
+  },
+  "yogurt": {
+    "aliases": [
+      "greek yogurt",
+      "plain yogurt"
+    ],
+    "offers": [
+      {
+        "rate": "5.99",
+        "sku": "LOB-YOGURT",
+        "vendor": "Loblaws",
+        "vendor_id": "10cbd2a1-83c5-8800-8b20-1e8d88b41beb",
+        "vendor_item_id": "10ccad8f-3fff-8e80-ba20-1e8d8ab783c5"
+      },
+      {
+        "rate": "6.19",
+        "sku": "WMT-YOGURT",
+        "vendor": "Walmart",
+        "vendor_id": "10cbd323-79af-8880-8b20-1e8d88c16014",
+        "vendor_item_id": "10ccad90-dfce-8500-ba20-1e8d8bce4a0f"
+      },
+      {
+        "rate": "6.27",
+        "sku": "CST-YOGURT",
+        "vendor": "Costco",
+        "vendor_id": "10cca922-90ae-8d00-8b20-1e8d885534fd",
+        "vendor_item_id": "10ccad91-6507-8900-ba20-1e8d8afc2b01"
+      },
+      {
+        "rate": "7.08",
+        "sku": "MET-YOGURT",
+        "vendor": "Metro",
+        "vendor_id": "10cca916-18b0-8080-8b20-1e8d882394c3",
+        "vendor_item_id": "10ccad90-0ea3-8f00-ba20-1e8d89b1e1b0"
+      }
+    ],
+    "pack": "Plain Greek yogurt, 750 g",
+    "product_id": "10ccad8e-628b-8d00-93e0-1e8d89873360",
+    "unit": "cups"
+  }
+}

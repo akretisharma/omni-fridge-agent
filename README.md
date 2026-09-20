@@ -36,6 +36,7 @@ Four backend endpoints do the real work (plus `GET /api/oak/stream` for the opti
 |------------------------|---------------------------------------|------------------------------------------|
 | `POST /api/intent`      | voice audio (or text) + latest frame + state | `{transcript, action, reply, goal, ingredients, items}` |
 | `POST /api/vision-check`| camera frame + ingredient list       | `{visible:[...], present:[...], missing:[...]}` |
+| `POST /api/prices`      | missing items                        | pack + price per item, and the cheaper vendor |
 | `POST /api/purchase`    | missing items                        | Zip purchase results per item            |
 | `GET /api/purchases`    | -                                    | stored purchase history                  |
 
@@ -63,6 +64,34 @@ cd frontend && npm run dev
 and open http://localhost:3000 (FastAPI serves `frontend/dist`).
 
 Interactive API docs are at http://localhost:3000/docs.
+
+## Grocery catalog (already seeded — do not re-run casually)
+
+Food prices come from a real catalog of 125 staples seeded into Zip as products,
+each priced at Loblaws, Metro, Walmart and Costco. The basket shows the cheapest
+of the four, and each Zip request goes to the store that won that item, so one
+order can be split across vendors. Anything the catalog does not stock (and all
+of hardware mode) falls through to an OMNI price estimate instead.
+
+An estimate is a fresh guess each time it is asked for, so the first one for a
+given name is pinned in `backend/data/estimates.json` and reused; without that
+an item can be shown at one price and ordered at another. Delete that file to
+re-quote.
+
+Vendor prices are derived from the item's reference price by
+`catalog_seed.price_for`, which hashes the item and vendor name so the spread is
+plausible, varies by store, and is identical on every machine and every run.
+
+`backend/catalog_seed.py` created those items and recorded their ids in
+`backend/catalog.json`, which is committed on purpose: Zip cannot list or delete
+products, so without the ledger the next person to run the script would create a
+permanent duplicate of every item. Re-runs skip whatever is already in it.
+
+```bash
+python backend/catalog_seed.py --dry-run         # show what is missing
+python backend/catalog_seed.py                   # create only the missing items
+python backend/catalog_seed.py --refresh-prices  # push edited prices to Zip
+```
 
 The app has two pages. **Live camera** is the main flow; **Zip purchases**
 lists every purchase request (status, goal, time), and you're taken there
