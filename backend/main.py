@@ -6,6 +6,7 @@
 #
 #   POST /api/intent         voice request (+ camera frame + state) -> action + reply
 #   POST /api/vision-check   camera frame + checklist -> visible/present/missing
+#   POST /api/prices         missing items -> estimated pack/SKU + price per item
 #   POST /api/purchase       missing items -> Zip purchase requests + status
 #   GET  /api/purchases      stored purchase history for the Purchases page
 #   GET  /api/oak/stream     Luxonis OAK camera as MJPEG (optional, needs depthai)
@@ -100,10 +101,24 @@ class VisionCheckRequest(BaseModel):
     mode: Mode = "food"
 
 
+class PriceRequest(BaseModel):
+    items: list[Ingredient]
+    goal: Optional[str] = None
+    mode: Mode = "food"
+
+
+class PriceQuote(BaseModel):
+    product: Optional[str] = None
+    rate: Optional[str] = None
+
+
 class PurchaseRequest(BaseModel):
     items: list[Ingredient]
     goal: Optional[str] = None
     mode: Mode = "food"
+    # Quotes the user already saw (from /api/prices), keyed by item name. Reused
+    # as-is so the order matches the basket on screen instead of re-guessing.
+    prices: dict[str, PriceQuote] = {}
 
 
 # -------------------------------------------------------------------------
@@ -213,6 +228,11 @@ async def guess_prices(items: list, goal: Optional[str], mode: str = "food") -> 
             "rate": rate,
         }
     return out
+
+
+# guess_prices keys by lowercased name; the frontend holds the exact names.
+def by_item_name(items: list, prices: dict[str, dict]) -> dict[str, dict]:
+    return {i.name: prices[key] for i in items if (key := (i.name or "").strip().lower()) in prices}
 
 
 # Zip lives in zip_client.py: POST /requests on HTN staging so they show
@@ -452,16 +472,37 @@ async def _omni_or_500(messages: list[dict]) -> Any:
 
 
 # -------------------------------------------------------------------------
+# POST /api/prices
+# Body: { items: [{name, quantity, unit}], goal?: str, mode?: str }
+# Returns: { prices: { "<item name>": {product, rate} } }
+# Lets the UI show what each missing item will cost before ordering. Items OMNI
+# cannot price are simply absent from the map.
+# -------------------------------------------------------------------------
+@app.post("/api/prices")
+async def prices(body: PriceRequest):
+    if not body.items:
+        return {"prices": {}}
+    quotes = await guess_prices(body.items, body.goal, body.mode)
+    return {"prices": by_item_name(body.items, quotes)}
+
+
+# -------------------------------------------------------------------------
 # POST /api/purchase
-# Body: { items: [{name, quantity, unit}], goal?: str }
-# Returns: { results: [{name, status, raw}] }
+# Body: { items: [{name, quantity, unit}], goal?: str, prices?: {name: {product, rate}} }
+# Returns: { results: [{name, status, amount, product, raw}] }
 # -------------------------------------------------------------------------
 @app.post("/api/purchase")
 async def purchase(body: PurchaseRequest):
     if not body.items:
         raise HTTPException(400, "items[] is required")
 
-    prices = await guess_prices(body.items, body.goal, body.mode)
+    quoted = {
+        name.strip().lower(): q
+        for name, quote in body.prices.items()
+        if (q := quote.model_dump(exclude_none=True))
+    }
+    unquoted = [i for i in body.items if (i.name or "").strip().lower() not in quoted]
+    prices = {**(await guess_prices(unquoted, body.goal, body.mode) if unquoted else {}), **quoted}
     results = []
     for item in body.items:
         try:
@@ -471,6 +512,8 @@ async def purchase(body: PurchaseRequest):
                 {
                     "name": item.name,
                     "status": raw.get("status") or "submitted",
+                    "amount": raw.get("amount"),
+                    "product": raw.get("product"),
                     "vendor": raw.get("vendor"),
                     "request_id": raw.get("request_id"),
                     "request_number": raw.get("request_number"),
@@ -493,6 +536,8 @@ async def purchase(body: PurchaseRequest):
             "quantity": item.quantity,
             "unit": item.unit,
             "status": r["status"],
+            "amount": r.get("amount"),
+            "product": r.get("product"),
             "vendor": r.get("vendor"),
             "request_id": r.get("request_id"),
             "request_number": r.get("request_number"),
@@ -509,7 +554,8 @@ async def purchase(body: PurchaseRequest):
 
 # -------------------------------------------------------------------------
 # GET /api/purchases
-# Returns: { purchases: [{id, createdAt, goal, name, quantity, unit, status, error, raw}] }
+# Returns: { purchases: [{id, createdAt, goal, name, quantity, unit, status,
+#            amount, product, error, raw}] }
 # Newest first. Persisted to backend/data/purchases.json so a server restart keeps them.
 # -------------------------------------------------------------------------
 def _load_purchases() -> list[dict]:
@@ -577,7 +623,9 @@ if __name__ == "__main__":
     import uvicorn
 
     # app_dir/reload_dirs make this work from any cwd and keep the reloader from
-    # watching frontend/node_modules.
+    # watching frontend/node_modules. The graceful-shutdown timeout matters: an
+    # open /api/oak/stream never ends on its own, so without it a reload hangs
+    # forever on "Waiting for connections to close" whenever a browser is watching.
     uvicorn.run(
         "main:app",
         app_dir=str(BACKEND_DIR),
@@ -585,4 +633,5 @@ if __name__ == "__main__":
         host="0.0.0.0",
         port=PORT,
         reload=True,
+        timeout_graceful_shutdown=1,
     )

@@ -44,6 +44,12 @@ function groupOrders(purchases) {
   return orders;
 }
 
+const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
+
+// Records from a failed request have no amount, so they don't count towards a total.
+const sumAmount = (items) => items.reduce((sum, p) => sum + (Number(p.amount) || 0), 0);
+const money = (n) => `$${n.toFixed(2)}`;
+
 function Stat({ value, label }) {
   return (
     <div>
@@ -143,7 +149,8 @@ export default function PurchasesPage() {
 
       {purchases && orders.length > 0 && (
         <>
-          <div className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-4">
+          <div className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-5">
+            <Stat value={money(sumAmount(purchases))} label="Estimated total" />
             <Stat value={orders.length} label="Orders" />
             <Stat value={purchases.length} label="Items" />
             <Stat value={count('approved')} label="Approved" />
@@ -159,12 +166,17 @@ export default function PurchasesPage() {
                 transition={{ duration: 0.4, delay: Math.min(i, 5) * 0.06, ease: [0.16, 1, 0.3, 1] }}
               >
                 <Panel className="p-5">
-                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                     <h2 className="text-xl font-semibold capitalize tracking-tight">{order.goal || 'Purchase'}</h2>
-                    <p className="font-mono text-xs text-muted">
-                      {new Date(order.createdAt * 1000).toLocaleString()}
-                    </p>
+                    {sumAmount(order.items) > 0 && (
+                      <p className="font-mono text-2xl font-medium tracking-tight">
+                        {money(sumAmount(order.items))}
+                      </p>
+                    )}
                   </div>
+                  <p className="mt-1 font-mono text-xs text-muted">
+                    {plural(order.items.length, 'item')} · {new Date(order.createdAt * 1000).toLocaleString()}
+                  </p>
                   <ul className="mt-3 flex flex-col">
                     {order.items.map((p) => (
                       <li
@@ -181,8 +193,11 @@ export default function PurchasesPage() {
                           {p.error && <p className="mt-0.5 break-words text-xs text-danger">{p.error}</p>}
                         </div>
                         <div className="flex shrink-0 items-center gap-4">
-                          <span className="font-mono text-xs text-muted">
-                            {p.quantity ? `${p.quantity} ${p.unit || ''}`.trim() : ''}
+                          <span className="text-right">
+                            {p.amount && <span className="block font-mono text-sm">${p.amount}</span>}
+                            <span className="block font-mono text-xs text-muted">
+                              {p.quantity ? `${p.quantity} ${p.unit || ''}`.trim() : ''}
+                            </span>
                           </span>
                           <StatusBadge status={p.status} />
                         </div>

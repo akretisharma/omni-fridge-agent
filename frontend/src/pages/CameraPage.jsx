@@ -18,7 +18,7 @@ import {
   XCircle,
 } from '@phosphor-icons/react';
 import { createMicSegmenter } from '../audio.js';
-import { fetchIntent, fetchOakStatus, purchaseItems, visionCheck } from '../api.js';
+import { fetchIntent, fetchOakStatus, fetchPrices, purchaseItems, visionCheck } from '../api.js';
 import LevelMeter from '../components/LevelMeter.jsx';
 import { Button, Chip, Field, Panel, Segmented, Switch, cx, inputClass } from '../components/ui.jsx';
 
@@ -104,8 +104,10 @@ const ROW_ICON = {
 
 // One ingredient. layoutId lets a row glide from "To buy" to "On the shelf"
 // the moment the camera spots it, which is the whole point of the live scan.
-function IngredientRow({ name, qty, state, onClick }) {
+// `price` is the quote from /api/prices: { product, rate }.
+function IngredientRow({ name, qty, state, price, onClick }) {
   const Tag = onClick ? 'button' : 'div';
+  const dimmed = state === 'skipped';
   return (
     <motion.li
       layout
@@ -115,19 +117,33 @@ function IngredientRow({ name, qty, state, onClick }) {
       transition={{ type: 'spring', stiffness: 420, damping: 34 }}
     >
       <Tag
-        {...(onClick ? { type: 'button', onClick, 'aria-pressed': state === 'skipped' } : {})}
+        {...(onClick ? { type: 'button', onClick, 'aria-pressed': dimmed } : {})}
         className={cx(
           'flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[15px] transition-colors duration-200',
           onClick && 'hover:bg-surface-2'
         )}
       >
         {ROW_ICON[state]}
-        <span className={cx('flex-1', state === 'skipped' && 'text-muted line-through')}>{name}</span>
-        <span className="font-mono text-xs text-muted">{state === 'skipped' ? 'Skipped' : qty}</span>
+        <span className="min-w-0 flex-1">
+          <span className={cx('block truncate', dimmed && 'text-muted line-through')}>{name}</span>
+          {price?.product && price.product.toLowerCase() !== name.toLowerCase() && (
+            <span className="block truncate text-xs text-muted">{price.product}</span>
+          )}
+        </span>
+        <span className="shrink-0 text-right">
+          {price?.rate && (
+            <span className={cx('block font-mono text-sm', dimmed ? 'text-muted line-through' : 'text-fg')}>
+              ${price.rate}
+            </span>
+          )}
+          <span className="block font-mono text-xs text-muted">{dimmed ? 'Skipped' : qty}</span>
+        </span>
       </Tag>
     </motion.li>
   );
 }
+
+const money = (n) => `$${n.toFixed(2)}`;
 
 function TypingDots() {
   return (
@@ -156,6 +172,7 @@ export default function CameraPage() {
   const announceFirstScanRef = useRef(false); // narrate the first result after a new goal
   const queueRef = useRef(Promise.resolve()); // utterances are handled one at a time, in order
   const scanBusyRef = useRef(false);
+  const pendingPricesRef = useRef(0); // price requests in flight
   const statusRef = useRef(new Map()); // ingredient -> { status, pending, count } (debounced)
 
   const [cameraOn, setCameraOn] = useState(false);
@@ -174,12 +191,14 @@ export default function CameraPage() {
   const [check, setCheck] = useState(null); // { present: [], missing: [] }
   const [visible, setVisible] = useState([]); // everything OMNI currently sees
   const [skipped, setSkipped] = useState(() => new Set());
+  const [prices, setPrices] = useState({}); // item name -> { product, rate } from OMNI
+  const [pricing, setPricing] = useState(false);
   const [purchasing, setPurchasing] = useState(false);
   const [logLines, setLogLines] = useState([]);
 
   // Latest state for callbacks created once (mic loop, scan interval).
   const live = useRef({});
-  live.current = { mode, source, cameraOn, liveScan, goal, check, visible, skipped };
+  live.current = { mode, source, cameraOn, liveScan, goal, check, visible, skipped, prices };
 
   const log = (msg, obj) => {
     const line = obj ? `${msg} ${JSON.stringify(obj)}` : msg;
@@ -452,6 +471,7 @@ export default function CameraPage() {
       setGoal(next);
       setCheck(null);
       setSkipped(new Set());
+      setPrices({});
       announceFirstScanRef.current = true;
       if (s.cameraOn) scanOnce();
     } else if (r.action === 'skip_items' || r.action === 'unskip_items') {
@@ -516,7 +536,9 @@ export default function CameraPage() {
         const match = goal.ingredients.find((i) => i.name === name);
         return { name, quantity: match?.quantity || 1, unit: match?.unit || 'unit' };
       });
-      const { results } = await purchaseItems(items, goal.goal, mode);
+      // Send the quotes on screen so Zip is billed the amounts the user approved.
+      const quotes = Object.fromEntries(toBuy.filter((n) => prices[n]).map((n) => [n, prices[n]]));
+      const { results } = await purchaseItems(items, goal.goal, mode, quotes);
       log('Purchase results:', results);
 
       const approved = results.filter((r) => r.status === 'approved').length;
@@ -548,6 +570,7 @@ export default function CameraPage() {
     setCheck(null);
     setVisible([]);
     setSkipped(new Set());
+    setPrices({});
     setMessages([]);
     setNotice(null);
   }
@@ -562,6 +585,40 @@ export default function CameraPage() {
     const i = needed.find((x) => x.name === name);
     return i?.quantity ? `${i.quantity} ${i.unit || ''}`.trim() : '';
   };
+  const quoted = toBuy.filter((n) => prices[n]?.rate);
+  const total = quoted.reduce((sum, n) => sum + Number(prices[n].rate), 0);
+
+  // Quote anything newly missing, so the basket shows prices before ordering.
+  // Prices already held are kept: an item that flickers missing doesn't re-ask.
+  useEffect(() => {
+    const want = missingNames.filter((n) => !live.current.prices[n]);
+    if (want.length === 0) return undefined;
+    const goalAtStart = goal;
+    const modeAtStart = mode;
+    let cancelled = false;
+    pendingPricesRef.current += 1;
+    setPricing(true);
+    fetchPrices(
+      want.map((name) => needed.find((i) => i.name === name) ?? { name }),
+      goal?.goal ?? null,
+      modeAtStart
+    )
+      .then((r) => {
+        // A new goal or mode while OMNI was pricing makes these quotes stale.
+        if (cancelled || live.current.goal !== goalAtStart || live.current.mode !== modeAtStart) return;
+        setPrices((prev) => ({ ...prev, ...r.prices }));
+      })
+      .catch((err) => log('Price error:', err.message))
+      .finally(() => {
+        pendingPricesRef.current -= 1;
+        if (pendingPricesRef.current === 0) setPricing(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+    // Prices are read through live.current so holding one doesn't re-run this.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [missingNames.join('|'), mode]);
 
   const chatRef = useRef(null);
   useEffect(() => {
@@ -840,12 +897,18 @@ export default function CameraPage() {
                           key={n}
                           name={n}
                           qty={qtyOf(n)}
+                          price={prices[n]}
                           state={skipped.has(n) ? 'skipped' : 'buy'}
                           onClick={() => toggleSkip(n)}
                         />
                       ))}
                     </ul>
-                    <p className="mt-2 px-3 text-xs text-muted">Tap an item, or say “skip” and its name.</p>
+                    <p className="mt-2 px-3 text-xs text-muted">
+                      Tap an item, or say “skip” and its name.
+                      {pricing
+                        ? ' Pricing…'
+                        : quoted.length > 0 && ' Prices are OMNI estimates of the pack Zip will order.'}
+                    </p>
                   </div>
                 )}
               </LayoutGroup>
@@ -859,14 +922,22 @@ export default function CameraPage() {
 
               {check && missingNames.length > 0 && (
                 <div className="mt-6 flex items-center justify-between gap-4">
-                  <p className="text-sm text-muted">
-                    <span className="font-mono text-fg">{toBuy.length}</span> to order
-                    {skipped.size > 0 && (
-                      <>
-                        , <span className="font-mono text-fg">{skipped.size}</span> skipped
-                      </>
+                  <div>
+                    <p className="text-sm text-muted">
+                      <span className="font-mono text-fg">{toBuy.length}</span> to order
+                      {skipped.size > 0 && (
+                        <>
+                          , <span className="font-mono text-fg">{skipped.size}</span> skipped
+                        </>
+                      )}
+                    </p>
+                    {quoted.length > 0 && (
+                      <p className="mt-1 text-sm text-muted">
+                        <span className="font-mono text-lg text-fg">{money(total)}</span>{' '}
+                        {quoted.length < toBuy.length ? `for ${quoted.length} of ${toBuy.length}` : 'estimated total'}
+                      </p>
                     )}
-                  </p>
+                  </div>
                   <Button icon={ShoppingCartSimple} onClick={purchase} disabled={purchasing || toBuy.length === 0}>
                     {purchasing ? 'Ordering' : 'Order with Zip'}
                   </Button>
