@@ -1,7 +1,8 @@
 import { MotionConfig } from 'motion/react';
 import { NavLink, Route, Routes } from 'react-router-dom';
-import { Aperture, ShoppingCartSimple, VideoCamera } from '@phosphor-icons/react';
+import { Aperture, Package, ShoppingCartSimple, VideoCamera } from '@phosphor-icons/react';
 import CameraPage from './pages/CameraPage.jsx';
+import InventoryPage from './pages/InventoryPage.jsx';
 import PurchasesPage from './pages/PurchasesPage.jsx';
 
 const navClass = ({ isActive }) =>
@@ -25,6 +26,10 @@ export default function App() {
               <VideoCamera size={18} weight="regular" aria-hidden />
               Live
             </NavLink>
+            <NavLink to="/inventory" className={navClass}>
+              <Package size={18} weight="regular" aria-hidden />
+              Inventory
+            </NavLink>
             <NavLink to="/purchases" className={navClass}>
               <ShoppingCartSimple size={18} weight="regular" aria-hidden />
               Purchases
@@ -34,6 +39,7 @@ export default function App() {
       </header>
       <Routes>
         <Route path="/" element={<CameraPage />} />
+        <Route path="/inventory" element={<InventoryPage />} />
         <Route path="/purchases" element={<PurchasesPage />} />
       </Routes>
     </MotionConfig>

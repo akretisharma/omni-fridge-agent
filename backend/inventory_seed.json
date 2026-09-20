@@ -1,0 +1,914 @@
+[
+ {
+  "name": "12 mm Gearmotors",
+  "available": 5
+ },
+ {
+  "name": "12.5 W Micro USB Power Supply",
+  "available": 14
+ },
+ {
+  "name": "15 W Micro USB Power Supply",
+  "available": 19
+ },
+ {
+  "name": "16 GB microSD Card",
+  "available": 1
+ },
+ {
+  "name": "16 GB SD Card",
+  "available": 7
+ },
+ {
+  "name": "18 W Barrel Jack Power Supply",
+  "available": 0
+ },
+ {
+  "name": "18650 Batteries",
+  "available": 0
+ },
+ {
+  "name": "18650 Battery Charger Module",
+  "available": 0
+ },
+ {
+  "name": "18650 Battery Holder",
+  "available": 1
+ },
+ {
+  "name": "18650 Battery Power Module",
+  "available": 0
+ },
+ {
+  "name": "20 W Barrel Jack Power Supply",
+  "available": 0
+ },
+ {
+  "name": "21700 Batteries",
+  "available": 9
+ },
+ {
+  "name": "30 W DC Barrel Jack Power Supply",
+  "available": 0
+ },
+ {
+  "name": "32 GB microSD Card",
+  "available": 5
+ },
+ {
+  "name": "32 GB SD Card",
+  "available": 1
+ },
+ {
+  "name": "4-Digit 7-Segment Display Module",
+  "available": 2
+ },
+ {
+  "name": "5 W Barrel Jack Power Supply",
+  "available": 0
+ },
+ {
+  "name": "5 W Micro USB Power Supply",
+  "available": 1
+ },
+ {
+  "name": "8 GB microSD Card",
+  "available": 0
+ },
+ {
+  "name": "8 GB SD Card",
+  "available": 1
+ },
+ {
+  "name": "8BitDo Lite Bluetooth Gamepad",
+  "available": 4
+ },
+ {
+  "name": "9V Batteries",
+  "available": 2
+ },
+ {
+  "name": "9V Battery Connectors",
+  "available": 14
+ },
+ {
+  "name": "AA Batteries",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "AA Battery Holder",
+  "available": 3
+ },
+ {
+  "name": "AAA Batteries",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "Analog Temperature Sensor",
+  "available": 2
+ },
+ {
+  "name": "Arduino Camera Module",
+  "available": 3
+ },
+ {
+  "name": "Arduino Leonardo",
+  "available": 4
+ },
+ {
+  "name": "Arduino Nano",
+  "available": 12
+ },
+ {
+  "name": "Arduino Uno",
+  "available": 77
+ },
+ {
+  "name": "Bluetooth Module Breakout Board",
+  "available": 1
+ },
+ {
+  "name": "Breadboard Power Supply",
+  "available": 23
+ },
+ {
+  "name": "Breakout Board",
+  "available": 0
+ },
+ {
+  "name": "Buzzer Module",
+  "available": 0
+ },
+ {
+  "name": "Capacitive Fingerprint Scanner",
+  "available": 2
+ },
+ {
+  "name": "Capacitors",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "Circuit Scribe",
+  "available": 7
+ },
+ {
+  "name": "Clock Module",
+  "available": 3
+ },
+ {
+  "name": "Coin Battery Holder",
+  "available": 2
+ },
+ {
+  "name": "CR 2032 Batteries",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "D Batteries",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "DC Motors",
+  "available": 27
+ },
+ {
+  "name": "DC Step Down Power Supply",
+  "available": 1
+ },
+ {
+  "name": "DHT22 Temperature & Humidity Sensor",
+  "available": 1
+ },
+ {
+  "name": "Display Module",
+  "available": 0
+ },
+ {
+  "name": "DIY Arduino Kits",
+  "available": 26
+ },
+ {
+  "name": "DJI Robomaster",
+  "available": 4,
+  "source": "special"
+ },
+ {
+  "name": "Duct Tape",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "Electrical Wire",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "Electromechanical Relay",
+  "available": 3
+ },
+ {
+  "name": "Electroninks Custom Breakout Board With Snap Connectors",
+  "available": 10
+ },
+ {
+  "name": "ESP32",
+  "available": 1
+ },
+ {
+  "name": "ESP32 Camera 4WD Robot Car",
+  "available": 0
+ },
+ {
+  "name": "ESP32 Wi-Fi Intelligent Turtle Car",
+  "available": 0
+ },
+ {
+  "name": "ESP32-CAM",
+  "available": 5
+ },
+ {
+  "name": "Extension Cord",
+  "available": 0,
+  "source": "makerspace"
+ },
+ {
+  "name": "Female DC Barrel Jack",
+  "available": 0
+ },
+ {
+  "name": "Flame Sensor Module",
+  "available": 6
+ },
+ {
+  "name": "Freenove Micro:Rover Kit",
+  "available": 1
+ },
+ {
+  "name": "FSR Sensor",
+  "available": 5
+ },
+ {
+  "name": "Full-Size Breadboards",
+  "available": 36
+ },
+ {
+  "name": "Glue Guns",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "GPS Module",
+  "available": 0
+ },
+ {
+  "name": "Grove Starter Kit for Raspberry Pi Pico",
+  "available": 10
+ },
+ {
+  "name": "Grove Starter Kit Plus",
+  "available": 2
+ },
+ {
+  "name": "Half-Size Breadboard",
+  "available": 7
+ },
+ {
+  "name": "Hall Effect Sensor",
+  "available": 3
+ },
+ {
+  "name": "HDMI Cable",
+  "available": 7
+ },
+ {
+  "name": "HDMI to Mini DisplayPort Cable",
+  "available": 3
+ },
+ {
+  "name": "Hot Glue Sticks",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "Humidity Sensor",
+  "available": 1
+ },
+ {
+  "name": "Infrared Emitters And Detectors",
+  "available": 5
+ },
+ {
+  "name": "Infrared Receiver",
+  "available": 31
+ },
+ {
+  "name": "Infrared Sensor",
+  "available": 11
+ },
+ {
+  "name": "Integrated Circuits",
+  "available": 3
+ },
+ {
+  "name": "Intel Edison",
+  "available": 1
+ },
+ {
+  "name": "Intel Edison + Breakout Board",
+  "available": 1
+ },
+ {
+  "name": "IR Motion Sensor",
+  "available": 1
+ },
+ {
+  "name": "IR Obstacle Sensor",
+  "available": 2
+ },
+ {
+  "name": "IR Receiver & Transmitter",
+  "available": 6
+ },
+ {
+  "name": "Jetson Nano Developer Kit (4 GB)",
+  "available": 0
+ },
+ {
+  "name": "Jumper Wires (Male-to-Female)",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "Jumper Wires (Male-to-Male)",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "Keypad",
+  "available": 2
+ },
+ {
+  "name": "KY-021 Reed Switch Module",
+  "available": 8
+ },
+ {
+  "name": "KY-024 Hall Effect Sensor Module",
+  "available": 2
+ },
+ {
+  "name": "Large LCD Screen Module",
+  "available": 0
+ },
+ {
+  "name": "LEDs",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "LEGO",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "LilyPad",
+  "available": 0
+ },
+ {
+  "name": "LilyPad Board",
+  "available": 7
+ },
+ {
+  "name": "LilyPad Button Board",
+  "available": 0
+ },
+ {
+  "name": "LilyPad Buttons",
+  "available": 5
+ },
+ {
+  "name": "LilyPad Perfboard",
+  "available": 0
+ },
+ {
+  "name": "Line Follow Sensor",
+  "available": 3
+ },
+ {
+  "name": "Long USB-A to USB-B Cable",
+  "available": 14
+ },
+ {
+  "name": "Luxonis OAK-1 AI Kit",
+  "available": 24
+ },
+ {
+  "name": "Luxonis Oak-D S2 Stereo Depth Camera",
+  "available": 0,
+  "source": "special"
+ },
+ {
+  "name": "Male DC Barrel Jack",
+  "available": 0
+ },
+ {
+  "name": "Markers",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "Medium LCD Screen Module",
+  "available": 3
+ },
+ {
+  "name": "Meta Quest 3S + Touch Plus Controller",
+  "available": 0,
+  "source": "special"
+ },
+ {
+  "name": "Meta Quest Pro",
+  "available": 0,
+  "source": "special"
+ },
+ {
+  "name": "MI:pro Protector Case",
+  "available": 0
+ },
+ {
+  "name": "Micro SD Card Adapter Module",
+  "available": 1
+ },
+ {
+  "name": "Micro SD Card Module",
+  "available": 0
+ },
+ {
+  "name": "Micro Servos",
+  "available": 5
+ },
+ {
+  "name": "Micro-USB-to-Pin Adapter",
+  "available": 8
+ },
+ {
+  "name": "Micro:Climate Kit",
+  "available": 4
+ },
+ {
+  "name": "Microphone",
+  "available": 1
+ },
+ {
+  "name": "Microphone Module",
+  "available": 1
+ },
+ {
+  "name": "microSD-to-SD Adapter",
+  "available": 9
+ },
+ {
+  "name": "Mind Flex Game",
+  "available": 0
+ },
+ {
+  "name": "Mini DC DC Step Down Voltage Regulator Module",
+  "available": 0
+ },
+ {
+  "name": "Mini Relay Module",
+  "available": 2
+ },
+ {
+  "name": "Mini Step Down Adjustable Power Supply",
+  "available": 0
+ },
+ {
+  "name": "Modelling Clay",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "MOSFET",
+  "available": 2
+ },
+ {
+  "name": "Motor Drive Module",
+  "available": 0
+ },
+ {
+  "name": "MPR121 Capacitive Touch Breakout",
+  "available": 0
+ },
+ {
+  "name": "MPU6050 Accelerometer",
+  "available": 0
+ },
+ {
+  "name": "Multimedia Projector",
+  "available": 1
+ },
+ {
+  "name": "Nest Security Cam",
+  "available": 2
+ },
+ {
+  "name": "NFC Reader and Cards",
+  "available": 0
+ },
+ {
+  "name": "NFC Stickers",
+  "available": 100,
+  "source": "makerspace"
+ },
+ {
+  "name": "Nuts and Bolts",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "Optical Flow Sensor",
+  "available": 0
+ },
+ {
+  "name": "Particle Photon Wi-Fi Dev Board",
+  "available": 0
+ },
+ {
+  "name": "Photoresistor",
+  "available": 35
+ },
+ {
+  "name": "Photoresistor Sensor Module",
+  "available": 11
+ },
+ {
+  "name": "Piezo (Active Magnetic) Buzzer",
+  "available": 2
+ },
+ {
+  "name": "Plastic Chassis Kit",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "Portable Charger",
+  "available": 2
+ },
+ {
+  "name": "Potentiometer",
+  "available": 18
+ },
+ {
+  "name": "Potentiometer Microcontroller",
+  "available": 1
+ },
+ {
+  "name": "Push Buttons",
+  "available": 32
+ },
+ {
+  "name": "Pyroelectric Sensor",
+  "available": 2
+ },
+ {
+  "name": "QNX Raspberry Pi 5 Starter Kit",
+  "available": 3
+ },
+ {
+  "name": "QNX Raspberry Pi Camera Module 3",
+  "available": 0
+ },
+ {
+  "name": "Raspberry Pi 2",
+  "available": 0
+ },
+ {
+  "name": "Raspberry Pi 3",
+  "available": 27
+ },
+ {
+  "name": "Raspberry Pi 3 (No Wi-Fi)",
+  "available": 3
+ },
+ {
+  "name": "Raspberry Pi 4 (2 GB)",
+  "available": 4
+ },
+ {
+  "name": "Raspberry Pi 4 (8 GB)",
+  "available": 0
+ },
+ {
+  "name": "Raspberry Pi 5 (4 GB)",
+  "available": 2
+ },
+ {
+  "name": "Raspberry Pi 5 Kit with Temperature Sensor",
+  "available": 0
+ },
+ {
+  "name": "Raspberry Pi Camera Module",
+  "available": 7
+ },
+ {
+  "name": "Raspberry Pi Case",
+  "available": 0
+ },
+ {
+  "name": "Raspberry Pi Pico",
+  "available": 0
+ },
+ {
+  "name": "Raspberry Pi Starter Kit Pro",
+  "available": 1
+ },
+ {
+  "name": "Raspberry Pi Touchscreen",
+  "available": 0
+ },
+ {
+  "name": "RDK X5 Development Kit",
+  "available": 6
+ },
+ {
+  "name": "Real-Time Clock Module",
+  "available": 3
+ },
+ {
+  "name": "Reed Sensor",
+  "available": 7
+ },
+ {
+  "name": "Remote-Control Building Block Set",
+  "available": 2
+ },
+ {
+  "name": "Resistors",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "RF Link Transmitter & Receiver",
+  "available": 3
+ },
+ {
+  "name": "RFID Evaluator",
+  "available": 1
+ },
+ {
+  "name": "RFID Reader/Writer Kit (Cards)",
+  "available": 0
+ },
+ {
+  "name": "RGB LEDs",
+  "available": 5
+ },
+ {
+  "name": "RGB PWM Module",
+  "available": 3
+ },
+ {
+  "name": "Robot Wheels",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "Rotary Potentiometer",
+  "available": 0
+ },
+ {
+  "name": "RPLidar Laser Scanner Development Kit",
+  "available": 0,
+  "source": "special"
+ },
+ {
+  "name": "Rubber Bands",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "SD Card Module",
+  "available": 2
+ },
+ {
+  "name": "Servo Controller",
+  "available": 8
+ },
+ {
+  "name": "Servo Tester",
+  "available": 0
+ },
+ {
+  "name": "Servo Trigger",
+  "available": 6
+ },
+ {
+  "name": "Short USB-A to USB-B Cable",
+  "available": 1
+ },
+ {
+  "name": "Single-Digit 7-Segment Display Module",
+  "available": 2
+ },
+ {
+  "name": "Small LCD Screen Module",
+  "available": 2
+ },
+ {
+  "name": "Soil Moisture Sensor",
+  "available": 3
+ },
+ {
+  "name": "Solderable Prototyping Board",
+  "available": 1
+ },
+ {
+  "name": "Sound Audio Sensor Module",
+  "available": 1
+ },
+ {
+  "name": "Sound Sensor Detection Module",
+  "available": 2
+ },
+ {
+  "name": "SparkFun Atmospheric Sensor",
+  "available": 0
+ },
+ {
+  "name": "SparkFun Bluetooth Module",
+  "available": 6
+ },
+ {
+  "name": "SparkFun Breakout Board",
+  "available": 1
+ },
+ {
+  "name": "SparkFun Gesture Sensor",
+  "available": 0
+ },
+ {
+  "name": "SparkFun Inventor's Kit",
+  "available": 7
+ },
+ {
+  "name": "SparkFun RFID Evaluation Shield",
+  "available": 2
+ },
+ {
+  "name": "SparkFun Smart Basic",
+  "available": 2
+ },
+ {
+  "name": "SparkFun Tessel 2",
+  "available": 1
+ },
+ {
+  "name": "SparkFun Tinker Kit",
+  "available": 16
+ },
+ {
+  "name": "Speaker Module",
+  "available": 0
+ },
+ {
+  "name": "STEM Smart Fan Building Kit",
+  "available": 7
+ },
+ {
+  "name": "Stepper Motor Driver",
+  "available": 7
+ },
+ {
+  "name": "Stepper Motors",
+  "available": 0
+ },
+ {
+  "name": "Stereolabs ZED 2 Spatial Camera",
+  "available": 0,
+  "source": "special"
+ },
+ {
+  "name": "Tap Sensor Module",
+  "available": 0
+ },
+ {
+  "name": "Tapo Security Cameras",
+  "available": 1
+ },
+ {
+  "name": "Temperature Sensor",
+  "available": 10
+ },
+ {
+  "name": "Temperature Sensor Module",
+  "available": 7
+ },
+ {
+  "name": "Thermostat Sensor",
+  "available": 4
+ },
+ {
+  "name": "Threaded Inserts",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "Tilt Switch Sensor",
+  "available": 0
+ },
+ {
+  "name": "Touch Sensor",
+  "available": 4
+ },
+ {
+  "name": "Tracking Sensor Module",
+  "available": 6
+ },
+ {
+  "name": "Transistors",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "Trimmer Potentiometer",
+  "available": 20
+ },
+ {
+  "name": "Ultrasonic Distance Sensor",
+  "available": 23
+ },
+ {
+  "name": "USB Bluetooth Adapter",
+  "available": 1
+ },
+ {
+  "name": "USB Webcam",
+  "available": 2
+ },
+ {
+  "name": "USB Wi-Fi + Bluetooth Adapter",
+  "available": 2
+ },
+ {
+  "name": "USB Wi-Fi Adapter",
+  "available": 2
+ },
+ {
+  "name": "USB-A to Micro-USB Cable",
+  "available": 2
+ },
+ {
+  "name": "USB-A to USB-B Cable",
+  "available": 6
+ },
+ {
+  "name": "USB-C Power/Data Breakout Adapter",
+  "available": 17
+ },
+ {
+  "name": "Water Sensor",
+  "available": 4
+ },
+ {
+  "name": "Waveshare HDMI Adapter",
+  "available": 13
+ },
+ {
+  "name": "Wire Crimper / Stripper",
+  "available": 1,
+  "source": "makerspace"
+ },
+ {
+  "name": "Wire Cutters",
+  "available": 9,
+  "source": "makerspace"
+ },
+ {
+  "name": "Wires",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "Wooden Dowels & Popsicle Sticks",
+  "available": 999,
+  "source": "makerspace"
+ },
+ {
+  "name": "Xbox Kinect",
+  "available": 0,
+  "source": "special"
+ },
+ {
+  "name": "XREAL ONE Glasses + Beam Pro",
+  "available": 0,
+  "source": "special"
+ },
+ {
+  "name": "XT60 Power Connector",
+  "available": 3
+ }
+]

@@ -538,17 +538,39 @@ export default function CameraPage() {
       });
       // Send the quotes on screen so Zip is billed the amounts the user approved.
       const quotes = Object.fromEntries(toBuy.filter((n) => prices[n]).map((n) => [n, prices[n]]));
-      const { results } = await purchaseItems(items, goal.goal, mode, quotes);
+      const { results, unavailable } = await purchaseItems(items, goal.goal, mode, quotes);
       log('Purchase results:', results);
 
-      const approved = results.filter((r) => r.status === 'approved').length;
-      const pending = results.filter((r) =>
-        ['pending', 'submitted', 'awaiting approval'].includes(r.status)
-      ).length;
-      speak(
-        `Submitted ${results.length} purchase${results.length > 1 ? 's' : ''} to Zip. ` +
-          `${approved} approved, ${pending} pending approval.`
-      );
+      // Hardware checkout checks the lab's stock: if anything is short, nothing was sent.
+      if (unavailable?.length) {
+        const text =
+          `I can't send this order yet. ${unavailable.map((u) => u.reason).join('. ')}. ` +
+          'Nothing was sent to Zip. Skip those items or change the plan, then check out again.';
+        say('omni', text);
+        speak(text);
+        setNotice(text);
+        setPurchasing(false);
+        return;
+      }
+
+      if (mode === 'hardware') {
+        const failed = results.filter((r) => r.status === 'error').length;
+        const sent = results.length - failed;
+        const text = failed
+          ? `${sent} request${sent === 1 ? '' : 's'} sent to Zip, ${failed} failed.`
+          : `Success! ${sent} request${sent === 1 ? '' : 's'} sent to Zip.`;
+        say('omni', text);
+        speak(text);
+      } else {
+        const approved = results.filter((r) => r.status === 'approved').length;
+        const pending = results.filter((r) =>
+          ['pending', 'submitted', 'awaiting approval'].includes(r.status)
+        ).length;
+        speak(
+          `Submitted ${results.length} purchase${results.length > 1 ? 's' : ''} to Zip. ` +
+            `${approved} approved, ${pending} pending approval.`
+        );
+      }
       navigate('/purchases');
     } catch (err) {
       log('Purchase error:', err.message);
@@ -907,7 +929,10 @@ export default function CameraPage() {
                       Tap an item, or say “skip” and its name.
                       {pricing
                         ? ' Pricing…'
-                        : quoted.length > 0 && ' Prices are OMNI estimates of the pack Zip will order.'}
+                        : quoted.length > 0 &&
+                          (mode === 'hardware'
+                            ? ' Parts are borrowed from the MLH lab, so there is no cost.'
+                            : ' Prices are OMNI estimates of the pack Zip will order.')}
                     </p>
                   </div>
                 )}
