@@ -168,7 +168,7 @@ export default function PurchasesPage() {
                 <Panel className="p-5">
                   <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                     <h2 className="text-xl font-semibold capitalize tracking-tight">{order.goal || 'Purchase'}</h2>
-                    {sumAmount(order.items) > 0 && (
+                    {order.items.some((p) => p.amount != null) && (
                       <p className="font-mono text-2xl font-medium tracking-tight">
                         {money(sumAmount(order.items))}
                       </p>
@@ -187,7 +187,13 @@ export default function PurchasesPage() {
                           <p className="text-[15px]">{p.name}</p>
                           {(p.vendor || p.request_number || p.po_number) && (
                             <p className="mt-0.5 font-mono text-xs text-muted">
-                              {[p.vendor, p.request_number || p.po_number].filter(Boolean).join(' · ')}
+                              {[
+                                p.vendor,
+                                // Hardware orders show what the lab has left after this order, in place of the Zip number.
+                                p.remaining != null ? `${p.remaining} remaining` : p.request_number || p.po_number,
+                              ]
+                                .filter(Boolean)
+                                .join(' · ')}
                             </p>
                           )}
                           {p.error && <p className="mt-0.5 break-words text-xs text-danger">{p.error}</p>}

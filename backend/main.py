@@ -34,6 +34,7 @@ from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from pydantic import BaseModel
 
+import inventory
 from oak import oak
 from catalog import catalog, normalize
 from zip_client import call_zip
@@ -191,22 +192,18 @@ PRICE_PROMPTS = {
         "someone would actually buy (a bag of ice, 750ml vodka, 12 eggs, a bag of "
         "chips), not the recipe amount. " + _PRICE_JSON
     ),
-    "hardware": (
-        "You estimate typical US retail prices in USD for electronics and maker "
-        "parts a hackathon hardware lab would buy: Arduino/ESP32/Raspberry Pi "
-        "boards, cameras, sensors, motors, servos, breadboards, jumper wires, "
-        "resistors, LEDs, batteries, USB cables, microSD cards, power supplies, "
-        "and similar beginner-friendly modules. There is no fixed catalog — invent "
-        "a reasonable SKU for whatever names you are given (e.g. Raspberry Pi 3 "
-        "Model B, HC-SR04 ultrasonic sensor, 32GB microSD). Price one purchasable "
-        "unit (Adafruit / Amazon / Micro Center typical), not a bulk reel. "
-        + _PRICE_JSON
-    ),
 }
 
 
 async def guess_prices(items: list, goal: Optional[str], mode: str = "food") -> dict[str, dict]:
-    """OMNI guesses a store-pack or parts-SKU price per item. Keyed by lowercased name."""
+    """OMNI guesses a store-pack price per item. Keyed by lowercased name.
+    Hardware parts are borrowed from the MLH lab at a hackathon, so they are always $0.00."""
+    if mode == "hardware":
+        return {
+            i.name.strip().lower(): {"product": i.name.strip(), "rate": "0.00"}
+            for i in items
+            if (i.name or "").strip()
+        }
     payload = {
         "mode": mode,
         "goal": goal,
@@ -295,10 +292,13 @@ def _pin_key(name: str, mode: str) -> str:
 async def quote_items(items: list, goal: Optional[str], mode: str) -> dict[str, dict]:
     """Prices for a basket, keyed by item name: catalog first, OMNI for the rest.
 
-    Only food has a catalog. Anything it does not stock — and every hardware
-    part — falls through to an OMNI estimate, so a basket is never left unpriced
-    just because it contains something unusual.
+    Only food has a catalog; anything it does not stock falls through to an OMNI
+    estimate, so a basket is never left unpriced just because it contains
+    something unusual. Hardware is free (see below) and never reaches either.
     """
+    if mode == "hardware":
+        # Parts are borrowed from the MLH lab, so nothing is priced or pinned: always $0.00.
+        return {i.name: {"product": i.name, "rate": "0.00"} for i in items if (i.name or "").strip()}
     quotes: dict[str, dict] = {}
     misses: list = []
     pinned = _load_estimates()
@@ -396,10 +396,10 @@ INTENT_PROMPTS = {
         '{"transcript": "We want a Wi-Fi streaming camera", "action": "set_goal", '
         '"reply": "A Wi-Fi camera streamer, nice - let me see what is on your desk.", '
         '"goal": "wifi streaming camera", "ingredients": '
-        '[{"name": "Raspberry Pi 3 Model B", "quantity": 1, "unit": "pcs"}, '
-        '{"name": "Raspberry Pi Camera Module v2", "quantity": 1, "unit": "pcs"}, '
-        '{"name": "microSD card 32GB", "quantity": 1, "unit": "pcs"}, '
-        '{"name": "5V 2.5A micro-USB power supply", "quantity": 1, "unit": "pcs"}, '
+        '[{"name": "Raspberry Pi 3", "quantity": 1, "unit": "pcs"}, '
+        '{"name": "Raspberry Pi Camera Module", "quantity": 1, "unit": "pcs"}, '
+        '{"name": "32 GB microSD Card", "quantity": 1, "unit": "pcs"}, '
+        '{"name": "12.5 W Micro USB Power Supply", "quantity": 1, "unit": "pcs"}, '
         "...]}. skip_items / unskip_items = the user says not to buy (or to buy "
         "again) certain missing parts - use the exact names from state.missing. "
         "answer = anything else, such as a question about what parts you can see, "
@@ -410,7 +410,16 @@ INTENT_PROMPTS = {
 
 
 def intent_prompt(mode: str) -> dict:
-    return {"role": "system", "content": INTENT_PROMPTS[mode]}
+    content = INTENT_PROMPTS[mode]
+    if mode == "hardware":
+        # Names only, so suggestions match the lab's catalog. Stock is checked at checkout.
+        content += (
+            " CATALOG: parts are ordered from the MLH hardware lab, and every ingredient "
+            "name you output MUST be copied exactly from this list. If a part you would "
+            "normally pick is not listed, choose the closest listed part, or leave it out. "
+            "Never invent a name. Parts: " + "; ".join(inventory.catalog_names()) + "."
+        )
+    return {"role": "system", "content": content}
 
 
 INTENT_ACTIONS = {"set_goal", "skip_items", "unskip_items", "answer"}
@@ -427,14 +436,20 @@ def _clean_names(value: Any) -> list[str]:
     return [n.strip() for n in value if isinstance(n, str) and n.strip()] if isinstance(value, list) else []
 
 
-def _normalize_intent(r: Any, fallback_transcript: str = "") -> dict:
+def _normalize_intent(r: Any, fallback_transcript: str = "", mode: str = "food") -> dict:
     r = r if isinstance(r, dict) else {}
     ingredients = []
     for ing in r.get("ingredients") or []:
         if isinstance(ing, dict) and isinstance(ing.get("name"), str) and ing["name"].strip():
-            ingredients.append(
-                {"name": ing["name"].strip(), "quantity": ing.get("quantity"), "unit": ing.get("unit")}
-            )
+            name = ing["name"].strip()
+            if mode == "hardware":
+                # Snap to the catalog's exact name; unknown names stay and are
+                # flagged "not in inventory" on the page.
+                found = inventory.find(name)
+                name = found["name"] if found else name
+                if any(i["name"] == name for i in ingredients):
+                    continue
+            ingredients.append({"name": name, "quantity": ing.get("quantity"), "unit": ing.get("unit")})
     action = r.get("action") if r.get("action") in INTENT_ACTIONS else "answer"
     if action == "set_goal" and not ingredients:
         action = "answer"
@@ -474,7 +489,7 @@ async def intent(body: IntentRequest):
         content.append({"type": "image_url", "image_url": {"url": body.imageBase64}})
 
     result = await _omni_or_500([intent_prompt(body.mode), {"role": "user", "content": content}])
-    return _normalize_intent(result, body.transcript or "")
+    return _normalize_intent(result, body.transcript or "", body.mode)
 
 
 # -------------------------------------------------------------------------
@@ -567,7 +582,7 @@ async def _omni_or_500(messages: list[dict]) -> Any:
 #
 # Food prices from the seeded grocery catalog first (a real pack at a real
 # price, from whichever of the four vendors is cheapest) and only asks OMNI
-# about names the catalog has never heard of. Hardware is all OMNI estimates.
+# about names the catalog has never heard of. Hardware is always $0.00.
 # -------------------------------------------------------------------------
 @app.post("/api/prices")
 async def prices(body: PriceRequest):
@@ -591,16 +606,36 @@ async def purchase(body: PurchaseRequest):
         for name, quote in body.prices.items()
         if (q := quote.model_dump(exclude_none=True))
     }
-    unquoted = [i for i in body.items if (i.name or "").strip().lower() not in quoted]
-    # Anything the client did not already have a quote for gets priced the same
-    # way /api/prices would have done it.
-    fresh = await quote_items(unquoted, body.goal, body.mode) if unquoted else {}
-    prices = {**{(name or "").strip().lower(): q for name, q in fresh.items()}, **quoted}
+    # Hardware checkout: check the lab's stock for the whole basket first. If anything
+    # is short, nothing is taken and nothing is sent to Zip; the page reports what's short.
+    held: list[dict] = []
+    if body.mode == "hardware":
+        held, problems = inventory.reserve_all([(i.name, i.quantity) for i in body.items])
+        if problems:
+            return {"results": [], "unavailable": problems}
+
+    def give_back(idx: int) -> None:
+        if held:
+            inventory.release(held[idx]["name"], body.items[idx].quantity)
+
+    try:
+        unquoted = [i for i in body.items if (i.name or "").strip().lower() not in quoted]
+        # Anything the client did not already have a quote for gets priced the same
+        # way /api/prices would have done it.
+        fresh = await quote_items(unquoted, body.goal, body.mode) if unquoted else {}
+        prices = {**{(name or "").strip().lower(): q for name, q in fresh.items()}, **quoted}
+    except Exception:
+        for idx in range(len(held)):
+            give_back(idx)
+        raise
     results = []
-    for item in body.items:
+    for idx, item in enumerate(body.items):
         try:
             priced = prices.get((item.name or "").strip().lower()) or {}
-            raw = await call_zip({**item.model_dump(), "goal": body.goal, "mode": body.mode, **priced})
+            zip_item = {**item.model_dump(), "goal": body.goal, "mode": body.mode, **priced}
+            if held:
+                zip_item["name"] = held[idx]["name"]  # the catalog's name for the part
+            raw = await call_zip(zip_item)
             results.append(
                 {
                     "name": item.name,
@@ -611,10 +646,12 @@ async def purchase(body: PurchaseRequest):
                     "request_id": raw.get("request_id"),
                     "request_number": raw.get("request_number"),
                     "po_number": raw.get("po_number"),
+                    "remaining": held[idx]["remaining"] if held else None,  # lab stock left after this order
                     "raw": raw,
                 }
             )
         except Exception as err:
+            give_back(idx)  # Zip failed: that part is still on the shelf
             results.append({"name": item.name, "status": "error", "error": str(err)})
 
     # Record every attempt (including errors) so the Purchases page can show them.
@@ -635,6 +672,7 @@ async def purchase(body: PurchaseRequest):
             "request_id": r.get("request_id"),
             "request_number": r.get("request_number"),
             "po_number": r.get("po_number"),
+            "remaining": r.get("remaining"),
             "error": r.get("error"),
             "raw": r.get("raw"),
         }
@@ -661,6 +699,20 @@ def _load_purchases() -> list[dict]:
 def _save_purchases(records: list[dict]) -> None:
     PURCHASES_FILE.parent.mkdir(exist_ok=True)
     PURCHASES_FILE.write_text(json.dumps(records, indent=2))
+
+
+# -------------------------------------------------------------------------
+# GET  /api/inventory        -> { items: [{name, available, source?}] } (hardware lab stock)
+# POST /api/inventory/reset  -> restore the starting stock (handy between demos)
+# -------------------------------------------------------------------------
+@app.get("/api/inventory")
+async def get_inventory():
+    return {"items": inventory.list_items()}
+
+
+@app.post("/api/inventory/reset")
+async def reset_inventory():
+    return {"items": inventory.reset()}
 
 
 @app.get("/api/purchases")

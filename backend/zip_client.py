@@ -220,6 +220,8 @@ class ZipClient:
     def _priced(self, item: dict) -> dict:
         name = (item.get("name") or "item").replace("_", " ")
         product = item.get("product") or name
+        if item.get("mode") == "hardware":
+            return {"product": product, "rate": "0.00"}  # borrowed from the MLH lab: nothing to pay
         raw_rate = item.get("rate")
         try:
             rate = f"{max(0.01, float(raw_rate)):.2f}" if raw_rate not in (None, "") else "3.99"
@@ -253,7 +255,7 @@ class ZipClient:
         if mode == "hardware":
             desc = (
                 f"OMNI Hardware Agent: need {qty} {unit} of {name} for the build \"{recipe}\". "
-                f"Typical SKU: {priced['product']} at ${priced['rate']}."
+                f"Borrowed from the MLH hardware lab (no cost): {priced['product']}."
             )
         else:
             sourcing = self._sourcing(item, vendor, priced["rate"]) or f" ${priced['rate']}."

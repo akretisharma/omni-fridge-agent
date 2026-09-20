@@ -21,4 +21,6 @@ export const purchaseItems = (items, goal, mode, prices) =>
   post('/api/purchase', { items, goal, mode, prices });
 export const fetchPurchases = () => request('/api/purchases');
 export const clearPurchases = () => request('/api/purchases', { method: 'DELETE' });
+export const fetchInventory = () => request('/api/inventory');
+export const resetInventory = () => request('/api/inventory/reset', { method: 'POST' });
 export const fetchOakStatus = () => request('/api/oak/status');
