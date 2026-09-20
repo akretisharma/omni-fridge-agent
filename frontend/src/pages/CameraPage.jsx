@@ -104,10 +104,17 @@ const ROW_ICON = {
 
 // One ingredient. layoutId lets a row glide from "To buy" to "On the shelf"
 // the moment the camera spots it, which is the whole point of the live scan.
-// `price` is the quote from /api/prices: { product, rate }.
+// `price` is the quote from /api/prices: { product, rate } plus, when it came
+// from the seeded grocery catalog, the winning store as { vendor, sku }.
 function IngredientRow({ name, qty, state, price, onClick }) {
   const Tag = onClick ? 'button' : 'div';
   const dimmed = state === 'skipped';
+  const subtext = [
+    price?.product && price.product.toLowerCase() !== name.toLowerCase() ? price.product : null,
+    price?.vendor || (price?.source === 'estimate' ? 'estimate' : null),
+  ]
+    .filter(Boolean)
+    .join(' · ');
   return (
     <motion.li
       layout
@@ -126,9 +133,7 @@ function IngredientRow({ name, qty, state, price, onClick }) {
         {ROW_ICON[state]}
         <span className="min-w-0 flex-1">
           <span className={cx('block truncate', dimmed && 'text-muted line-through')}>{name}</span>
-          {price?.product && price.product.toLowerCase() !== name.toLowerCase() && (
-            <span className="block truncate text-xs text-muted">{price.product}</span>
-          )}
+          {subtext && <span className="block truncate text-xs text-muted">{subtext}</span>}
         </span>
         <span className="shrink-0 text-right">
           {price?.rate && (
@@ -609,6 +614,7 @@ export default function CameraPage() {
   };
   const quoted = toBuy.filter((n) => prices[n]?.rate);
   const total = quoted.reduce((sum, n) => sum + Number(prices[n].rate), 0);
+  const estimates = quoted.filter((n) => prices[n].source !== 'catalog').length;
 
   // Quote anything newly missing, so the basket shows prices before ordering.
   // Prices already held are kept: an item that flickers missing doesn't re-ask.
@@ -932,7 +938,11 @@ export default function CameraPage() {
                         : quoted.length > 0 &&
                           (mode === 'hardware'
                             ? ' Parts are borrowed from the MLH lab, so there is no cost.'
-                            : ' Prices are OMNI estimates of the pack Zip will order.')}
+                            : estimates === 0
+                              ? ' Catalog prices — each item is ordered from whichever store is cheapest.'
+                              : estimates === quoted.length
+                                ? ' Prices are OMNI estimates of the pack Zip will order.'
+                                : ` ${estimates} of ${quoted.length} are OMNI estimates, the rest are catalog prices.`)}
                     </p>
                   </div>
                 )}
@@ -959,7 +969,11 @@ export default function CameraPage() {
                     {quoted.length > 0 && (
                       <p className="mt-1 text-sm text-muted">
                         <span className="font-mono text-lg text-fg">{money(total)}</span>{' '}
-                        {quoted.length < toBuy.length ? `for ${quoted.length} of ${toBuy.length}` : 'estimated total'}
+                        {quoted.length < toBuy.length
+                          ? `for ${quoted.length} of ${toBuy.length}`
+                          : estimates === 0 || mode === 'hardware'
+                            ? 'total'
+                            : 'estimated total'}
                       </p>
                     )}
                   </div>
