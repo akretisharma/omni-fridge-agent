@@ -19,7 +19,7 @@ export default function App() {
         <div className="mx-auto flex h-16 w-full max-w-[1400px] items-center justify-between px-4 md:px-6">
           <NavLink to="/" className="flex items-center gap-2.5 text-[15px] font-semibold tracking-tight">
             <Aperture size={22} weight="regular" className="text-accent-ink" aria-hidden />
-            Fridge Agent
+            Needy
           </NavLink>
           <nav className="flex items-center gap-1" aria-label="Main">
             <NavLink to="/" end className={navClass}>

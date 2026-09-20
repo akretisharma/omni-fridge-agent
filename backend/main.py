@@ -54,7 +54,7 @@ FRONTEND_DIST = BACKEND_DIR.parent / "frontend" / "dist"
 PURCHASES_FILE = BACKEND_DIR / "data" / "purchases.json"
 ESTIMATES_FILE = BACKEND_DIR / "data" / "estimates.json"
 
-app = FastAPI(title="OMNI Fridge Agent")
+app = FastAPI(title="Needy")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 

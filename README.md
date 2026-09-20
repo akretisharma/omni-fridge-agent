@@ -1,4 +1,4 @@
-# OMNI Fridge Agent
+# Needy
 
 Speak a goal ("I'm baking a chocolate cake") → OMNI figures out what you need
 and checks a live camera feed of your fridge/cupboard against it → Zip buys
