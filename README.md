@@ -1,5 +1,12 @@
 # Needy
 
+Needy is a voice-and-camera shopping assistant that notices what you're missing
+and orders it for you. Tell it what you want to make or build, and it works out
+what that takes, looks through your camera to see what you already have, and
+sends a purchase request to Zip for the rest. It works for groceries (checking a
+fridge or cupboard) and for hackathon hardware (checking a workbench of parts
+against the MLH lab's stock), so you never have to write a shopping list.
+
 Speak a goal ("I'm baking a chocolate cake") → OMNI figures out what you need
 and checks a live camera feed of your fridge/cupboard against it → Zip buys
 whatever's missing, routed through real approval/budget rules.
@@ -214,19 +221,3 @@ clearly-marked assumptions, so these are the assumption points in `backend/main.
    stronger "Best Use of Zip" story since it shows agent-native tool use),
    that's a swap-in replacement for `call_zip()` — point an MCP client at
    their server and call the purchase-request tool the same way.
-
-## Ideas to strengthen the demo before judging
-
-- **Make the approval logic visible.** Pick a scenario where one item
-  (e.g. butter) pushes the cart over a budget threshold and gets routed
-  for approval while the rest auto-approve — say so out loud. That's the
-  single biggest lever for the Zip "Best Use" prize: reading data is fine,
-  but *using* the approval/budget rules is what scores.
-- **Interruptibility.** Already in: say "skip the sugar" after the scan, or hold
-  the talk button to cut OMNI off mid-sentence. Next step for the "natural
-  voice" criterion: speak replies with OMNI's own voice instead of browser TTS.
-- **Stage the fridge.** 5–8 items, well lit, unambiguous — vision
-  reliability on stage matters more than a messy real fridge.
-- **One clean end-to-end run.** Judges want a small complete workflow over
-  a sprawling one — the full loop (speak → scan → purchase) is that loop;
-  keep the demo to exactly that.
