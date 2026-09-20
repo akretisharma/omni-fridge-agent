@@ -205,6 +205,16 @@ class ZipClient:
                 return _id_of(hit)
         return _id_of(users[0]) if users else None
 
+    def _priced(self, item: dict) -> dict:
+        name = (item.get("name") or "item").replace("_", " ")
+        product = item.get("product") or name
+        raw_rate = item.get("rate")
+        try:
+            rate = f"{max(0.01, float(raw_rate)):.2f}" if raw_rate not in (None, "") else "3.99"
+        except (TypeError, ValueError):
+            rate = "3.99"
+        return {"product": product, "rate": rate}
+
     async def create_request(self, item: dict) -> dict:
         workflow = await self.named_entity("/workflows", self.cfg["workflow_name"])
         workflow_id = _id_of(workflow) if workflow else None
@@ -219,20 +229,26 @@ class ZipClient:
         qty = item.get("quantity") or 1
         unit = item.get("unit") or "unit"
         name = item.get("name") or "item"
-        goal = item.get("goal") or "the current task"
-        total = f"{max(float(qty) * 1.0, 0.01):.2f}"
+        goal = (item.get("goal") or "").strip() or "the current task"
+        priced = self._priced(item)
+        recipe = goal.replace("_", " ").strip()
+        recipe = recipe[:1].upper() + recipe[1:] if recipe else ("Hardware order" if mode == "hardware" else "Fridge restock")
         if mode == "hardware":
-            title = f"Hardware order: {name}"
-            desc = f"OMNI Hardware Agent: need {qty} {unit} of {name} for the build \"{goal}\"."
+            desc = (
+                f"OMNI Hardware Agent: need {qty} {unit} of {name} for the build \"{recipe}\". "
+                f"Typical SKU: {priced['product']} at ${priced['rate']}."
+            )
         else:
-            title = f"Fridge restock: {name}"
-            desc = f"OMNI Fridge Agent: need {qty} {unit} of {name} for \"{goal}\"."
+            desc = (
+                f"OMNI Fridge Agent — missing {qty} {unit} of {name} for \"{recipe}\". "
+                f"Store pack: {priced['product']} at ${priced['rate']}."
+            )
         payload = {
             "workflow_id": workflow_id,
             "currency": self.cfg["currency"],
-            "name": title,
+            "name": f"{recipe}: {priced['product']}",
             "description": desc,
-            "total_amount": total,
+            "total_amount": priced["rate"],
             "vendor_id": _id_of(vendor),
         }
         sub_id = _id_of(subsidiary) if subsidiary else None
@@ -248,6 +264,7 @@ class ZipClient:
         unit = item.get("unit") or "unit"
         name = item.get("name") or "item"
         goal = item.get("goal") or "the current task"
+        priced = self._priced(item)
         slug = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")[:24] or "item"
         po_number = f"OMNI-{slug}-{uuid.uuid4().hex[:6].upper()}"
         payload = {"vendor_id": _id_of(vendor), "currency": self.cfg["currency"], "po_number": po_number}
@@ -274,9 +291,9 @@ class ZipClient:
                     pass
             line = {
                 "line_type": 0,
-                "description": f"{name} ({qty} {unit}) — missing for \"{goal}\"",
-                "quantity": str(qty),
-                "rate": "1.00",
+                "description": f"{priced['product']} ({qty} {unit} of {name}) — missing for \"{goal}\"",
+                "quantity": "1",
+                "rate": priced["rate"],
             }
             await self._post(f"/purchase_orders/{po_id}/line_items", [line])
         if isinstance(raw, dict):
@@ -315,6 +332,8 @@ class ZipClient:
                 else po_number
             ),
             "po_number": po_number,
+            "amount": self._priced(item)["rate"],
+            "product": self._priced(item)["product"],
             "raw": raw,
         }
 

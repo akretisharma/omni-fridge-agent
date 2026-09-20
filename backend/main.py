@@ -150,6 +150,71 @@ def extract_json(text: str) -> Any:
     return json.loads(match.group(0))
 
 
+_PRICE_JSON = (
+    'Reply with ONLY JSON: {"items":[{"name":"<same name as input>",'
+    '"product":"<what you would actually buy>","rate":"<price like 13.98>"}]}. '
+    "Include every input name. rate must be a number string with 2 decimals."
+)
+
+PRICE_PROMPTS = {
+    "food": (
+        "You estimate typical US store pack prices in USD for anything a fridge or "
+        "pantry agent might buy: groceries, produce, drinks, liquor, snacks, "
+        "household goods, or other inventory. There is no fixed catalog — invent a "
+        "reasonable pack for whatever names you are given. Pick the common package "
+        "someone would actually buy (a bag of ice, 750ml vodka, 12 eggs, a bag of "
+        "chips), not the recipe amount. " + _PRICE_JSON
+    ),
+    "hardware": (
+        "You estimate typical US retail prices in USD for electronics and maker "
+        "parts a hackathon hardware lab would buy: Arduino/ESP32/Raspberry Pi "
+        "boards, cameras, sensors, motors, servos, breadboards, jumper wires, "
+        "resistors, LEDs, batteries, USB cables, microSD cards, power supplies, "
+        "and similar beginner-friendly modules. There is no fixed catalog — invent "
+        "a reasonable SKU for whatever names you are given (e.g. Raspberry Pi 3 "
+        "Model B, HC-SR04 ultrasonic sensor, 32GB microSD). Price one purchasable "
+        "unit (Adafruit / Amazon / Micro Center typical), not a bulk reel. "
+        + _PRICE_JSON
+    ),
+}
+
+
+async def guess_prices(items: list, goal: Optional[str], mode: str = "food") -> dict[str, dict]:
+    """OMNI guesses a store-pack or parts-SKU price per item. Keyed by lowercased name."""
+    payload = {
+        "mode": mode,
+        "goal": goal,
+        "items": [{"name": i.name, "quantity": i.quantity, "unit": i.unit} for i in items],
+    }
+    prompt = PRICE_PROMPTS.get(mode) or PRICE_PROMPTS["food"]
+    try:
+        result = await call_omni(
+            [
+                {"role": "system", "content": prompt},
+                {"role": "user", "content": json.dumps(payload)},
+            ]
+        )
+    except Exception as err:
+        print("OMNI price guess failed:", err)
+        return {}
+    out: dict[str, dict] = {}
+    rows = result.get("items") if isinstance(result, dict) else result
+    if not isinstance(rows, list):
+        return {}
+    for row in rows:
+        if not isinstance(row, dict) or not row.get("name"):
+            continue
+        try:
+            rate = f"{max(0.01, float(row.get('rate'))):.2f}"
+        except (TypeError, ValueError):
+            continue
+        out[str(row["name"]).strip().lower()] = {
+            "product": str(row.get("product") or row["name"]).strip(),
+            "rate": rate,
+        }
+    return out
+
+
 # Zip lives in zip_client.py: POST /requests on HTN staging so they show
 # on the same Zip company dashboard as this API key.
 
@@ -396,10 +461,12 @@ async def purchase(body: PurchaseRequest):
     if not body.items:
         raise HTTPException(400, "items[] is required")
 
+    prices = await guess_prices(body.items, body.goal, body.mode)
     results = []
     for item in body.items:
         try:
-            raw = await call_zip({**item.model_dump(), "goal": body.goal, "mode": body.mode})
+            priced = prices.get((item.name or "").strip().lower()) or {}
+            raw = await call_zip({**item.model_dump(), "goal": body.goal, "mode": body.mode, **priced})
             results.append(
                 {
                     "name": item.name,
