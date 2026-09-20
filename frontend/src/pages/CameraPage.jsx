@@ -4,7 +4,9 @@ import { AnimatePresence, LayoutGroup, motion, useMotionValue } from 'motion/rea
 import {
   CheckCircle,
   CircleNotch,
+  Cpu,
   Eye,
+  ForkKnife,
   Microphone,
   MinusCircle,
   PaperPlaneTilt,
@@ -18,7 +20,7 @@ import {
 import { createMicSegmenter } from '../audio.js';
 import { fetchIntent, fetchOakStatus, purchaseItems, visionCheck } from '../api.js';
 import LevelMeter from '../components/LevelMeter.jsx';
-import { Button, Chip, Field, Panel, Switch, cx, inputClass } from '../components/ui.jsx';
+import { Button, Chip, Field, Panel, Segmented, Switch, cx, inputClass } from '../components/ui.jsx';
 
 const SCAN_INTERVAL_MS = 3000; // one camera frame to OMNI every few seconds
 const FLIP_CONFIRMATIONS = 2; // a status must hold for this many scans before it changes
@@ -48,7 +50,43 @@ function matchNames(spoken, known) {
   );
 }
 
-const EXAMPLES = ["I'm baking a chocolate cake", "I'm making pancakes", 'I need ingredients for tacos'];
+// Everything that differs between the two modes. The backend gets `mode` and
+// swaps its prompts and Zip vendor; this is the matching copy for the page.
+const MODES = {
+  food: {
+    title: 'Live shelf',
+    where: 'shelf',
+    verb: 'Making',
+    prompt: 'What are you making?',
+    intro: 'Say it out loud or tap an example. OMNI works out the shopping list, then checks it against your shelf.',
+    offHint: 'Start it and OMNI will watch the shelf and listen for what you want to make.',
+    chatHint: 'Try “I’m baking a chocolate cake”, then “skip the sugar”.',
+    placeholder: "I'm making pancakes",
+    haveLabel: 'On the shelf',
+    examples: ["I'm baking a chocolate cake", "I'm making pancakes", 'I need ingredients for tacos'],
+  },
+  hardware: {
+    title: 'Live workbench',
+    where: 'desk',
+    verb: 'Building',
+    prompt: 'What are you building?',
+    intro: 'Say it out loud or tap an example. OMNI works out the parts list, then checks it against your desk.',
+    offHint: 'Start it and OMNI will watch your desk and listen for what you want to build.',
+    chatHint: 'Try “I want a Wi-Fi camera that streams to my server”, then “skip the microSD”.',
+    placeholder: 'A Wi-Fi camera that streams to a server',
+    haveLabel: 'On the desk',
+    examples: [
+      'I want a smart plant monitor that texts me when the soil is dry',
+      'I want to build a weather station that logs to the cloud',
+      'I need parts for a tiny rover that avoids obstacles',
+    ],
+  },
+};
+
+const MODE_OPTIONS = [
+  { id: 'food', label: 'Food', icon: ForkKnife },
+  { id: 'hardware', label: 'Hardware', icon: Cpu },
+];
 
 const ROW_ICON = {
   have: <CheckCircle size={20} weight="regular" className="shrink-0 text-ok" aria-hidden />,
@@ -123,6 +161,7 @@ export default function CameraPage() {
   const [cameraOn, setCameraOn] = useState(false);
   const [oak, setOak] = useState(null); // /api/oak/status, or null while loading
   const [source, setSource] = useState('computer'); // 'computer' | 'oak'
+  const [mode, setMode] = useState('food'); // 'food' | 'hardware'
   const [liveScan, setLiveScan] = useState(true);
   const [phase, setPhase] = useState('idle');
   const levelMV = useMotionValue(0); // mic level, read by the meter without re-rendering
@@ -140,7 +179,7 @@ export default function CameraPage() {
 
   // Latest state for callbacks created once (mic loop, scan interval).
   const live = useRef({});
-  live.current = { source, cameraOn, liveScan, goal, check, visible, skipped };
+  live.current = { mode, source, cameraOn, liveScan, goal, check, visible, skipped };
 
   const log = (msg, obj) => {
     const line = obj ? `${msg} ${JSON.stringify(obj)}` : msg;
@@ -289,9 +328,11 @@ export default function CameraPage() {
     scanBusyRef.current = true;
     setScanning(true);
     const goalAtStart = live.current.goal;
+    const modeAtStart = live.current.mode;
     const ingredients = goalAtStart?.ingredients ?? [];
     try {
-      const result = await visionCheck(frame, ingredients);
+      const result = await visionCheck(frame, ingredients, modeAtStart);
+      if (live.current.mode !== modeAtStart) return; // mode switched mid-scan: this frame is stale
       setVisible(result.visible);
       // The goal changed while this frame was being analysed: its checklist is stale.
       if (ingredients.length && live.current.goal === goalAtStart) applyScan(ingredients, result);
@@ -386,10 +427,12 @@ export default function CameraPage() {
       missing: s.check?.missing ?? [],
       skipped: [...s.skipped],
       visible: s.visible,
+      mode: s.mode,
     };
 
     try {
       const r = await fetchIntent(body);
+      if (live.current.mode !== body.mode) return; // mode switched while OMNI was thinking
       log('Intent:', r);
       if (r.transcript) say('user', r.transcript);
       handleIntent(r);
@@ -473,11 +516,13 @@ export default function CameraPage() {
         const match = goal.ingredients.find((i) => i.name === name);
         return { name, quantity: match?.quantity || 1, unit: match?.unit || 'unit' };
       });
-      const { results } = await purchaseItems(items, goal.goal);
+      const { results } = await purchaseItems(items, goal.goal, mode);
       log('Purchase results:', results);
 
       const approved = results.filter((r) => r.status === 'approved').length;
-      const pending = results.filter((r) => r.status === 'pending' || r.status === 'submitted').length;
+      const pending = results.filter((r) =>
+        ['pending', 'submitted', 'awaiting approval'].includes(r.status)
+      ).length;
       speak(
         `Submitted ${results.length} purchase${results.length > 1 ? 's' : ''} to Zip. ` +
           `${approved} approved, ${pending} pending approval.`
@@ -490,6 +535,24 @@ export default function CameraPage() {
     }
   }
 
+  // A different mode is a different checklist and conversation: start fresh.
+  function switchMode(next) {
+    if (next === mode) return;
+    stopSpeaking();
+    live.current.mode = next; // in-flight scans and replies see it immediately and drop themselves
+    live.current.goal = null;
+    statusRef.current = new Map();
+    announceFirstScanRef.current = false;
+    setMode(next);
+    setGoal(null);
+    setCheck(null);
+    setVisible([]);
+    setSkipped(new Set());
+    setMessages([]);
+    setNotice(null);
+  }
+
+  const copy = MODES[mode];
   const sourceLabel = source === 'oak' ? 'OAK camera' : 'Computer camera';
   const needed = goal?.ingredients ?? [];
   const haveNames = check?.present ?? [];
@@ -515,20 +578,21 @@ export default function CameraPage() {
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
         {/* Left: the camera stage, with the voice dock floating over its bottom edge */}
         <section aria-label="Camera" className="min-w-0">
-          <div className="mb-4 flex items-end justify-between gap-4">
-            <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">Live shelf</h1>
-            <p className="flex items-center gap-2 text-sm text-muted">
-              {cameraOn ? (
-                <>
-                  <span className="h-2 w-2 rounded-full bg-ok" aria-hidden />
-                  {sourceLabel}
-                  {liveScan ? (scanning ? ', scanning' : `, scans every ${SCAN_INTERVAL_MS / 1000}s`) : ''}
-                </>
-              ) : (
-                'Camera off'
-              )}
-            </p>
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
+            <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">{copy.title}</h1>
+            <Segmented label="Mode" value={mode} onChange={switchMode} options={MODE_OPTIONS} />
           </div>
+          <p className="mb-4 flex items-center gap-2 text-sm text-muted">
+            {cameraOn ? (
+              <>
+                <span className="h-2 w-2 rounded-full bg-ok" aria-hidden />
+                {sourceLabel}
+                {liveScan ? (scanning ? ', scanning' : `, scans every ${SCAN_INTERVAL_MS / 1000}s`) : ''}
+              </>
+            ) : (
+              'Camera off'
+            )}
+          </p>
 
           <div className="relative aspect-video overflow-hidden rounded-panel border border-line bg-surface-2">
             <video
@@ -550,7 +614,7 @@ export default function CameraPage() {
                 <VideoCamera size={40} weight="regular" className="text-muted" aria-hidden />
                 <p className="text-lg font-medium tracking-tight">The camera is off</p>
                 <p className="max-w-[42ch] text-sm text-muted">
-                  Start it and OMNI will watch the shelf and listen for what you want to make.
+                  {copy.offHint}
                 </p>
               </div>
             )}
@@ -676,7 +740,7 @@ export default function CameraPage() {
             <div ref={chatRef} className="mt-4 flex max-h-72 min-h-40 flex-col gap-2 overflow-y-auto pr-1">
               {messages.length === 0 && (
                 <p className="my-auto text-sm text-muted">
-                  Try “I’m baking a chocolate cake”, then “skip the sugar”.
+                  {copy.chatHint}
                 </p>
               )}
               <AnimatePresence initial={false}>
@@ -705,7 +769,7 @@ export default function CameraPage() {
                   <input
                     value={typed}
                     onChange={(e) => setTyped(e.target.value)}
-                    placeholder="I'm making pancakes"
+                    placeholder={copy.placeholder}
                     className={inputClass}
                   />
                 </Field>
@@ -723,12 +787,10 @@ export default function CameraPage() {
 
           {!goal ? (
             <Panel className="p-5">
-              <h2 className="text-xl font-semibold tracking-tight">What are you making?</h2>
-              <p className="mt-1 max-w-[46ch] text-sm text-muted">
-                Say it out loud or tap an example. OMNI works out the shopping list, then checks it against your shelf.
-              </p>
+              <h2 className="text-xl font-semibold tracking-tight">{copy.prompt}</h2>
+              <p className="mt-1 max-w-[46ch] text-sm text-muted">{copy.intro}</p>
               <div className="mt-4 flex flex-wrap gap-2">
-                {EXAMPLES.map((ex) => (
+                {copy.examples.map((ex) => (
                   <button
                     key={ex}
                     type="button"
@@ -745,10 +807,10 @@ export default function CameraPage() {
             </Panel>
           ) : (
             <Panel className="p-5">
-              <p className="text-sm text-muted">Making</p>
+              <p className="text-sm text-muted">{copy.verb}</p>
               <h2 className="text-3xl font-semibold capitalize tracking-tight md:text-4xl">{goal.goal}</h2>
               <p className="mt-2 font-mono text-sm text-muted">
-                {check ? `${haveNames.length} of ${needed.length} on the shelf` : 'Checking the shelf'}
+                {check ? `${haveNames.length} of ${needed.length} on the ${copy.where}` : `Checking the ${copy.where}`}
               </p>
 
               <LayoutGroup>
@@ -761,7 +823,7 @@ export default function CameraPage() {
                 )}
                 {check && haveNames.length > 0 && (
                   <div className="mt-5">
-                    <h3 className="px-3 text-sm font-medium text-muted">On the shelf</h3>
+                    <h3 className="px-3 text-sm font-medium text-muted">{copy.haveLabel}</h3>
                     <ul className="mt-1 flex flex-col">
                       {haveNames.map((n) => (
                         <IngredientRow key={n} name={n} qty={qtyOf(n)} state="have" />
@@ -783,7 +845,7 @@ export default function CameraPage() {
                         />
                       ))}
                     </ul>
-                    <p className="mt-2 px-3 text-xs text-muted">Tap an item, or say “skip the sugar”.</p>
+                    <p className="mt-2 px-3 text-xs text-muted">Tap an item, or say “skip” and its name.</p>
                   </div>
                 )}
               </LayoutGroup>
@@ -791,7 +853,7 @@ export default function CameraPage() {
               {check && missingNames.length === 0 && (
                 <p className="mt-5 flex items-center gap-2 text-[15px]">
                   <CheckCircle size={20} weight="regular" className="text-ok" aria-hidden />
-                  You have everything.
+                  You have everything you need.
                 </p>
               )}
 

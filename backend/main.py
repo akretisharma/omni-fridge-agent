@@ -20,7 +20,7 @@ import re
 import time
 import uuid
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, Literal, Optional
 
 import httpx
 from dotenv import load_dotenv
@@ -75,6 +75,9 @@ class Ingredient(BaseModel):
     unit: Optional[str] = None
 
 
+Mode = Literal["food", "hardware"]
+
+
 class IntentRequest(BaseModel):
     # One voice request: audio (preferred) or typed text, plus the latest camera
     # frame and what the app currently believes, so OMNI can answer in context.
@@ -88,16 +91,19 @@ class IntentRequest(BaseModel):
     missing: list[str] = []
     skipped: list[str] = []
     visible: list[str] = []
+    mode: Mode = "food"
 
 
 class VisionCheckRequest(BaseModel):
     imageBase64: str
     ingredients: list[Ingredient] = []  # empty checklist = just describe what's visible
+    mode: Mode = "food"
 
 
 class PurchaseRequest(BaseModel):
     items: list[Ingredient]
     goal: Optional[str] = None
+    mode: Mode = "food"
 
 
 # -------------------------------------------------------------------------
@@ -155,20 +161,26 @@ def extract_json(text: str) -> Any:
 # Returns: { transcript, action, reply, goal, ingredients, items }
 #   action: set_goal | skip_items | unskip_items | answer
 # -------------------------------------------------------------------------
-INTENT_SYSTEM_PROMPT = {
-    "role": "system",
-    "content": (
+# The app has two modes. "food" checks a fridge/cupboard; "hardware" checks a
+# workbench of electronics for a build. The JSON field is still called
+# "ingredients" in both so the API and frontend share one shape: in hardware
+# mode it holds the parts list.
+_INTENT_FORMAT = (
+    "You receive their request (audio or text), the latest camera frame, and the "
+    "app's current state as JSON. Use all three together. Decide what the user "
+    "wants and respond with ONLY a JSON object:\n"
+    '{"transcript": "<exact words the user said>", '
+    '"action": "set_goal" | "skip_items" | "unskip_items" | "answer", '
+    '"reply": "<1-2 short spoken sentences, natural, no markdown>", '
+    '"goal": "<short label, set_goal only>", '
+    '"ingredients": [{"name": "<item>", "quantity": <number>, "unit": "<unit>"}], '
+    '"items": ["<item names, skip_items/unskip_items only>"]}\n'
+)
+
+INTENT_PROMPTS = {
+    "food": (
         "You are OMNI, a voice assistant built into a smart fridge/cupboard camera. "
-        "The user speaks to you at any time. You receive their request (audio or "
-        "text), the latest camera frame, and the app's current state as JSON. Use "
-        "all three together. Decide what the user wants and respond with ONLY a "
-        "JSON object:\n"
-        '{"transcript": "<exact words the user said>", '
-        '"action": "set_goal" | "skip_items" | "unskip_items" | "answer", '
-        '"reply": "<1-2 short spoken sentences, natural, no markdown>", '
-        '"goal": "<short label, set_goal only>", '
-        '"ingredients": [{"name": "<item>", "quantity": <number>, "unit": "<unit>"}], '
-        '"items": ["<item names, skip_items/unskip_items only>"]}\n'
+        "The user speaks to you at any time. " + _INTENT_FORMAT +
         "Actions: set_goal = the user states something they want to make or do (or "
         "changes their goal). For set_goal you MUST fill ingredients with the 5-8 "
         "concrete items needed (never leave it empty, never ask the user what they "
@@ -183,7 +195,51 @@ INTENT_SYSTEM_PROMPT = {
         "camera frame. Keep replies brief and conversational. Never invent items "
         "you cannot see."
     ),
+    "hardware": (
+        "You are OMNI, a voice assistant built into a hackathon workbench camera. "
+        "The camera looks at a desk of electronics parts (boards, sensors, cameras, "
+        "cables, power supplies). The user speaks to you at any time. " + _INTENT_FORMAT +
+        "Actions: set_goal = the user states a project they want to build (or "
+        "changes their project). For set_goal you MUST fill ingredients with the "
+        "5-10 concrete parts the build needs, INCLUDING parts the user may "
+        "already own such as the main board and camera, so the camera can check "
+        "them off (never leave it empty, never ask the user what they need). Use "
+        "specific, purchasable part names with a model or spec, and a quantity "
+        "with unit \"pcs\". Cover the whole build: compute, sensor/camera, "
+        "power, storage, cables/connectors, and anything needed for the "
+        "networking or output the user described. Keep the list minimal and "
+        "realistic: one part per name (never \"X or Y\"), nothing already built "
+        "into the main board (a Raspberry Pi 3 has Wi-Fi, so no Wi-Fi adapter), "
+        "and no accessories the build does not need (no monitor or HDMI cable "
+        "for a headless device). This is a hackathon hardware project and parts are "
+        "borrowed from the MLH hardware lab inventory, so only choose common, "
+        "cheap, beginner-friendly parts a hackathon hardware lab stocks: Arduino "
+        "and ESP32/ESP8266 boards, Raspberry Pi, common sensors (ultrasonic, PIR, "
+        "DHT/BME280, IMU, soil moisture), servos, DC motors and drivers, LEDs and "
+        "LED strips, buttons, breadboards, jumper wires, resistors, batteries and "
+        "USB cables. Avoid custom, niche or expensive parts, industrial "
+        "equipment, and anything that needs soldering or fabrication when a "
+        "breakout board or module would do. The reply should confirm the "
+        "project and say you'll check the desk, e.g. "
+        '{"transcript": "We want a Wi-Fi streaming camera", "action": "set_goal", '
+        '"reply": "A Wi-Fi camera streamer, nice - let me see what is on your desk.", '
+        '"goal": "wifi streaming camera", "ingredients": '
+        '[{"name": "Raspberry Pi 3 Model B", "quantity": 1, "unit": "pcs"}, '
+        '{"name": "Raspberry Pi Camera Module v2", "quantity": 1, "unit": "pcs"}, '
+        '{"name": "microSD card 32GB", "quantity": 1, "unit": "pcs"}, '
+        '{"name": "5V 2.5A micro-USB power supply", "quantity": 1, "unit": "pcs"}, '
+        "...]}. skip_items / unskip_items = the user says not to buy (or to buy "
+        "again) certain missing parts - use the exact names from state.missing. "
+        "answer = anything else, such as a question about what parts you can see, "
+        "in which case answer from the camera frame. Keep replies brief and "
+        "conversational. Never claim to see a part you cannot see."
+    ),
 }
+
+
+def intent_prompt(mode: str) -> dict:
+    return {"role": "system", "content": INTENT_PROMPTS[mode]}
+
 
 INTENT_ACTIONS = {"set_goal", "skip_items", "unskip_items", "answer"}
 
@@ -245,7 +301,7 @@ async def intent(body: IntentRequest):
     if body.imageBase64:
         content.append({"type": "image_url", "image_url": {"url": body.imageBase64}})
 
-    result = await _omni_or_500([INTENT_SYSTEM_PROMPT, {"role": "user", "content": content}])
+    result = await _omni_or_500([intent_prompt(body.mode), {"role": "user", "content": content}])
     return _normalize_intent(result, body.transcript or "")
 
 
@@ -255,19 +311,43 @@ async def intent(body: IntentRequest):
 # Returns: { visible: [str], present: [str], missing: [str] }
 # Called continuously by the frontend (one frame every few seconds).
 # -------------------------------------------------------------------------
-VISION_SYSTEM_PROMPT = {
-    "role": "system",
-    "content": (
+_VISION_FORMAT = (
+    'Respond with ONLY a JSON object: {"visible": ["..."], "present": ["..."], '
+    '"missing": ["..."]}. present and missing must use the exact item names from '
+    "the checklist (both empty if the checklist is empty)."
+)
+
+VISION_PROMPTS = {
+    "food": (
         "You are a vision system watching a live camera feed of a fridge or cupboard. "
         "Given one frame and an optional checklist, report (a) every distinct food or "
         "household item you can clearly see, and (b) which checklist items are "
         "visibly present versus not. Be reasonably strict - only mark something "
-        "present if you can actually see it or its container. Respond with ONLY a "
-        'JSON object: {"visible": ["..."], "present": ["..."], "missing": ["..."]}. '
-        "present and missing must use the exact item names from the checklist "
-        "(both empty if the checklist is empty)."
+        "present if you can actually see it or its container. " + _VISION_FORMAT
+    ),
+    "hardware": (
+        "You are a vision system watching a live camera feed of a hackathon "
+        "workbench. Given one frame and an optional checklist of parts, report (a) "
+        "every distinct electronics part you can clearly see (name the board, "
+        "module, sensor, camera, cable or power supply as specifically as you can, "
+        "e.g. \"Raspberry Pi 3 Model B\", \"Raspberry Pi camera module\", "
+        '"USB cable"), and (b) which checklist items are visibly present versus '
+        "not. A checklist item is present if a part that fills that role is "
+        "visible, even if the exact brand differs (a Raspberry Pi 3 board counts "
+        "for \"Raspberry Pi 3 Model B\"; a ribbon-cable camera board counts for a "
+        "Raspberry Pi camera module). Retail or kit packaging counts too: if you "
+        "see a box for a part or kit (e.g. a Raspberry Pi 3 box, a CanaKit "
+        "starter kit), mark that part present, plus anything the packaging says "
+        "or the kit normally includes (a CanaKit Pi kit includes the board, "
+        "microSD card and power supply). Be strict about parts you cannot see: a "
+        "microSD card, power supply or cable only counts if you can actually see "
+        "one. " + _VISION_FORMAT
     ),
 }
+
+
+def vision_prompt(mode: str) -> dict:
+    return {"role": "system", "content": VISION_PROMPTS[mode]}
 
 
 @app.post("/api/vision-check")
@@ -280,7 +360,7 @@ async def vision_check(body: VisionCheckRequest):
             {"type": "image_url", "image_url": {"url": body.imageBase64}},
         ],
     }
-    result = await _omni_or_500([VISION_SYSTEM_PROMPT, user_message])
+    result = await _omni_or_500([vision_prompt(body.mode), user_message])
     result = result if isinstance(result, dict) else {}
 
     # Trust the model for what's present, but derive missing from the checklist
@@ -319,7 +399,7 @@ async def purchase(body: PurchaseRequest):
     results = []
     for item in body.items:
         try:
-            raw = await call_zip({**item.model_dump(), "goal": body.goal})
+            raw = await call_zip({**item.model_dump(), "goal": body.goal, "mode": body.mode})
             results.append(
                 {
                     "name": item.name,
@@ -341,6 +421,7 @@ async def purchase(body: PurchaseRequest):
             "id": uuid.uuid4().hex,
             "createdAt": now,
             "goal": body.goal,
+            "mode": body.mode,
             "name": item.name,
             "quantity": item.quantity,
             "unit": item.unit,

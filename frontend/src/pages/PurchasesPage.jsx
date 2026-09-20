@@ -147,7 +147,7 @@ export default function PurchasesPage() {
             <Stat value={orders.length} label="Orders" />
             <Stat value={purchases.length} label="Items" />
             <Stat value={count('approved')} label="Approved" />
-            <Stat value={count('pending', 'submitted')} label="Awaiting approval" />
+            <Stat value={count('pending', 'submitted', 'awaiting approval')} label="Awaiting approval" />
           </div>
 
           <div className="mt-10 flex flex-col gap-5">

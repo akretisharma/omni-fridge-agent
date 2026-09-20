@@ -55,6 +55,37 @@ export function Switch({ checked, onChange, label, hint }) {
   );
 }
 
+// A pill-shaped single-choice toggle, e.g. Food / Hardware.
+export function Segmented({ value, onChange, options, label }) {
+  return (
+    <div
+      role="radiogroup"
+      aria-label={label}
+      className="inline-flex gap-1 rounded-full border border-line bg-surface-2 p-1"
+    >
+      {options.map(({ id, label: text, icon: Icon }) => {
+        const on = id === value;
+        return (
+          <button
+            key={id}
+            type="button"
+            role="radio"
+            aria-checked={on}
+            onClick={() => onChange(id)}
+            className={cx(
+              'inline-flex h-9 items-center gap-2 rounded-full px-4 text-sm font-medium transition duration-200 active:scale-[0.98]',
+              on ? 'bg-accent text-on-accent' : 'text-muted hover:text-fg'
+            )}
+          >
+            {Icon && <Icon size={16} weight="regular" aria-hidden />}
+            {text}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 export function Field({ label, children }) {
   return (
     <label className="flex flex-col gap-2">

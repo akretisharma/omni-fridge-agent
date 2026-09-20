@@ -65,6 +65,9 @@ def _env() -> dict[str, str]:
         "api_version": merged.get("ZIP_API_VERSION") or os.getenv("ZIP_API_VERSION") or "2024-06-06",
         "currency": merged.get("ZIP_CURRENCY") or os.getenv("ZIP_CURRENCY") or "USD",
         "vendor_name": merged.get("ZIP_VENDOR_NAME") or os.getenv("ZIP_VENDOR_NAME") or "Loblaws",
+        "hardware_vendor_name": merged.get("ZIP_HARDWARE_VENDOR_NAME")
+        or os.getenv("ZIP_HARDWARE_VENDOR_NAME")
+        or "MLH",
         "workflow_name": merged.get("ZIP_WORKFLOW_NAME")
         or os.getenv("ZIP_WORKFLOW_NAME")
         or "[Do not EDIT] Basic Request a Purchase",
@@ -169,12 +172,15 @@ class ZipClient:
                 return item
         return None
 
-    async def pick_vendor(self) -> dict:
+    def vendor_name_for(self, mode: str) -> str:
+        return self.cfg["hardware_vendor_name"] if mode == "hardware" else self.cfg["vendor_name"]
+
+    async def pick_vendor(self, mode: str = "food") -> dict:
         body = await self._get("/vendors", {"page_size": 50})
         vendors = [v for v in _as_list(_unwrap(body)) if isinstance(v, dict)]
         if not vendors:
             raise RuntimeError("No Zip vendors on this company. Add one in the Zip dashboard or use the HTN shared vendors.")
-        needle = self.cfg["vendor_name"].lower()
+        needle = self.vendor_name_for(mode).lower()
         match = next((v for v in vendors if needle in _name_of(v).lower()), None)
         match = match or next((v for v in vendors if v.get("status") != 5), vendors[0])
         vid = _id_of(match)
@@ -207,18 +213,25 @@ class ZipClient:
                 f"Zip workflow '{self.cfg['workflow_name']}' not found. "
                 "Open the same Zip company as this API key and check the workflow name."
             )
-        vendor = await self.pick_vendor()
+        mode = item.get("mode") or "food"
+        vendor = await self.pick_vendor(mode)
         subsidiary = await self.named_entity("/subsidiaries", self.cfg["subsidiary_name"])
         qty = item.get("quantity") or 1
         unit = item.get("unit") or "unit"
         name = item.get("name") or "item"
         goal = item.get("goal") or "the current task"
         total = f"{max(float(qty) * 1.0, 0.01):.2f}"
+        if mode == "hardware":
+            title = f"Hardware order: {name}"
+            desc = f"OMNI Hardware Agent: need {qty} {unit} of {name} for the build \"{goal}\"."
+        else:
+            title = f"Fridge restock: {name}"
+            desc = f"OMNI Fridge Agent: need {qty} {unit} of {name} for \"{goal}\"."
         payload = {
             "workflow_id": workflow_id,
             "currency": self.cfg["currency"],
-            "name": f"Fridge restock: {name}",
-            "description": f"OMNI Fridge Agent: need {qty} {unit} of {name} for \"{goal}\".",
+            "name": title,
+            "description": desc,
             "total_amount": total,
             "vendor_id": _id_of(vendor),
         }
@@ -271,7 +284,7 @@ class ZipClient:
         return raw if isinstance(raw, dict) else {"raw": raw, "po_number": po_number}
 
     async def purchase_item(self, item: dict) -> dict:
-        vendor = await self.pick_vendor()
+        vendor = await self.pick_vendor(item.get("mode") or "food")
         kind = "request"
         try:
             raw = await self.create_request(item)
@@ -294,7 +307,7 @@ class ZipClient:
             "name": item.get("name"),
             "status": str(status).lower() if isinstance(status, str) else "submitted",
             "kind": kind,
-            "vendor": _name_of(vendor) or self.cfg["vendor_name"],
+            "vendor": _name_of(vendor) or self.vendor_name_for(item.get("mode") or "food"),
             "request_id": _id_of(entity) if kind == "request" else None,
             "request_number": (
                 entity.get("number") or entity.get("request_number") or entity.get("name")
