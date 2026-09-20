@@ -14,9 +14,9 @@ const post = (path, body) =>
   });
 
 export const fetchIntent = (body) => post('/api/intent', body);
-export const visionCheck = (imageBase64, ingredients) =>
-  post('/api/vision-check', { imageBase64, ingredients });
-export const purchaseItems = (items, goal) => post('/api/purchase', { items, goal });
+export const visionCheck = (imageBase64, ingredients, mode) =>
+  post('/api/vision-check', { imageBase64, ingredients, mode });
+export const purchaseItems = (items, goal, mode) => post('/api/purchase', { items, goal, mode });
 export const fetchPurchases = () => request('/api/purchases');
 export const clearPurchases = () => request('/api/purchases', { method: 'DELETE' });
 export const fetchOakStatus = () => request('/api/oak/status');
